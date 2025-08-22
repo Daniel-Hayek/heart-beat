@@ -9,5 +9,10 @@ class AppTheme {
       backgroundColor: AppColors.primaryColor,
       foregroundColor: Colors.white,
     ),
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(color: Colors.white),
+      bodyMedium: TextStyle(color: Colors.white),
+      bodySmall: TextStyle(color: Colors.white),
+    ),
   );
 }
