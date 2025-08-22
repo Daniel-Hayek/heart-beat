@@ -6,13 +6,18 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Landing Page")),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            print("Button Pressed");
-          },
-          child: const Text("Button"),
+        child: Column(
+          children: [
+            Image.asset('assets/images/heart-beat-logo.png'),
+            const Text("Your virtual companion for all things mood and music"),
+            Column(
+              children: [
+                ElevatedButton(onPressed: () {}, child: Text("test")),
+                ElevatedButton(onPressed: () {}, child: Text("test")),
+              ],
+            ),
+          ],
         ),
       ),
     );
