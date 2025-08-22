@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/widgets/primary_button.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -14,7 +15,8 @@ class LandingPage extends StatelessWidget {
             Column(
               children: [
                 ElevatedButton(onPressed: () {}, child: Text("test")),
-                ElevatedButton(onPressed: () {}, child: Text("test")),
+                ElevatedButton(onPressed: () {}, child: Text("nooo")),
+                PrimaryButton(onPressed: () {}, label: "Login"),
               ],
             ),
           ],
