@@ -13,7 +13,10 @@ class LandingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset('assets/images/heart-beat-logo.png'),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 300, maxWidth: 300),
+              child: Image.asset('assets/images/heart-beat-logo.png'),
+            ),
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 200),
               child: const Text(
