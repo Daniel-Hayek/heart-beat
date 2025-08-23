@@ -3,7 +3,6 @@ import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
 import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
-import 'package:heart_beat_client/widgets/common/tertiary_button.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -37,14 +36,11 @@ class RegisterScreen extends StatelessWidget {
                   isPass: true,
                   placeholder: "Enter your password...",
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TertiaryButton(
-                      onPressed: () {},
-                      label: "Forgot your password?",
-                    ),
-                  ],
+                SizedBox(height: 30),
+                AuthInputField(
+                  label: "Confirm Password",
+                  isPass: true,
+                  placeholder: "Re-enter your password...",
                 ),
                 SizedBox(height: 10),
                 PrimaryButton(onPressed: () {}, label: "Register"),
