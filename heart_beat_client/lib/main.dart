@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/core/app_theme.dart';
+import 'package:heart_beat_client/core/constants/app_theme.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 
 void main() {

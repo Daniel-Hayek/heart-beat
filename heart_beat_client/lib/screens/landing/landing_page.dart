@@ -32,7 +32,12 @@ class LandingPage extends StatelessWidget {
                   },
                   label: "Login",
                 ),
-                SecondaryButton(onPressed: () {}, label: "Register"),
+                SecondaryButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  label: "Register",
+                ),
               ],
             ),
           ],
