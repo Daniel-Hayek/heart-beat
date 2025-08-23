@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/core/app_colors.dart';
+import 'package:heart_beat_client/core/constants/app_colors.dart';
 
 class SecondaryButton extends StatelessWidget {
   final String label;

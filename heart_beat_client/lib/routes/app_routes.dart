@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/features/views/landing_page.dart';
+import 'package:heart_beat_client/screens/auth/login_screen.dart';
+import 'package:heart_beat_client/screens/auth/register_screen.dart';
+import 'package:heart_beat_client/screens/landing/landing_page.dart';
 
 class AppRoutes {
   static const String landing = '/landing';
+  static const String login = '/login';
+  static const String register = '/register';
 
   static Map<String, WidgetBuilder> routes = {
     landing: (context) => const LandingPage(),
+    login: (context) => const LoginScreen(),
+    register: (context) => const RegisterScreen(),
   };
 }

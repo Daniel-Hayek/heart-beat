@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/core/app_colors.dart';
+import 'package:heart_beat_client/core/constants/app_colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String label;
@@ -16,7 +16,7 @@ class PrimaryButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         backgroundColor: AppColors.primaryColor,
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/widgets/primary_button.dart';
-import 'package:heart_beat_client/widgets/secondary_button.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
+import 'package:heart_beat_client/widgets/common/primary_button.dart';
+import 'package:heart_beat_client/widgets/common/secondary_button.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -26,8 +27,18 @@ class LandingPage extends StatelessWidget {
             ),
             Column(
               children: [
-                PrimaryButton(onPressed: () {}, label: "Login"),
-                SecondaryButton(onPressed: () {}, label: "Register"),
+                PrimaryButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, AppRoutes.login);
+                  },
+                  label: "Login",
+                ),
+                SecondaryButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, AppRoutes.register);
+                  },
+                  label: "Register",
+                ),
               ],
             ),
           ],
