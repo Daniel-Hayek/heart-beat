@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/secondary_button.dart';
 
@@ -28,13 +29,13 @@ class LandingPage extends StatelessWidget {
               children: [
                 PrimaryButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.pushNamed(context, AppRoutes.login);
                   },
                   label: "Login",
                 ),
                 SecondaryButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.pushNamed(context, AppRoutes.register);
                   },
                   label: "Register",
                 ),
