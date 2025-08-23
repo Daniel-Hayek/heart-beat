@@ -14,20 +14,36 @@ class LoginScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             MediumLogo(),
-            AuthInputField(
-              label: "Email",
-              isPass: false,
-              placeholder: "Enter your email...",
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AuthInputField(
+                  label: "Email",
+                  isPass: false,
+                  placeholder: "Enter your email...",
+                ),
+                SizedBox(height: 30),
+                AuthInputField(
+                  label: "Password",
+                  isPass: true,
+                  placeholder: "Enter your password...",
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TertiaryButton(
+                      onPressed: () {},
+                      label: "Forgot your password?",
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                PrimaryButton(onPressed: () {}, label: "Login"),
+              ],
             ),
-            AuthInputField(
-              label: "Password",
-              isPass: true,
-              placeholder: "Enter your password...",
-            ),
-            TertiaryButton(onPressed: () {}, label: "Forgot your password?"),
-            PrimaryButton(onPressed: () {}, label: "Login"),
             Divider(),
             SwapAuth(
               text: "Don't have an account?",
