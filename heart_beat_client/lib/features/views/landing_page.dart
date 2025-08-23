@@ -10,6 +10,8 @@ class LandingPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset('assets/images/heart-beat-logo.png'),
             const Text("Your virtual companion for all things mood and music"),
