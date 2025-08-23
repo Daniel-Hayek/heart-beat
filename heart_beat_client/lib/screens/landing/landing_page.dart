@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/widgets/primary_button.dart';
-import 'package:heart_beat_client/widgets/secondary_button.dart';
+import 'package:heart_beat_client/widgets/common/primary_button.dart';
+import 'package:heart_beat_client/widgets/common/secondary_button.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
