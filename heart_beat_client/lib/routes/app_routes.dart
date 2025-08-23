@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/features/views/landing_page.dart';
+import 'package:heart_beat_client/screens/landing/landing_page.dart';
 
 class AppRoutes {
   static const String landing = '/landing';
