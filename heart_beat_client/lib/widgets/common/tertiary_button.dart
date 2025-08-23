@@ -15,8 +15,14 @@ class TertiaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      style: TextButton.styleFrom(foregroundColor: AppColors.primaryColor),
-      child: Text(label),
+      child: Text(
+        label,
+        style: const TextStyle(
+          color: AppColors.primaryColor,
+          decoration: TextDecoration.underline,
+          decorationColor: AppColors.primaryColor,
+        ),
+      ),
     );
   }
 }
