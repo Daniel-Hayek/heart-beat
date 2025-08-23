@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
+import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/tertiary_button.dart';
@@ -28,7 +29,11 @@ class LoginScreen extends StatelessWidget {
             TertiaryButton(onPressed: () {}, label: "Forgot your password?"),
             PrimaryButton(onPressed: () {}, label: "Login"),
             Divider(),
-            Row()
+            SwapAuth(
+              text: "Don't have an account?",
+              buttonLabel: "Register",
+              onPressed: () {},
+            ),
           ],
         ),
       ),
