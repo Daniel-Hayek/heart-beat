@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ const LoginScreen({ Key? key }) : super(key: key);
       body: Column(
         children: [
           MediumLogo(),
-          
+          AuthInputField(label: "Email", isPass: false, placeholder: "Enter your email...")
         ],
       ),
     );

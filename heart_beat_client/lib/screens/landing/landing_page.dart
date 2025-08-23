@@ -26,7 +26,12 @@ class LandingPage extends StatelessWidget {
             ),
             Column(
               children: [
-                PrimaryButton(onPressed: () {}, label: "Login"),
+                PrimaryButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  label: "Login",
+                ),
                 SecondaryButton(onPressed: () {}, label: "Register"),
               ],
             ),
