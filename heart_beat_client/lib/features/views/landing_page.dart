@@ -14,7 +14,13 @@ class LandingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset('assets/images/heart-beat-logo.png'),
-            const Text("Your virtual companion for all things mood and music"),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 200),
+              child: const Text(
+                "Your virtual companion for all things mood and music",
+                textAlign: TextAlign.center,
+              ),
+            ),
             Column(
               children: [
                 PrimaryButton(onPressed: () {}, label: "Login"),
