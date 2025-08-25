@@ -41,7 +41,12 @@ export class UsersService {
     return this.userRepo.save(user);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number): Promise<string> {
+    if (!(await this.userRepo.findOne({ where: { id } }))) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+
+    await this.userRepo.delete(id);
+    return `User ${id} deleted`;
   }
 }
