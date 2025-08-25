@@ -21,19 +21,20 @@ export class UsersService {
     return this.userRepo.save(user);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    const users = await this.userRepo.find();
+    return users;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} user`;
   }
 
-  async findOneByEmail(email: string): Promise<User> {
+  async findOneByEmail(email: string): Promise<User | null> {
     const user = await this.userRepo.findOne({ where: { email } });
 
     if (!user) {
-      throw new NotFoundException(`User with id ${email} not found`);
+      return null;
     }
 
     return user;
