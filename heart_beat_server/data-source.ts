@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { User } from './src/users/user.entity'; // adjust path
+import { User } from './src/models/users/entities/user.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -10,5 +10,4 @@ export const AppDataSource = new DataSource({
   database: 'heartbeat_db',
   entities: [User],
   migrations: ['src/migrations/*.ts'],
-  synchronize: false,
 });
