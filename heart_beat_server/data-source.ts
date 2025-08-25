@@ -9,5 +9,5 @@ export const AppDataSource = new DataSource({
   password: '12345',
   database: 'heartbeat_db',
   entities: [User],
-  migrations: ['src/migrations/*.ts'],
+  migrations: ['src/database/migrations/*.ts'],
 });
