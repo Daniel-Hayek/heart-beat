@@ -4,36 +4,42 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
+  private readonly salt = 10;
+
   constructor(
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const hashed = await bcrypt.hash(createUserDto.password, this.salt);
+
     const user = this.userRepo.create({
       name: createUserDto.name,
       email: createUserDto.email,
-      password: createUserDto.password,
+      password: hashed,
     });
 
     return this.userRepo.save(user);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    const users = await this.userRepo.find();
+    return users;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} user`;
   }
 
-  async findOneByEmail(email: string): Promise<User> {
+  async findOneByEmail(email: string): Promise<User | null> {
     const user = await this.userRepo.findOne({ where: { email } });
 
     if (!user) {
-      throw new NotFoundException(`User with id ${email} not found`);
+      return null;
     }
 
     return user;
