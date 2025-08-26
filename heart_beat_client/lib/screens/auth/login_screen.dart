@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/controllers/auth_controller.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
+import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (e) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+      ).showSnackBar(AuthSnackBar(content: Text(e.toString())));
     } finally {
       setState(() => _loading = false);
     }
