@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/repositories/auth_repository.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
 import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
@@ -114,7 +115,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             SwapAuth(
               text: "Already have an account?",
               buttonLabel: "Login",
-              onPressed: () {},
+              onPressed: () {
+                    Navigator.pushNamed(context, AppRoutes.login);
+                  },
             ),
           ],
         ),
