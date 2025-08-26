@@ -31,12 +31,14 @@ class _LoginScreenState extends State<LoginScreen> {
   void _login() async {
     setState(() => _loading = true);
 
-    final result = await _authController.login(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
+    print(_emailController.text);
+    print(_passwordController.text);
+    // final result = await _authController.login(
+    //   email: _emailController.text,
+    //   password: _passwordController.text,
+    // );
 
-    print("token" + result["accessToken"]);
+    // print(result);
   }
 
   @override
@@ -55,12 +57,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: "Email",
                   isPass: false,
                   placeholder: "Enter your email...",
+                  controller: _emailController,
                 ),
                 SizedBox(height: 30),
                 AuthInputField(
                   label: "Password",
                   isPass: true,
                   placeholder: "Enter your password...",
+                  controller: _passwordController,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
