@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/repositories/auth_repository.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
@@ -7,6 +8,7 @@ import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/tertiary_button.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -33,6 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void _login() async {
     setState(() => _loading = true);
 
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
     // print(_emailController.text);
     // print(_passwordController.text);
     try {
@@ -41,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _passwordController.text,
       );
 
+      authProvider.login(result['accessToken']);
       print(result['accessToken']);
     } catch (e) {
       ScaffoldMessenger.of(
