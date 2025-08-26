@@ -33,13 +33,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  void confirmPass() async {
+  void confirmPass() {
     if (_passwordController.text == _confirmPasswordController.text) {
       print("match");
+      register();
     } else {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(AuthSnackBar(content: Text("Passwords do not match!")));
+    }
+  }
+
+  void register() async {
+    setState(() => _loading = true);
+
+    try {
+      final result = await _authController.register(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      print(result);
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(AuthSnackBar(content: Text(e.toString())));
+    } finally {
+      setState(() => _loading = false);
     }
   }
 
@@ -83,7 +104,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _confirmPasswordController,
                 ),
                 SizedBox(height: 10),
-                PrimaryButton(onPressed: confirmPass, label: "Register"),
+                PrimaryButton(
+                  onPressed: _loading ? null : confirmPass,
+                  label: _loading ? "Registering..." : "Register",
+                ),
               ],
             ),
             Divider(),
