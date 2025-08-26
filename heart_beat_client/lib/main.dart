@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heart_beat_client/core/constants/app_theme.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 
-void main() async {
+Future main() async {
   await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
