@@ -33,13 +33,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // print(_emailController.text);
     // print(_passwordController.text);
+    try {
+      final result = await _authController.login(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
 
-    final result = await _authController.login(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
-
-    print(result['accessToken']);
+      print(result['accessToken']);
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    } finally {
+      setState(() => _loading = false);
+    }
   }
 
   @override
@@ -77,7 +84,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 SizedBox(height: 10),
-                PrimaryButton(onPressed: _login, label: "Login"),
+                PrimaryButton(
+                  onPressed: _loading ? null : _login,
+                  label: _loading ? "Loggin in..." : "Login",
+                ),
               ],
             ),
             Divider(),
