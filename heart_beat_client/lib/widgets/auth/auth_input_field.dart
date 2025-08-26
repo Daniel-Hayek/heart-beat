@@ -5,18 +5,21 @@ class AuthInputField extends StatelessWidget {
   final String label;
   final bool isPass;
   final String placeholder;
+  final TextEditingController controller;
 
   const AuthInputField({
     super.key,
     required this.label,
     required this.isPass,
     required this.placeholder,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: isPass,
+      controller: controller,
       style: const TextStyle(color: AppColors.black),
       decoration: InputDecoration(
         labelText: label,

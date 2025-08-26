@@ -1,12 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/repositories/auth_repository.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
+import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/tertiary_button.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final AuthRepository _authController = AuthRepository();
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  bool _loading = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _login() async {
+    setState(() => _loading = true);
+
+    // print(_emailController.text);
+    // print(_passwordController.text);
+    try {
+      final result = await _authController.login(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      print(result['accessToken']);
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(AuthSnackBar(content: Text(e.toString())));
+    } finally {
+      setState(() => _loading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +67,14 @@ class LoginScreen extends StatelessWidget {
                   label: "Email",
                   isPass: false,
                   placeholder: "Enter your email...",
+                  controller: _emailController,
                 ),
                 SizedBox(height: 30),
                 AuthInputField(
                   label: "Password",
                   isPass: true,
                   placeholder: "Enter your password...",
+                  controller: _passwordController,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -41,14 +86,19 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                PrimaryButton(onPressed: () {}, label: "Login"),
+                PrimaryButton(
+                  onPressed: _loading ? null : _login,
+                  label: _loading ? "Loggin in..." : "Login",
+                ),
               ],
             ),
             Divider(),
             SwapAuth(
               text: "Don't have an account?",
               buttonLabel: "Register",
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.register);
+              },
             ),
           ],
         ),
