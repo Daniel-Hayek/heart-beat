@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:heart_beat_client/services/api_service.dart';
 
-class AuthController {
+class AuthRepository {
   final ApiService _apiService = ApiService();
 
   Future<Map<String, dynamic>> login({
