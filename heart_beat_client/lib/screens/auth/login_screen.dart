@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       password: _passwordController.text,
     );
 
-    print(result["accessToken"]);
+    print("token" + result["accessToken"]);
   }
 
   @override
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 SizedBox(height: 10),
-                PrimaryButton(onPressed: () {}, label: "Login"),
+                PrimaryButton(onPressed: _login, label: "Login"),
               ],
             ),
             Divider(),

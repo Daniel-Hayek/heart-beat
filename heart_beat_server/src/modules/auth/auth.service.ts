@@ -27,7 +27,7 @@ export class AuthService {
       }
     }
 
-    throw new UnauthorizedException(`Test`);
+    throw new UnauthorizedException(`Invalid credentials`);
   }
 
   async register(dto: CreateUserDto): Promise<User> {
