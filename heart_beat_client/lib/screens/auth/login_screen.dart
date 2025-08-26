@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/controllers/auth_controller.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
 import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
@@ -13,6 +14,30 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthController _authController = AuthController();
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  bool _loading = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _login() async {
+    setState(() => _loading = true);
+
+    final result = await _authController.login(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+
+    print(result["accessToken"]);
+  }
 
   @override
   Widget build(BuildContext context) {
