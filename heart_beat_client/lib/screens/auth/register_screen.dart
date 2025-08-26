@@ -34,17 +34,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  void confirmPass() {
-    if (_passwordController.text == _confirmPasswordController.text) {
-      print("match");
-      register();
-    } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(AuthSnackBar(content: Text("Passwords do not match!")));
-    }
-  }
-
   void register() async {
     setState(() => _loading = true);
 
@@ -63,6 +52,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
     } finally {
       setState(() => _loading = false);
     }
+  }
+
+  void validate() {
+    final name = _nameController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    final confirmPassword = _confirmPasswordController.text.trim();
+
+    if (name.isEmpty) {
+      _showError("Name is required");
+      return;
+    }
+
+    if (email.isEmpty) {
+      _showError("Email is required");
+      return;
+    }
+
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    if (!emailRegex.hasMatch(email)) {
+      _showError("Enter a valid email");
+      return;
+    }
+
+    if (password.isEmpty) {
+      _showError("Password is required");
+      return;
+    }
+    if (password.length < 6) {
+      _showError("Password must be at least 6 characters");
+      return;
+    }
+
+    if (password != confirmPassword) {
+      _showError("Passwords do not match");
+      return;
+    }
+
+    return register();
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(AuthSnackBar(content: Text(message)));
   }
 
   @override
@@ -104,9 +138,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   placeholder: "Re-enter your password...",
                   controller: _confirmPasswordController,
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 30),
                 PrimaryButton(
-                  onPressed: _loading ? null : confirmPass,
+                  onPressed: _loading ? null : validate,
                   label: _loading ? "Registering..." : "Register",
                 ),
               ],
@@ -116,8 +150,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               text: "Already have an account?",
               buttonLabel: "Login",
               onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.login);
-                  },
+                Navigator.pushNamed(context, AppRoutes.login);
+              },
             ),
           ],
         ),
