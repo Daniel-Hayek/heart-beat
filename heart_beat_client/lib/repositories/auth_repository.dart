@@ -19,8 +19,29 @@ class AuthRepository {
       if (e is DioException) {
         throw Exception(e.response?.data['message'] ?? 'Login failed');
       }
-      
+
       throw Exception('Login failed: $e');
+    }
+  }
+
+  Future<Map<String, dynamic>> register({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await _apiService.client.post(
+        '/auth/register',
+        data: {'name': name, 'email': email, 'password': password},
+      );
+
+      return response.data;
+    } catch (e) {
+      if (e is DioException) {
+        throw Exception(e.response?.data['message'] ?? 'Registeration failed');
+      }
+
+      throw Exception('Registration failed: $e');
     }
   }
 }
