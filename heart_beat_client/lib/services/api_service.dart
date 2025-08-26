@@ -5,7 +5,7 @@ class ApiService {
   late final Dio _dio;
 
   ApiService() {
-    final baseURL = dotenv.env['API_URL'];
+    final baseURL = dotenv.env['BASE_URL'];
     final port = dotenv.env['BASE_PORT'];
 
     _dio = Dio(
