@@ -1,0 +1,26 @@
+import 'package:dio/dio.dart';
+import 'package:heart_beat_client/services/api_service.dart';
+
+class AuthController {
+  final ApiService _apiService = ApiService();
+
+  Future<Map<String, dynamic>> login({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await _apiService.client.post(
+        '/auth/login',
+        data: {'email': email, 'password': password},
+      );
+
+      return response.data;
+    } catch (e) {
+      if (e is DioException) {
+        throw Exception(e.response?.data['message'] ?? 'Login failed');
+      }
+      
+      throw Exception('Login failed: $e');
+    }
+  }
+}
