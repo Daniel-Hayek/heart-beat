@@ -5,8 +5,14 @@ import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/tertiary_button.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
