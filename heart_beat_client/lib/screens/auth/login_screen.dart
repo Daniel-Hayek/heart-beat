@@ -31,14 +31,15 @@ class _LoginScreenState extends State<LoginScreen> {
   void _login() async {
     setState(() => _loading = true);
 
-    print(_emailController.text);
-    print(_passwordController.text);
-    // final result = await _authController.login(
-    //   email: _emailController.text,
-    //   password: _passwordController.text,
-    // );
+    // print(_emailController.text);
+    // print(_passwordController.text);
 
-    // print(result);
+    final result = await _authController.login(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+
+    print(result['accessToken']);
   }
 
   @override
