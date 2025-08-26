@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/repositories/auth_repository.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
+import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
@@ -36,7 +37,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (_passwordController.text == _confirmPasswordController.text) {
       print("match");
     } else {
-      print("no match");
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(AuthSnackBar(content: Text("Passwords do not match!")));
     }
   }
 
