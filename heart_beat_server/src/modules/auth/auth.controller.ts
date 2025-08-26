@@ -11,6 +11,7 @@ export class AuthController {
     @Body() body: { name: string; email: string; password: string },
   ) {
     const user = await this.authService.register(body);
+    user.password = body.password;
 
     return this.login(user);
   }

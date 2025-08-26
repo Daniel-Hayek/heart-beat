@@ -21,13 +21,13 @@ export class AuthService {
 
     if (user) {
       const validPass = await bcrypt.compare(password, user.password);
-
       if (validPass) {
+        console.log(email, password);
         return user;
       }
     }
 
-    throw new UnauthorizedException(`Invalid credentials`);
+    throw new UnauthorizedException(`Test`);
   }
 
   async register(dto: CreateUserDto): Promise<User> {
