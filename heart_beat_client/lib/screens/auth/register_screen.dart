@@ -1,11 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/repositories/auth_repository.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
 import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final AuthRepository _authController = AuthRepository();
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  bool _loading = false;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void confirmPass() async {
+    if (_passwordController.text == _confirmPasswordController.text) {
+      print("match");
+    } else {
+      print("no match");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,31 +56,31 @@ class RegisterScreen extends StatelessWidget {
                   label: "Name",
                   isPass: false,
                   placeholder: "Enter your name...",
-                  controller: TextEditingController(),
+                  controller: _nameController,
                 ),
                 SizedBox(height: 30),
                 AuthInputField(
                   label: "Email",
                   isPass: false,
                   placeholder: "Enter your email...",
-                  controller: TextEditingController(),
+                  controller: _emailController,
                 ),
                 SizedBox(height: 30),
                 AuthInputField(
                   label: "Password",
                   isPass: true,
                   placeholder: "Enter your password...",
-                  controller: TextEditingController(),
+                  controller: _passwordController,
                 ),
                 SizedBox(height: 30),
                 AuthInputField(
                   label: "Confirm Password",
                   isPass: true,
                   placeholder: "Re-enter your password...",
-                  controller: TextEditingController(),
+                  controller: _confirmPasswordController,
                 ),
                 SizedBox(height: 10),
-                PrimaryButton(onPressed: () {}, label: "Register"),
+                PrimaryButton(onPressed: confirmPass, label: "Register"),
               ],
             ),
             Divider(),
