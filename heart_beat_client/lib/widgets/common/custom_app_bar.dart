@@ -1,26 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
 
-  @override
-  _CustomAppBarState createState() => _CustomAppBarState();
+  const CustomAppBar({super.key, required this.title});
 
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-}
-
-class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(
         onPressed: () {},
-        icon: const Icon(CupertinoIcons.line_horizontal_3),
+        icon: const Icon(CupertinoIcons.line_horizontal_3, color: Colors.white),
       ),
-      title: const Text("Current Page"),
-      actions: [IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.bell))],
+      title: Text(title, style: const TextStyle(color: Colors.white)),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(CupertinoIcons.bell, color: Colors.white),
+        ),
+      ],
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
