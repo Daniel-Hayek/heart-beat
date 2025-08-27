@@ -47,6 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
       authProvider.login(result['accessToken']);
       print(result['accessToken']);
+
+      Navigator.pushNamed(context, AppRoutes.home);
     } catch (e) {
       ScaffoldMessenger.of(
         context,
