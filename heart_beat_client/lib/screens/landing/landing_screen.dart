@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
+import 'package:heart_beat_client/widgets/common/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/secondary_button.dart';
 
@@ -9,6 +10,7 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
