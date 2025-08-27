@@ -45,7 +45,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
 
       print(result);
-      Navigator.pushNamed(context, AppRoutes.home);
+
+      if (!mounted) {
+        return;
+      }
+
+      Navigator.pushReplacementNamed(context, AppRoutes.home);
     } catch (e) {
       ScaffoldMessenger.of(
         context,
