@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/repositories/auth_repository.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
@@ -6,6 +7,7 @@ import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
 import 'package:heart_beat_client/widgets/common/medium_logo.dart';
 import 'package:heart_beat_client/widgets/common/primary_button.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -37,12 +39,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void register() async {
     setState(() => _loading = true);
 
+    final authProvider = context.read<AuthProvider>();
+
     try {
       final result = await _authController.register(
         name: _nameController.text,
         email: _emailController.text,
         password: _passwordController.text,
       );
+      
+      authProvider.login(result['accessToken']);
 
       print(result);
 

@@ -35,7 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void _login() async {
     setState(() => _loading = true);
 
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    // final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final authProvider = context.read<AuthProvider>();
+    //.watch the same but with listen = true
 
     // print(_emailController.text);
     // print(_passwordController.text);
