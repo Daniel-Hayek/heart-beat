@@ -19,11 +19,11 @@ class AuthProvider extends ChangeNotifier {
     return _token;
   }
 
-  Future<String> loadName() async {
+  String loadName() {
     _userName = JwtDecoder.decode(_token!)['name'];
 
     notifyListeners();
-    
+
     return _userName!;
   }
 
