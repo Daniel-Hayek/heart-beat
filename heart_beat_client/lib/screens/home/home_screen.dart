@@ -24,11 +24,12 @@ class HomeScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               final authProvider = context.read<AuthProvider>();
-              final token = JwtDecoder.decode(authProvider.token!);
+              final token = await authProvider.loadToken();
+              final decodedToken = JwtDecoder.decode(token!);
 
               ScaffoldMessenger.of(
                 context,
-              ).showSnackBar(AuthSnackBar(content: Text(token.toString())));
+              ).showSnackBar(AuthSnackBar(content: Text(decodedToken.toString())));
             },
             child: const Text("Get token"),
           ),

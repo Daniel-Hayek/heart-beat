@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Heart-Beat',
       theme: AppTheme.darkTheme,
-      initialRoute: AppRoutes.landing,
+      initialRoute: AppRoutes.home,
       routes: AppRoutes.routes,
     );
   }
