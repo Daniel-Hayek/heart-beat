@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   login(user: Omit<User, 'password'>) {
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user.id, name: user.name };
     console.log('jwt', process.env.JWT_SECRET);
     return { accessToken: this.jwtService.sign(payload) };
   }
