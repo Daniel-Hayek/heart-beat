@@ -9,6 +9,7 @@ class HomeInfoCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      height: 200,
       decoration: BoxDecoration(
         color: AppColors.secondaryColor,
         borderRadius: BorderRadius.circular(8),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/common/custom_app_bar.dart';
+import 'package:heart_beat_client/widgets/common/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/small_logo.dart';
 import 'package:heart_beat_client/widgets/home/home_info_card.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -15,15 +16,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = context.read<AuthProvider>();
-    final userName = authProvider.loadName();
+    final userName = "nmae";
 
     return Scaffold(
       appBar: CustomAppBar(title: "Home Screen"),
       body: Column(
         children: [
-          SmallLogo(),
           Text("How are you doing today, $userName?"),
-          Column(children: [HomeInfoCard()]),
+          Column(children: [HomeInfoCard(), HomeInfoCard(), HomeInfoCard()]),
           ElevatedButton(
             onPressed: () async {
               final authProvider = context.read<AuthProvider>();
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(),
+      bottomNavigationBar: CustomBottomBar(currentActive: ""),
     );
   }
 }
