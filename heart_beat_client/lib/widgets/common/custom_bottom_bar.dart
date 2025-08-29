@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heart_beat_client/providers/nav_provider.dart';
+import 'package:provider/provider.dart';
 
 class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
   final String currentActive;
@@ -9,6 +11,8 @@ class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navProvider = context.watch<NavProvider>();
+
     return BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
@@ -16,6 +20,12 @@ class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
             'assets/icons/graph.svg',
             width: 30,
             height: 30,
+            colorFilter: ColorFilter.mode(
+              navProvider.currentIndex == 0
+                  ? Colors.white
+                  : AppColors.backgroundColor,
+              BlendMode.srcIn,
+            ),
           ),
           label: "Graph",
         ),
@@ -24,6 +34,12 @@ class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
             'assets/icons/journal.svg',
             width: 30,
             height: 30,
+            colorFilter: ColorFilter.mode(
+              navProvider.currentIndex == 1
+                  ? Colors.white
+                  : AppColors.backgroundColor,
+              BlendMode.srcIn,
+            ),
           ),
           label: "Journal",
         ),
@@ -32,6 +48,12 @@ class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
             'assets/icons/home.svg',
             width: 30,
             height: 30,
+            colorFilter: ColorFilter.mode(
+              navProvider.currentIndex == 2
+                  ? Colors.white
+                  : AppColors.backgroundColor,
+              BlendMode.srcIn,
+            ),
           ),
           label: "Home",
         ),
@@ -40,6 +62,12 @@ class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
             'assets/icons/music.svg',
             width: 30,
             height: 30,
+            colorFilter: ColorFilter.mode(
+              navProvider.currentIndex == 3
+                  ? Colors.white
+                  : AppColors.backgroundColor,
+              BlendMode.srcIn,
+            ),
           ),
           label: "Music",
         ),
@@ -48,15 +76,22 @@ class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
             'assets/icons/chatbot.svg',
             width: 30,
             height: 30,
+            colorFilter: ColorFilter.mode(
+              navProvider.currentIndex == 4
+                  ? Colors.white
+                  : AppColors.backgroundColor,
+              BlendMode.srcIn,
+            ),
           ),
           label: "Chatbot",
         ),
       ],
       backgroundColor: AppColors.primaryColor,
       type: BottomNavigationBarType.fixed,
-      currentIndex: 1,
+      currentIndex: navProvider.currentIndex,
       showSelectedLabels: false,
       showUnselectedLabels: false,
+      onTap: (index) => context.read<NavProvider>().setIndex(index),
     );
   }
 
