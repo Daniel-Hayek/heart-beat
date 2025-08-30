@@ -41,7 +41,12 @@ class BaseJournalScreen extends StatelessWidget {
               ],
             ),
           ),
-          SecondaryButton(onPressed: () {}, label: "View All"),
+          SecondaryButton(
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.listJournal);
+            },
+            label: "View All",
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
