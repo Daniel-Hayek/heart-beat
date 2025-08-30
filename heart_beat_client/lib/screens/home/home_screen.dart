@@ -5,6 +5,7 @@ import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
+import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/common/logos/small_logo.dart';
 import 'package:heart_beat_client/widgets/home/home_info_card.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -23,10 +24,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: 20),
-          Text(
-            "How are you doing today, ndndnd?",
-            style: const TextStyle(fontFamily: 'montserrat', fontSize: 20),
-          ),
+          TitleText(text: "How are you doing today?", size: 20),
           SizedBox(height: 20),
           Column(children: [HomeInfoCard(), HomeInfoCard(), HomeInfoCard()]),
           // ElevatedButton(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
+import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class HomeInfoCard extends StatelessWidget {
   const HomeInfoCard({Key? key}) : super(key: key);
@@ -16,13 +18,10 @@ class HomeInfoCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text("Home Page Card Title"),
+          TitleText(text: "Home Screen Card", size: 20),
           Row(
             children: [
-              Text(
-                "Home Page Card Info",
-                style: TextStyle(fontFamily: 'nunito'),
-              ),
+              BodyText(text: "Home Screen Text", size: 16),
               SizedBox(),
             ],
           ),
