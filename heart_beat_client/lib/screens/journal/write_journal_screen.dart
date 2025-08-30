@@ -11,7 +11,9 @@ class WriteJournalScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(CupertinoIcons.back, color: Colors.white),
         ),
         title: TitleText(text: "New Journal Entry", size: 18),
@@ -35,19 +37,20 @@ class WriteJournalScreen extends StatelessWidget {
             ),
           ),
           TextFormField(
-            style: const TextStyle(color: AppColors.black),
+            style: const TextStyle(color: Colors.white),
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
             decoration: InputDecoration(
-              labelText: "What's on your mind...",
               filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
+              fillColor: AppColors.backgroundColor,
               hintText: "What's on your mind...",
               contentPadding: EdgeInsets.symmetric(
                 vertical: 10,
                 horizontal: 12,
               ),
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
             ),
           ),
         ],
