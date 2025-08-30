@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
@@ -28,7 +31,7 @@ class BaseJournalScreen extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 4,
               mainAxisSpacing: 4,
-              childAspectRatio: 160/200,
+              childAspectRatio: 160 / 200,
               padding: EdgeInsets.all(8),
               children: [
                 JournalHomeCard(),
@@ -41,7 +44,14 @@ class BaseJournalScreen extends StatelessWidget {
           SecondaryButton(onPressed: () {}, label: "View All"),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {}),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.writeJournal);
+        },
+        backgroundColor: AppColors.primaryColor,
+        shape: CircleBorder(),
+        child: Icon(CupertinoIcons.add),
+      ),
       bottomNavigationBar: CustomBottomBar(currentActive: "Journal"),
     );
   }
