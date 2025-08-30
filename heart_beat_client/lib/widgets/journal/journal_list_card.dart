@@ -8,30 +8,30 @@ class JournalListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(color: AppColors.secondaryColor),
-        padding: EdgeInsets.all(14),
-        margin: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-        width: 320,
-        height: 160,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                TitleText(text: "Title", size: 16),
-                TitleText(text: "Delete", size: 12),
-              ],
-            ),
-            Row(
-              children: [
-                TitleText(text: "Mood", size: 16),
-                TitleText(text: "dd/mm/yy", size: 16),
-              ],
-            ),
-            BodyText(text: "Journal Text", size: 13),
-          ],
-        ),
+    return Container(
+      decoration: BoxDecoration(color: AppColors.secondaryColor),
+      padding: EdgeInsets.all(14),
+      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 14),
+      width: 300,
+      height: 160,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TitleText(text: "Title", size: 16),
+              TitleText(text: "Delete", size: 12),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TitleText(text: "Mood", size: 16),
+              TitleText(text: "dd/mm/yy", size: 16),
+            ],
+          ),
+          BodyText(text: "Journal Text", size: 13),
+        ],
       ),
     );
   }
