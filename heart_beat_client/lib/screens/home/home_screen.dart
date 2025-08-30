@@ -16,26 +16,28 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = context.read<AuthProvider>();
-    final userName = "nmae";
+    final userName = authProvider.loadName();
 
     return Scaffold(
       appBar: CustomAppBar(title: "Home Screen"),
       body: Column(
         children: [
+          SizedBox(height: 20,),
           Text("How are you doing today, $userName?"),
+          SizedBox(height: 20,),
           Column(children: [HomeInfoCard(), HomeInfoCard(), HomeInfoCard()]),
-          ElevatedButton(
-            onPressed: () async {
-              final authProvider = context.read<AuthProvider>();
-              final token = await authProvider.loadToken();
-              final decodedToken = JwtDecoder.decode(token!);
+          // ElevatedButton(
+          //   onPressed: () async {
+          //     final authProvider = context.read<AuthProvider>();
+          //     final token = await authProvider.loadToken();
+          //     final decodedToken = JwtDecoder.decode(token!);
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                AuthSnackBar(content: Text(decodedToken.toString())),
-              );
-            },
-            child: const Text("Get token"),
-          ),
+          //     ScaffoldMessenger.of(context).showSnackBar(
+          //       AuthSnackBar(content: Text(decodedToken.toString())),
+          //     );
+          //   },
+          //   child: const Text("Get token"),
+          // ),
         ],
       ),
       bottomNavigationBar: CustomBottomBar(currentActive: ""),
