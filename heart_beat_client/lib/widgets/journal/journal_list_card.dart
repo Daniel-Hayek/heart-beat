@@ -13,7 +13,7 @@ class JournalListCard extends StatelessWidget {
       decoration: BoxDecoration(color: AppColors.secondaryColor),
       padding: EdgeInsets.all(14),
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 14),
-      width: 300,
+      width: double.infinity,
       height: 160,
       child: Column(
         children: [
@@ -31,7 +31,8 @@ class JournalListCard extends StatelessWidget {
               TitleText(text: "dd/mm/yy", size: 16),
             ],
           ),
-          BodyText(text: SampleText.sampleText, size: 13),
+          SizedBox(height: 10),
+          BodyText(text: SampleText.sampleText, size: 13, maxLines: 4),
         ],
       ),
     );
