@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:heart_beat_client/providers/nav_provider.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 
 class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
   final String currentActive;
+  final List<String> _routes = [
+    AppRoutes.home,
+    AppRoutes.journal,
+    AppRoutes.home,
+    AppRoutes.home,
+    AppRoutes.home,
+  ];
 
-  const CustomBottomBar({super.key, required this.currentActive});
+  CustomBottomBar({super.key, required this.currentActive});
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +99,14 @@ class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
       currentIndex: navProvider.currentIndex,
       showSelectedLabels: false,
       showUnselectedLabels: false,
-      onTap: (index) => context.read<NavProvider>().setIndex(index),
+      onTap: (index) {
+        if (navProvider.currentIndex == index) {
+          return;
+        }
+
+        navProvider.setIndex(index);
+        Navigator.pushReplacementNamed(context, _routes[index]);
+      },
     );
   }
 

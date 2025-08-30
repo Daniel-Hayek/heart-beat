@@ -1,14 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
-import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
-import 'package:heart_beat_client/widgets/common/logos/small_logo.dart';
 import 'package:heart_beat_client/widgets/home/home_info_card.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
