@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/widgets/common/tertiary_button.dart';
+import 'package:heart_beat_client/widgets/common/buttons/tertiary_button.dart';
 
 class SwapAuth extends StatelessWidget {
   final String text;
