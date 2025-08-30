@@ -100,8 +100,8 @@ class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
       showSelectedLabels: false,
       showUnselectedLabels: false,
       onTap: (index) {
-        context.read<NavProvider>().setIndex(index);
-
+        if (navProvider.currentIndex == index) return; // ignore
+        navProvider.setIndex(index);
         Navigator.pushReplacementNamed(context, _routes[index]);
       },
     );
