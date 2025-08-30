@@ -17,14 +17,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = context.read<AuthProvider>();
-    // final userName = authProvider.loadName();
+    final userName = authProvider.userName;
 
     return Scaffold(
       appBar: CustomAppBar(title: "Home Screen"),
       body: Column(
         children: [
           SizedBox(height: 20),
-          TitleText(text: "How are you doing today?", size: 20),
+          TitleText(text: "How are you doing today, $userName?", size: 20),
           SizedBox(height: 20),
           Column(children: [HomeInfoCard(), HomeInfoCard(), HomeInfoCard()]),
           // ElevatedButton(

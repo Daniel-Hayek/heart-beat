@@ -9,7 +9,12 @@ class AuthProvider extends ChangeNotifier {
   String? _userName;
 
   String? get token => _token;
+  String? get userName => _userName;
   bool get isLoggedIn => _token != null;
+
+  // AuthProvider {
+  //   loadName();
+  // }
 
   Future<String?> loadToken() async {
     _token = await _storage.read(key: 'auth_token');
@@ -29,7 +34,7 @@ class AuthProvider extends ChangeNotifier {
 
   void login(String token) async {
     _token = token;
-    //_userEmail = email;
+    _userName = loadName();
     await _storage.write(key: 'auth_token', value: token);
 
     _userName = JwtDecoder.decode(token)['name'];
