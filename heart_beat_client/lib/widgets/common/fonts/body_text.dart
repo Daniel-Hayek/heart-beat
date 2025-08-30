@@ -12,6 +12,8 @@ class BodyText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(fontFamily: 'nunito', fontSize: size),
+      textAlign: TextAlign.left,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

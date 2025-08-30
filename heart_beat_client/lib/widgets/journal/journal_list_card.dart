@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/core/constants/sample_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
@@ -30,7 +31,7 @@ class JournalListCard extends StatelessWidget {
               TitleText(text: "dd/mm/yy", size: 16),
             ],
           ),
-          BodyText(text: "Journal Text", size: 13),
+          BodyText(text: SampleText.sampleText, size: 13),
         ],
       ),
     );
