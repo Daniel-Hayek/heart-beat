@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
-import 'package:heart_beat_client/widgets/common/primary_button.dart';
-import 'package:heart_beat_client/widgets/common/secondary_button.dart';
+import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
+import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);

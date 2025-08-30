@@ -17,7 +17,15 @@ class HomeInfoCard extends StatelessWidget {
       child: Column(
         children: [
           Text("Home Page Card Title"),
-          Row(children: [Text("Home Page Card Info"), Container()]),
+          Row(
+            children: [
+              Text(
+                "Home Page Card Info",
+                style: TextStyle(fontFamily: 'nunito'),
+              ),
+              SizedBox(),
+            ],
+          ),
         ],
       ),
     );

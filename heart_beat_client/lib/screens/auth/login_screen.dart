@@ -5,9 +5,9 @@ import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/auth/auth_input_field.dart';
 import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/auth/swap_auth.dart';
-import 'package:heart_beat_client/widgets/common/medium_logo.dart';
-import 'package:heart_beat_client/widgets/common/primary_button.dart';
-import 'package:heart_beat_client/widgets/common/tertiary_button.dart';
+import 'package:heart_beat_client/widgets/common/logos/medium_logo.dart';
+import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
+import 'package:heart_beat_client/widgets/common/buttons/tertiary_button.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
