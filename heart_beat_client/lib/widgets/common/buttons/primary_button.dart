@@ -3,7 +3,7 @@ import 'package:heart_beat_client/core/constants/app_colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String label;
-  final onPressed;
+  final VoidCallback? onPressed;
 
   const PrimaryButton({
     super.key,

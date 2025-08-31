@@ -4,7 +4,7 @@ import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class HomeInfoCard extends StatelessWidget {
-  const HomeInfoCard({Key? key}) : super(key: key);
+  const HomeInfoCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class HomeInfoCard extends StatelessWidget {
           TitleText(text: "Home Screen Card", size: 20),
           Row(
             children: [
-              BodyText(text: "Home Screen Text", size: 16, maxLines: null,),
+              BodyText(text: "Home Screen Text", size: 16, maxLines: null),
               SizedBox(),
             ],
           ),

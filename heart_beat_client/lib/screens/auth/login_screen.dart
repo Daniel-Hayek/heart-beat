@@ -11,7 +11,7 @@ import 'package:heart_beat_client/widgets/common/buttons/tertiary_button.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       authProvider.login(result['accessToken']);
-      print(result['accessToken']);
+      debugPrint(result['accessToken']);
 
       if (!mounted) {
         return;

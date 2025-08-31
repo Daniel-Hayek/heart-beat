@@ -4,7 +4,7 @@ import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class JournalHomeCard extends StatelessWidget {
-  const JournalHomeCard({Key? key}) : super(key: key);
+  const JournalHomeCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,11 @@ class JournalHomeCard extends StatelessWidget {
           SizedBox(height: 8),
           TitleText(text: "dd/mm/yy", size: 15),
           SizedBox(height: 15),
-          Row(children: [BodyText(text: "Jounrnal Body Text", size: 14, maxLines: null,)]),
+          Row(
+            children: [
+              BodyText(text: "Jounrnal Body Text", size: 14, maxLines: null),
+            ],
+          ),
         ],
       ),
     );
