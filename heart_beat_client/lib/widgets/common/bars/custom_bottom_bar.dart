@@ -6,16 +6,15 @@ import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 
 class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
-  final String currentActive;
   final List<String> _routes = [
     AppRoutes.home,
     AppRoutes.journal,
     AppRoutes.home,
-    AppRoutes.home,
+    AppRoutes.playlist,
     AppRoutes.home,
   ];
 
-  CustomBottomBar({super.key, required this.currentActive});
+  CustomBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {

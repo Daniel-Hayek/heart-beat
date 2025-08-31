@@ -57,7 +57,7 @@ class BaseJournalScreen extends StatelessWidget {
         shape: CircleBorder(),
         child: Icon(CupertinoIcons.add),
       ),
-      bottomNavigationBar: CustomBottomBar(currentActive: "Journal"),
+      bottomNavigationBar: CustomBottomBar(),
     );
   }
 }
