@@ -41,5 +41,6 @@ class AppRoutes {
           ),
         );
     }
+    return null;
   }
 }
