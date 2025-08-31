@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/providers/music_player_provider.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
+import 'package:provider/provider.dart';
 
 class MusicTrack extends StatelessWidget {
   final String trackName;
@@ -10,6 +12,10 @@ class MusicTrack extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        context.read<MusicPlayerProvider>().playSong(
+          trackName,
+          "Generic Artist",
+        );
         debugPrint("Music selected");
       },
       child: Padding(
