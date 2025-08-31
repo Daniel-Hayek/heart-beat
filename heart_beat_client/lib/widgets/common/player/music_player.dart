@@ -11,15 +11,15 @@ class MusicPlayer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(color: AppColors.secondaryColor),
       width: double.infinity,
-      height: 60,
-      padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+      height: 80,
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TitleText(text: "00:40", size: 12),
+              TitleText(text: "00:40", size: 14),
               Icon(CupertinoIcons.pause, size: 30, color: Colors.white),
             ],
           ),
@@ -44,10 +44,10 @@ class MusicPlayer extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.6),
                   fontFamily: 'montserrat',
-                  fontSize: 12,
+                  fontSize: 14,
                 ),
               ),
-              Icon(Icons.skip_next_sharp, color: Colors.white, size: 30,),
+              Icon(Icons.skip_next_sharp, color: Colors.white, size: 30),
             ],
           ),
         ],

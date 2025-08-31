@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
-import 'package:heart_beat_client/widgets/common/player/music_player.dart';
 import 'package:heart_beat_client/widgets/common/scaffold/app_scaffold.dart';
 import 'package:heart_beat_client/widgets/playlist/music_track.dart';
 
