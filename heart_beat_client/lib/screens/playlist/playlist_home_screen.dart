@@ -4,6 +4,7 @@ import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
+import 'package:heart_beat_client/widgets/playlist/playlist_card.dart';
 
 class PlaylistHomeScreen extends StatelessWidget {
   const PlaylistHomeScreen({super.key});
@@ -20,6 +21,17 @@ class PlaylistHomeScreen extends StatelessWidget {
             child: TitleText(
               text: "What do you feel like listening to today?",
               size: 20,
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                PlaylistCard(),
+                PlaylistCard(),
+                PlaylistCard(),
+                PlaylistCard(),
+                PlaylistCard(),
+              ],
             ),
           ),
         ],
