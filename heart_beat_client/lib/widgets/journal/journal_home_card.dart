@@ -23,7 +23,7 @@ class JournalHomeCard extends StatelessWidget {
           SizedBox(height: 8),
           TitleText(text: "dd/mm/yy", size: 15),
           SizedBox(height: 15),
-          Row(children: [BodyText(text: "Jounrnal Body Text", size: 14)]),
+          Row(children: [BodyText(text: "Jounrnal Body Text", size: 14, maxLines: null,)]),
         ],
       ),
     );

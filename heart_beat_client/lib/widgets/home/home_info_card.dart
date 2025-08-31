@@ -21,7 +21,7 @@ class HomeInfoCard extends StatelessWidget {
           TitleText(text: "Home Screen Card", size: 20),
           Row(
             children: [
-              BodyText(text: "Home Screen Text", size: 16),
+              BodyText(text: "Home Screen Text", size: 16, maxLines: null,),
               SizedBox(),
             ],
           ),
