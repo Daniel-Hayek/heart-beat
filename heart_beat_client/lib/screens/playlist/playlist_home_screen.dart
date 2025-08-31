@@ -7,16 +7,16 @@ import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/playlist/playlist_card.dart';
 
 class PlaylistHomeScreen extends StatelessWidget {
-  const PlaylistHomeScreen({super.key});
+  final List<String> playlists = ["", "", ""];
+  final double overlap = 240;
+
+  PlaylistHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double cardHeight = 270;
-    double overlap = cardHeight - 30;
-    int cardCount = 5;
-
-    // total height for stack = height of first card + overlap for remaining cards
-    double stackHeight = cardHeight + (cardCount - 1) * overlap;
+    double stackHeight = playlists.isEmpty
+        ? 0
+        : 270 + (playlists.length - 1) * overlap;
 
     return Scaffold(
       appBar: CustomAppBar(title: "Playlists"),
@@ -35,7 +35,7 @@ class PlaylistHomeScreen extends StatelessWidget {
               child: SizedBox(
                 height: stackHeight,
                 child: Stack(
-                  children: List.generate(cardCount, (index) {
+                  children: List.generate(playlists.length, (index) {
                     return Positioned(
                       top: index * overlap,
                       left: 0,

@@ -30,7 +30,7 @@ class AppRoutes {
     journal: (context) => const BaseJournalScreen(),
     writeJournal: (context) => const WriteJournalScreen(),
     listJournal: (context) => const ListJournalScreen(),
-    playlist: (context) => const PlaylistHomeScreen(),
+    playlist: (context) => PlaylistHomeScreen(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
