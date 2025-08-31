@@ -12,18 +12,22 @@ class MusicTrack extends StatelessWidget {
       onTap: () {
         debugPrint("Music selected");
       },
-      child: Row(
-        children: [
-          TitleText(text: "Song Name $trackName", size: 20),
-          Text(
-            "xx:xx",
-            style: TextStyle(
-              fontFamily: 'montserrat',
-              fontWeight: FontWeight.w200,
-              color: Colors.white,
+      child: Padding(
+        padding: EdgeInsetsGeometry.symmetric(vertical: 6, horizontal: 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TitleText(text: "Song Name $trackName", size: 20),
+            Text(
+              "xx:xx",
+              style: TextStyle(
+                fontFamily: 'montserrat',
+                fontWeight: FontWeight.w200,
+                color: Colors.white,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -21,28 +21,36 @@ class ViewPlaylistScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor,
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  TitleText(text: "Playlist Title", size: 29),
-                  TitleText(text: "No of Songs", size: 24),
-                  TitleText(text: "12:34 min", size: 20),
-                ],
-              ),
-              Icon(CupertinoIcons.play_circle, size: 80, color: Colors.white,),
-            ],
-          ),
-          Expanded(
-            child: ListView(
-              children: List.generate(10, (index) {
-                return MusicTrack(trackName: index.toString());
-              }),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+        child: Column(
+          children: [
+            SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TitleText(text: "Playlist Title", size: 29),
+                    TitleText(text: "No of Songs", size: 24),
+                    TitleText(text: "12:34 min", size: 20),
+                  ],
+                ),
+                Icon(CupertinoIcons.play_circle, size: 80, color: Colors.white),
+              ],
             ),
-          ),
-        ],
+            SizedBox(height: 150),
+            Expanded(
+              child: ListView(
+                children: List.generate(10, (index) {
+                  return MusicTrack(trackName: index.toString());
+                }),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
