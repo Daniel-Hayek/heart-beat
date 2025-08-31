@@ -6,7 +6,7 @@ import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class JournalListCard extends StatelessWidget {
-  const JournalListCard({Key? key}) : super(key: key);
+  const JournalListCard({super.key});
 
   @override
   Widget build(BuildContext context) {

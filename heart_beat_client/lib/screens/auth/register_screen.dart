@@ -10,7 +10,7 @@ import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       
       authProvider.login(result['accessToken']);
 
-      print(result);
+      // print(result);
 
       if (!mounted) {
         return;

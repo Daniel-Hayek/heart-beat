@@ -9,11 +9,11 @@ class ViewJournalScreen extends StatelessWidget {
   final String text;
 
   const ViewJournalScreen({
-    Key? key,
+    super.key,
     required this.title,
     required this.date,
     required this.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

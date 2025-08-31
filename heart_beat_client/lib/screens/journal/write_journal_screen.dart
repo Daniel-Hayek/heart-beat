@@ -4,7 +4,7 @@ import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class WriteJournalScreen extends StatelessWidget {
-  const WriteJournalScreen({Key? key}) : super(key: key);
+  const WriteJournalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

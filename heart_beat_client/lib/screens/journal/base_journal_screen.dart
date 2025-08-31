@@ -11,7 +11,7 @@ import 'package:heart_beat_client/widgets/journal/journal_home_card.dart';
 import 'package:provider/provider.dart';
 
 class BaseJournalScreen extends StatelessWidget {
-  const BaseJournalScreen({Key? key}) : super(key: key);
+  const BaseJournalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
