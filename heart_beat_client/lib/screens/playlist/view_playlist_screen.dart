@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/common/player/music_player.dart';
+import 'package:heart_beat_client/widgets/common/scaffold/app_scaffold.dart';
 import 'package:heart_beat_client/widgets/playlist/music_track.dart';
 
 class ViewPlaylistScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class ViewPlaylistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -50,7 +51,6 @@ class ViewPlaylistScreen extends StatelessWidget {
                 }),
               ),
             ),
-            MusicPlayer(),
           ],
         ),
       ),

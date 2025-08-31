@@ -47,7 +47,7 @@ class MusicPlayer extends StatelessWidget {
                   fontSize: 12,
                 ),
               ),
-              Icon(CupertinoIcons.playpause, color: Colors.white),
+              Icon(Icons.skip_next_sharp, color: Colors.white, size: 30,),
             ],
           ),
         ],
