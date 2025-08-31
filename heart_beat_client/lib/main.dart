@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heart_beat_client/core/constants/app_theme.dart';
+import 'package:heart_beat_client/providers/auth_provider.dart';
+import 'package:heart_beat_client/providers/nav_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+Future main() async {
+  await dotenv.load(fileName: ".env");
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => NavProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,8 +28,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Heart-Beat',
       theme: AppTheme.darkTheme,
-      initialRoute: AppRoutes.landing,
+      initialRoute: AppRoutes.home,
       routes: AppRoutes.routes,
+      onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
 }

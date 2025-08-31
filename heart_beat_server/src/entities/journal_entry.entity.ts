@@ -7,12 +7,12 @@ import {
 } from 'typeorm';
 
 @Entity('journal_entries')
-export class JournalEntry {
+export class JournalEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  user_id: number;
+  userId: number;
 
   @Column()
   title: string;
@@ -21,7 +21,7 @@ export class JournalEntry {
   content: string;
 
   @Column()
-  mood_detected: string;
+  moodDetected: string;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
