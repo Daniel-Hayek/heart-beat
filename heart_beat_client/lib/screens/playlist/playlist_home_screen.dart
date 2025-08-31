@@ -11,6 +11,13 @@ class PlaylistHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double cardHeight = 270;
+    double overlap = cardHeight - 30;
+    int cardCount = 5;
+
+    // total height for stack = height of first card + overlap for remaining cards
+    double stackHeight = cardHeight + (cardCount - 1) * overlap;
+
     return Scaffold(
       appBar: CustomAppBar(title: "Playlists"),
       body: Column(
@@ -24,14 +31,20 @@ class PlaylistHomeScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              children: [
-                PlaylistCard(),
-                PlaylistCard(),
-                PlaylistCard(),
-                PlaylistCard(),
-                PlaylistCard(),
-              ],
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: stackHeight,
+                child: Stack(
+                  children: List.generate(cardCount, (index) {
+                    return Positioned(
+                      top: index * overlap,
+                      left: 0,
+                      right: 0,
+                      child: PlaylistCard(),
+                    );
+                  }),
+                ),
+              ),
             ),
           ),
         ],
