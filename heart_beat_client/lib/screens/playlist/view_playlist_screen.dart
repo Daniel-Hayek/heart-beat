@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
+import 'package:heart_beat_client/widgets/playlist/music_track.dart';
 
 class ViewPlaylistScreen extends StatelessWidget {
   const ViewPlaylistScreen({super.key});
@@ -16,7 +17,7 @@ class ViewPlaylistScreen extends StatelessWidget {
           },
           icon: const Icon(CupertinoIcons.back, color: Colors.white),
         ),
-        title: TitleText(text: "New Journal Entry", size: 18),
+        title: TitleText(text: "Playlist Name", size: 18),
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor,
       ),
@@ -31,7 +32,15 @@ class ViewPlaylistScreen extends StatelessWidget {
                   TitleText(text: "12:34 min", size: 20),
                 ],
               ),
+              Icon(CupertinoIcons.play_circle, size: 80, color: Colors.white,),
             ],
+          ),
+          Expanded(
+            child: ListView(
+              children: List.generate(10, (index) {
+                return MusicTrack(trackName: index.toString());
+              }),
+            ),
           ),
         ],
       ),
