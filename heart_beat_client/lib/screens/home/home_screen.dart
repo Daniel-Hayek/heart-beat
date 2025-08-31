@@ -21,7 +21,12 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: 20),
           TitleText(text: "How are you doing today, $userName?", size: 20),
           SizedBox(height: 20),
-          Column(children: [HomeInfoCard(), HomeInfoCard(), HomeInfoCard()]),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [HomeInfoCard(), HomeInfoCard(), HomeInfoCard()],
+            ),
+          ),
           // ElevatedButton(
           //   onPressed: () async {
           //     final authProvider = context.read<AuthProvider>();

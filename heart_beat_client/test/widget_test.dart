@@ -1,30 +1,30 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:heart_beat_client/main.dart';
+import 'package:provider/provider.dart';
+import 'package:heart_beat_client/screens/home/home_screen.dart';
+import 'package:heart_beat_client/providers/auth_provider.dart';
+import 'package:heart_beat_client/providers/nav_provider.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('HomeScreen renders with providers', (WidgetTester tester) async {
+    // Wrap HomeScreen with both providers it needs
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
+          ChangeNotifierProvider<NavProvider>(create: (_) => NavProvider()),
+        ],
+        child: const MaterialApp(home: HomeScreen()),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Basic check: HomeScreen widget exists
+    expect(find.byType(HomeScreen), findsOneWidget);
+
+    // Optional: check for text that is guaranteed to appear
+    // (you may need to replace 'Welcome' with actual text from your screen)
+    // expect(find.text('Welcome'), findsOneWidget);
   });
 }
