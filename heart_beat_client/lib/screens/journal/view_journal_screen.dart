@@ -32,7 +32,14 @@ class ViewJournalScreen extends StatelessWidget {
               fontSize: 18,
             ),
           ),
-          BodyText(text: SampleText.sampleText, size: 16, maxLines: null)
+          Container(
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+            child: Text(
+              SampleText.sampleText,
+              style: TextStyle(fontFamily: 'nunito', fontSize: 16),
+            ),
+          ),
         ],
       ),
     );
