@@ -5,8 +5,12 @@ class BodyText extends StatelessWidget {
   final double size;
   final int? maxLines;
 
-  const BodyText({Key? key, required this.text, required this.size, required this.maxLines})
-    : super(key: key);
+  const BodyText({
+    super.key,
+    required this.text,
+    required this.size,
+    required this.maxLines,
+  });
 
   @override
   Widget build(BuildContext context) {

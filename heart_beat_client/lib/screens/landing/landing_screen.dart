@@ -4,7 +4,7 @@ import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
 
 class LandingScreen extends StatelessWidget {
-  const LandingScreen({Key? key}) : super(key: key);
+  const LandingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

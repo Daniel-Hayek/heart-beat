@@ -4,7 +4,7 @@ class TitleText extends StatelessWidget {
   final String text;
   final double size;
 
-  const TitleText({Key? key, required this.text, required this.size});
+  const TitleText({super.key, required this.text, required this.size});
 
   @override
   Widget build(BuildContext context) {
