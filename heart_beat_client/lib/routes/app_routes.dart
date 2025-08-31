@@ -4,6 +4,7 @@ import 'package:heart_beat_client/screens/auth/register_screen.dart';
 import 'package:heart_beat_client/screens/home/home_screen.dart';
 import 'package:heart_beat_client/screens/journal/base_journal_screen.dart';
 import 'package:heart_beat_client/screens/journal/list_journal_screen.dart';
+import 'package:heart_beat_client/screens/journal/view_journal_screen.dart';
 import 'package:heart_beat_client/screens/journal/write_journal_screen.dart';
 import 'package:heart_beat_client/screens/landing/landing_screen.dart';
 
@@ -16,6 +17,7 @@ class AppRoutes {
   static const String journal = '/journal';
   static const String writeJournal = '/journal/write';
   static const String listJournal = '/journal/list';
+  static const String viewJournal = '/journal/view';
 
   static Map<String, WidgetBuilder> routes = {
     landing: (context) => const LandingScreen(),
@@ -25,5 +27,6 @@ class AppRoutes {
     journal: (context) => const BaseJournalScreen(),
     writeJournal: (context) => const WriteJournalScreen(),
     listJournal: (context) => const ListJournalScreen(),
+    viewJournal: (context) => const ViewJournalScreen(),
   };
 }

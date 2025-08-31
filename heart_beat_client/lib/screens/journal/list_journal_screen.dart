@@ -12,9 +12,19 @@ class ListJournalScreen extends StatelessWidget {
       appBar: CustomAppBar(title: "Journal"),
       body: Column(
         children: [
+          SizedBox(height: 30),
           TitleText(text: "Your Journal Entries", size: 20),
+          SizedBox(height: 20),
           Expanded(
-            child: ListView(children: [JournalListCard(), JournalListCard()]),
+            child: ListView(
+              children: [
+                JournalListCard(),
+                JournalListCard(),
+                JournalListCard(),
+                JournalListCard(),
+                JournalListCard(),
+              ],
+            ),
           ),
         ],
       ),
