@@ -27,6 +27,19 @@ class AppRoutes {
     journal: (context) => const BaseJournalScreen(),
     writeJournal: (context) => const WriteJournalScreen(),
     listJournal: (context) => const ListJournalScreen(),
-    viewJournal: (context) => const ViewJournalScreen(),
   };
+
+  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case viewJournal:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => ViewJournalScreen(
+            title: args['title'],
+            date: args['date'],
+            text: args['text'],
+          ),
+        );
+    }
+  }
 }

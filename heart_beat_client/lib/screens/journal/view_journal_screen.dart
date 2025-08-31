@@ -6,7 +6,16 @@ import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class ViewJournalScreen extends StatelessWidget {
-  const ViewJournalScreen({Key? key}) : super(key: key);
+  final String title;
+  final String date;
+  final String text;
+
+  const ViewJournalScreen({
+    Key? key,
+    required this.title,
+    required this.date,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,25 +27,26 @@ class ViewJournalScreen extends StatelessWidget {
           },
           icon: const Icon(CupertinoIcons.back, color: Colors.white),
         ),
-        title: TitleText(text: "Journal Entry Title", size: 18),
+        title: TitleText(text: title, size: 18),
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor,
       ),
       body: Column(
         children: [
           Text(
-            "mm/dd/yy",
+            date,
             style: TextStyle(
               fontFamily: 'montserrat',
               color: AppColors.primaryColor,
               fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
           ),
           Container(
             padding: EdgeInsets.all(8),
             margin: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             child: Text(
-              SampleText.sampleText,
+              text,
               style: TextStyle(fontFamily: 'nunito', fontSize: 16),
             ),
           ),

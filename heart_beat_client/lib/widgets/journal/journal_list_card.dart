@@ -12,7 +12,15 @@ class JournalListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, AppRoutes.viewJournal);
+        Navigator.pushNamed(
+          context,
+          AppRoutes.viewJournal,
+          arguments: {
+            'title': "Title",
+            'date': 'dd/mm/yy',
+            'text': SampleText.sampleText,
+          },
+        );
       },
       child: Container(
         decoration: BoxDecoration(color: AppColors.secondaryColor),
