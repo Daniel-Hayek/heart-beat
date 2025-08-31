@@ -2,12 +2,15 @@ name: NestJS CI
 
 on:
   push:
-    branches: [ dev, main ]
+    branches: [ main ]
   pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./heart_beat_server
 
     services:
       postgres:
