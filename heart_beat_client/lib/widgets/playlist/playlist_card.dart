@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class PlaylistCard extends StatelessWidget {
@@ -46,7 +47,9 @@ class PlaylistCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.viewPlaylist);
+                },
                 icon: Icon(
                   CupertinoIcons.play_circle,
                   color: Colors.white,
