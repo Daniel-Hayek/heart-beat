@@ -8,7 +8,7 @@ import 'package:heart_beat_client/widgets/playlist/playlist_card.dart';
 
 class PlaylistHomeScreen extends StatelessWidget {
   final List<String> playlists = ["", "", ""];
-  final double overlap = 240;
+  final double overlap = 220;
 
   PlaylistHomeScreen({super.key});
 
