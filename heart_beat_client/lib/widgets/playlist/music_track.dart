@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,8 @@ class MusicTrack extends StatelessWidget {
           trackName,
           "Generic Artist",
         );
+
+        Navigator.pushNamed(context, AppRoutes.musicTrack);
         debugPrint("Music selected");
       },
       child: Padding(
