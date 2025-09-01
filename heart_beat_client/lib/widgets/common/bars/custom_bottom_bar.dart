@@ -11,7 +11,7 @@ class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
     AppRoutes.journal,
     AppRoutes.home,
     AppRoutes.playlist,
-    AppRoutes.home,
+    AppRoutes.chatbot,
   ];
 
   CustomBottomBar({super.key});

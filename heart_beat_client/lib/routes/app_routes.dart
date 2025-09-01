@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/screens/auth/login_screen.dart';
 import 'package:heart_beat_client/screens/auth/register_screen.dart';
+import 'package:heart_beat_client/screens/chatbot/chatbot_screen.dart';
 import 'package:heart_beat_client/screens/home/home_screen.dart';
 import 'package:heart_beat_client/screens/journal/base_journal_screen.dart';
 import 'package:heart_beat_client/screens/journal/list_journal_screen.dart';
@@ -36,6 +37,8 @@ class AppRoutes {
   static const String stats = '/stats';
   static const String feedback = '/stats/feedback';
 
+  static const String chatbot = '/chatbot';
+
   static Map<String, WidgetBuilder> routes = {
     landing: (context) => const LandingScreen(),
     login: (context) => const LoginScreen(),
@@ -51,6 +54,7 @@ class AppRoutes {
     quizQuestion: (context) => const QuizQuestionScreen(),
     stats: (context) => const StatsScreen(),
     feedback: (context) => const FeedbackScreen(),
+    chatbot: (context) => const ChatbotScreen(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
