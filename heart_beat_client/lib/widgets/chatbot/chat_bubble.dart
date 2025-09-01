@@ -21,7 +21,7 @@ class ChatBubble extends StatelessWidget {
         style: TextStyle(
           color: isUser ? Colors.black : Colors.white,
           fontFamily: 'nunito',
-          fontSize: 12,
+          fontSize: 16,
         ),
       ),
     );
