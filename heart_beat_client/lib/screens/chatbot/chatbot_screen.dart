@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/widgets/chatbot/chat_bubble.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
+import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 
 class ChatbotScreen extends StatelessWidget {
   const ChatbotScreen({super.key});
@@ -10,6 +11,7 @@ class ChatbotScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: "Moody Blues"),
+      drawer: SideBar(),
       body: Padding(
         padding: EdgeInsetsGeometry.symmetric(
           vertical: MediaQuery.of(context).size.height * 0.05,
