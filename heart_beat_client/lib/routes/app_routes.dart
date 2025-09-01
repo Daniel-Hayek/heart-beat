@@ -61,7 +61,7 @@ class AppRoutes {
     feedback: (context) => const FeedbackScreen(),
     chatbot: (context) => const ChatbotScreen(),
     profile: (context) => const ProfileScreen(),
-    editProfile: (context) => const EditProfileScreen(),
+    editProfile: (context) => EditProfileScreen(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
