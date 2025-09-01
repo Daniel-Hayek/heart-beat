@@ -11,6 +11,7 @@ import 'package:heart_beat_client/screens/landing/landing_screen.dart';
 import 'package:heart_beat_client/screens/playlist/music_track_screen.dart';
 import 'package:heart_beat_client/screens/playlist/playlist_home_screen.dart';
 import 'package:heart_beat_client/screens/playlist/view_playlist_screen.dart';
+import 'package:heart_beat_client/screens/profile/edit_profile_screen.dart';
 import 'package:heart_beat_client/screens/profile/profile_screen.dart';
 import 'package:heart_beat_client/screens/quiz/quiz_base_screen.dart';
 import 'package:heart_beat_client/screens/quiz/quiz_question_screen.dart';
@@ -41,6 +42,7 @@ class AppRoutes {
   static const String chatbot = '/chatbot';
 
   static const String profile = '/profile';
+  static const String editProfile = '/profile/edit';
 
   static Map<String, WidgetBuilder> routes = {
     landing: (context) => const LandingScreen(),
@@ -59,6 +61,7 @@ class AppRoutes {
     feedback: (context) => const FeedbackScreen(),
     chatbot: (context) => const ChatbotScreen(),
     profile: (context) => const ProfileScreen(),
+    editProfile: (context) => const EditProfileScreen(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
