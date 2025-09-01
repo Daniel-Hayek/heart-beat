@@ -26,7 +26,7 @@ class QuizQuestionScreen extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * 0.05,
-          vertical: MediaQuery.of(context).size.width * 0.05,
+          vertical: MediaQuery.of(context).size.height * 0.05,
         ),
         child: Expanded(
           child: Column(
