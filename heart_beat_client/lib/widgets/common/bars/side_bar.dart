@@ -36,7 +36,9 @@ class SideBar extends StatelessWidget {
               color: Colors.white,
             ),
             title: const TitleText(text: "Profile", size: 20),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacementNamed(context, AppRoutes.profile);
+            },
           ),
           ListTile(
             leading: const Icon(CupertinoIcons.gear, color: Colors.white),
