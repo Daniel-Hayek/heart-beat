@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
+import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/playlist/playlist_card.dart';
 
@@ -20,6 +21,7 @@ class PlaylistHomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppBar(title: "Playlists"),
+      drawer: const SideBar(),
       body: Column(
         children: [
           Container(

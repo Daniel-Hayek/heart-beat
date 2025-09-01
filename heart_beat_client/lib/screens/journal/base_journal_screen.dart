@@ -5,6 +5,7 @@ import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
+import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/journal/journal_home_card.dart';
@@ -20,6 +21,7 @@ class BaseJournalScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppBar(title: "Journal"),
+      drawer: const SideBar(),
       body: Column(
         children: [
           SizedBox(height: 40),
