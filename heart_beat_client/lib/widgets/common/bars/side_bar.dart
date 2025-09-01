@@ -43,7 +43,9 @@ class SideBar extends StatelessWidget {
           ListTile(
             leading: const Icon(CupertinoIcons.gear, color: Colors.white),
             title: const TitleText(text: "Settings", size: 20),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.settings);
+            },
           ),
           Spacer(),
           Container(
