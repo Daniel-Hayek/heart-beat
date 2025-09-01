@@ -12,20 +12,26 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(title: "Profile"),
-      body: Column(
-        children: [
-          MediumLogo(),
-          Expanded(
-            child: Column(
+      body: Padding(
+        padding: EdgeInsetsGeometry.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.05,
+          vertical: MediaQuery.of(context).size.height * 0.05,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            MediumLogo(),
+            Column(
               children: [
                 ProfileInfo(label: "Name", value: "Jeff"),
                 ProfileInfo(label: "Email", value: "jeff@mail.com"),
                 ProfileInfo(label: "Password", value: "******"),
               ],
             ),
-          ),
-          PrimaryButton(onPressed: () {}, label: "Update"),
-        ],
+            PrimaryButton(onPressed: () {}, label: "Update"),
+          ],
+        ),
       ),
     );
   }

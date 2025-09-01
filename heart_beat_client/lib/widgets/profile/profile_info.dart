@@ -11,11 +11,12 @@ class ProfileInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TitleText(text: label, size: 20),
         SizedBox(height: 10),
         BodyText(text: value, size: 18, maxLines: null),
+        SizedBox(height: 20),
       ],
     );
   }

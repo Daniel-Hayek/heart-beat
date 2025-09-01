@@ -37,7 +37,7 @@ class SideBar extends StatelessWidget {
             ),
             title: const TitleText(text: "Profile", size: 20),
             onTap: () {
-              Navigator.pushReplacementNamed(context, AppRoutes.profile);
+              Navigator.pushNamed(context, AppRoutes.profile);
             },
           ),
           ListTile(
