@@ -17,9 +17,10 @@ class StatCard extends StatelessWidget {
       ),
       width: MediaQuery.of(context).size.width * 0.4,
       height: 300,
-      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.07),
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
       margin: EdgeInsets.all(4),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           TitleText(text: statType, size: 18),
           TitleText(text: statNum.toString(), size: 26),

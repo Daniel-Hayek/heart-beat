@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
@@ -50,7 +51,14 @@ class StatsScreen extends StatelessWidget {
                   StatCard(statType: "Average Heart Rate", statNum: 90),
                 ],
               ),
-              PrimaryButton(onPressed: () {}, label: "Improve Mood Tracking"),
+              SizedBox(height: 20),
+              PrimaryButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.feedback);
+                },
+                label: "Improve Mood Tracking",
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),
