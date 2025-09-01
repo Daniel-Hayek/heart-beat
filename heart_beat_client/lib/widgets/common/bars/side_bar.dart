@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -23,9 +24,11 @@ class SideBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(LucideIcons.sheet, color: Colors.white),
+            leading: const Icon(LucideIcons.bookOpenCheck, color: Colors.white),
             title: const TitleText(text: "Mood Quizzes", size: 20),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacementNamed(context, AppRoutes.quiz);
+            },
           ),
           ListTile(
             leading: const Icon(
