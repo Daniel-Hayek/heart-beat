@@ -7,6 +7,9 @@ import 'package:heart_beat_client/screens/journal/list_journal_screen.dart';
 import 'package:heart_beat_client/screens/journal/view_journal_screen.dart';
 import 'package:heart_beat_client/screens/journal/write_journal_screen.dart';
 import 'package:heart_beat_client/screens/landing/landing_screen.dart';
+import 'package:heart_beat_client/screens/playlist/music_track_screen.dart';
+import 'package:heart_beat_client/screens/playlist/playlist_home_screen.dart';
+import 'package:heart_beat_client/screens/playlist/view_playlist_screen.dart';
 
 class AppRoutes {
   static const String landing = '/landing';
@@ -19,6 +22,10 @@ class AppRoutes {
   static const String listJournal = '/journal/list';
   static const String viewJournal = '/journal/view';
 
+  static const String playlist = '/playlist';
+  static const String viewPlaylist = '/playlist/view';
+  static const String musicTrack = '/playlist/track';
+
   static Map<String, WidgetBuilder> routes = {
     landing: (context) => const LandingScreen(),
     login: (context) => const LoginScreen(),
@@ -27,6 +34,9 @@ class AppRoutes {
     journal: (context) => const BaseJournalScreen(),
     writeJournal: (context) => const WriteJournalScreen(),
     listJournal: (context) => const ListJournalScreen(),
+    playlist: (context) => PlaylistHomeScreen(),
+    viewPlaylist: (context) => const ViewPlaylistScreen(),
+    musicTrack: (context) => const MusicTrackScreen(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
