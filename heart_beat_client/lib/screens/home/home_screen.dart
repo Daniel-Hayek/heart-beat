@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
+import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/home/home_info_card.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppBar(title: "Home Screen"),
+      drawer: const SideBar(),
       body: Column(
         children: [
           SizedBox(height: 20),
@@ -41,7 +43,7 @@ class HomeScreen extends StatelessWidget {
           // ),
         ],
       ),
-      bottomNavigationBar: CustomBottomBar(currentActive: ""),
+      bottomNavigationBar: CustomBottomBar(),
     );
   }
 }

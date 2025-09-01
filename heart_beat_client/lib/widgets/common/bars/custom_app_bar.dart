@@ -9,9 +9,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        onPressed: () {},
-        icon: const Icon(CupertinoIcons.line_horizontal_3, color: Colors.white),
+      leading: Builder(
+        builder: (context) => IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(
+            CupertinoIcons.line_horizontal_3,
+            color: Colors.white,
+          ),
+        ),
       ),
       title: Text(
         title,
