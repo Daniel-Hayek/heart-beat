@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class CustomBottomBar extends StatelessWidget implements PreferredSizeWidget {
   final List<String> _routes = [
-    AppRoutes.home,
+    AppRoutes.stats,
     AppRoutes.journal,
     AppRoutes.home,
     AppRoutes.playlist,

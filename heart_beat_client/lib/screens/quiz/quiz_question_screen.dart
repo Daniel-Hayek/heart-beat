@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
-import 'package:heart_beat_client/core/constants/sample_text.dart';
+import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
-import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/common/logos/small_logo.dart';
 
@@ -14,21 +12,11 @@ class QuizQuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(CupertinoIcons.back, color: Colors.white),
-        ),
-        title: TitleText(text: "Mood Quiz", size: 18),
-        centerTitle: true,
-        backgroundColor: AppColors.backgroundColor,
-      ),
+      appBar: SimpleAppBar(title: "Quiz Question"),
       body: Container(
         padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * 0.05,
-          vertical: MediaQuery.of(context).size.width * 0.05,
+          vertical: MediaQuery.of(context).size.height * 0.05,
         ),
         child: Expanded(
           child: Column(

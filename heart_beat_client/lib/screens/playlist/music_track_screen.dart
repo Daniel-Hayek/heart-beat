@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
+import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:provider/provider.dart';
 
@@ -13,17 +12,7 @@ class MusicTrackScreen extends StatelessWidget {
     final playerProvider = context.watch<MusicPlayerProvider>();
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(CupertinoIcons.back, color: Colors.white),
-        ),
-        title: TitleText(text: "Music", size: 18),
-        centerTitle: true,
-        backgroundColor: AppColors.backgroundColor,
-      ),
+      appBar: SimpleAppBar(title: "Music Player"),
       body: Column(
         children: [
           SizedBox(height: 200),
