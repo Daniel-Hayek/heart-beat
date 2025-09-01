@@ -11,7 +11,7 @@ class TitleText extends StatelessWidget {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: TextStyle(fontFamily: 'montserrat', fontSize: size),
+      style: TextStyle(fontFamily: 'montserrat', fontSize: size, color: Colors.white),
     );
   }
 }
