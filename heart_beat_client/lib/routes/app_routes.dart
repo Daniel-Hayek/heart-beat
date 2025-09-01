@@ -11,6 +11,7 @@ import 'package:heart_beat_client/screens/playlist/music_track_screen.dart';
 import 'package:heart_beat_client/screens/playlist/playlist_home_screen.dart';
 import 'package:heart_beat_client/screens/playlist/view_playlist_screen.dart';
 import 'package:heart_beat_client/screens/quiz/quiz_base_screen.dart';
+import 'package:heart_beat_client/screens/quiz/quiz_question_screen.dart';
 
 class AppRoutes {
   static const String landing = '/landing';
@@ -28,6 +29,7 @@ class AppRoutes {
   static const String musicTrack = '/playlist/track';
 
   static const String quiz = '/quiz';
+  static const String quizQuestion = '/quiz/question';
 
   static Map<String, WidgetBuilder> routes = {
     landing: (context) => const LandingScreen(),
@@ -41,6 +43,7 @@ class AppRoutes {
     viewPlaylist: (context) => const ViewPlaylistScreen(),
     musicTrack: (context) => const MusicTrackScreen(),
     quiz: (context) => const QuizBaseScreen(),
+    quizQuestion: (context) => const QuizQuestionScreen(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {

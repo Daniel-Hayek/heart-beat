@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
+import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
+import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -50,7 +53,18 @@ class QuizBaseScreen extends StatelessWidget {
               ],
             ),
           ),
-          PrimaryButton(onPressed: () {}, label: "Take A Quiz"),
+          PrimaryButton(
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.quizQuestion);
+            },
+            label: "Take A Quiz",
+          ),
+          SecondaryButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, AppRoutes.home);
+            },
+            label: "Back to Home",
+          ),
         ],
       ),
     );
