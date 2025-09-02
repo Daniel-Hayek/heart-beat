@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/screens/auth/login_screen.dart';
 import 'package:heart_beat_client/screens/auth/register_screen.dart';
+import 'package:heart_beat_client/screens/chatbot/chatbot_screen.dart';
 import 'package:heart_beat_client/screens/home/home_screen.dart';
 import 'package:heart_beat_client/screens/journal/base_journal_screen.dart';
 import 'package:heart_beat_client/screens/journal/list_journal_screen.dart';
@@ -10,8 +11,11 @@ import 'package:heart_beat_client/screens/landing/landing_screen.dart';
 import 'package:heart_beat_client/screens/playlist/music_track_screen.dart';
 import 'package:heart_beat_client/screens/playlist/playlist_home_screen.dart';
 import 'package:heart_beat_client/screens/playlist/view_playlist_screen.dart';
+import 'package:heart_beat_client/screens/profile/edit_profile_screen.dart';
+import 'package:heart_beat_client/screens/profile/profile_screen.dart';
 import 'package:heart_beat_client/screens/quiz/quiz_base_screen.dart';
 import 'package:heart_beat_client/screens/quiz/quiz_question_screen.dart';
+import 'package:heart_beat_client/screens/settings/user_settings.dart';
 import 'package:heart_beat_client/screens/stats/feedback_screen.dart';
 import 'package:heart_beat_client/screens/stats/stats_screen.dart';
 
@@ -36,6 +40,13 @@ class AppRoutes {
   static const String stats = '/stats';
   static const String feedback = '/stats/feedback';
 
+  static const String chatbot = '/chatbot';
+
+  static const String profile = '/profile';
+  static const String editProfile = '/profile/edit';
+
+  static const String settings = '/settings';
+
   static Map<String, WidgetBuilder> routes = {
     landing: (context) => const LandingScreen(),
     login: (context) => const LoginScreen(),
@@ -51,6 +62,10 @@ class AppRoutes {
     quizQuestion: (context) => const QuizQuestionScreen(),
     stats: (context) => const StatsScreen(),
     feedback: (context) => const FeedbackScreen(),
+    chatbot: (context) => const ChatbotScreen(),
+    profile: (context) => const ProfileScreen(),
+    editProfile: (context) => EditProfileScreen(),
+    settings: (context) => UserSettings(),
   };
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
