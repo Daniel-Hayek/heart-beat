@@ -12,7 +12,9 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -23,6 +25,8 @@ export class UsersController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiResponse({ status: 200, description: 'List of all users' })
   findAll() {
     return this.usersService.findAll();
   }
@@ -42,8 +46,10 @@ export class UsersController {
     return this.usersService.remove(+id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get('test')
+  @ApiOperation({ summary: 'Test API to check JWT Funcationality' })
+  @ApiResponse({ status: 200, description: 'JWT Token successfully accepted' })
+  @UseGuards(AuthGuard('jwt'))
   test() {
     return 'Hello World';
   }
