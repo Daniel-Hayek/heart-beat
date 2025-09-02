@@ -9,6 +9,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { plainToInstance } from 'class-transformer';
+import { ResponseUserDto } from './dto/response-user.dto';
 @Injectable()
 export class UsersService {
   private readonly salt = 10;
@@ -41,8 +43,11 @@ export class UsersService {
     return users;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    return plainToInstance(
+      ResponseUserDto,
+      await this.userRepo.findOne({ where: { id } }),
+    );
   }
 
   async findOneByEmail(email: string): Promise<User | null> {
