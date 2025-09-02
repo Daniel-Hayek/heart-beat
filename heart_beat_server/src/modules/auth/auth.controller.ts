@@ -16,6 +16,13 @@ export class AuthController {
     return this.login(user);
   }
 
+  // @Get('test')
+  // @ApiParam
+  // test(@Body() body: { test: string }) {
+  //   const tested = 'You typed in ' + body.test;
+  //   return tested;
+  // }
+
   @Post('login')
   async login(@Body() body: { email: string; password: string }) {
     const user = await this.authService.validateUser(body.email, body.password);
