@@ -1,7 +1,10 @@
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
+import { LoginUserDto } from './dto/login-user.dto';
 
+@ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -16,17 +19,13 @@ export class AuthController {
     return this.login(user);
   }
 
-  // @Get('test')
-  // @ApiParam
-  // test(@Body() body: { test: string }) {
-  //   const tested = 'You typed in ' + body.test;
-  //   return tested;
-  // }
-
   @Post('login')
-  async login(@Body() body: { email: string; password: string }) {
-    const user = await this.authService.validateUser(body.email, body.password);
-    // return user;
+  async login(@Body() loginUserDto: LoginUserDto) {
+    const user = await this.authService.validateUser(
+      loginUserDto.email,
+      loginUserDto.password,
+    );
+
     return this.authService.login(user);
   }
 
