@@ -1,8 +1,20 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { LoginUserDto } from './dto/login-user.dto';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -29,9 +41,14 @@ export class AuthController {
     return this.authService.login(user);
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Post('logout')
-  logout(@Req() id: number) {
-    return this.authService.logout(id);
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Test API to check JWT Funcationality' })
+  @ApiResponse({ status: 200, description: 'JWT Token successfully accepted' })
+  @ApiResponse({ status: 401, description: 'Unauthorized, token not provided' })
+  @Get('test')
+  test(@Request() req) {
+    console.log(req);
+    return 'Hello World';
   }
 }

@@ -6,19 +6,11 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from '@nestjs/passport';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('User Endpoints')
 @Controller('users')
@@ -73,14 +65,5 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
-  }
-
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Test API to check JWT Funcationality' })
-  @ApiResponse({ status: 200, description: 'JWT Token successfully accepted' })
-  @UseGuards(AuthGuard('jwt'))
-  @Get('test')
-  test() {
-    return 'Hello World';
   }
 }
