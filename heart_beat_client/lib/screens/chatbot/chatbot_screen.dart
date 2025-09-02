@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/widgets/chatbot/chat_bubble.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
+import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class ChatbotScreen extends StatelessWidget {
   const ChatbotScreen({super.key});
@@ -10,6 +12,7 @@ class ChatbotScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: "Moody Blues"),
+      drawer: SideBar(),
       body: Padding(
         padding: EdgeInsetsGeometry.symmetric(
           vertical: MediaQuery.of(context).size.height * 0.05,
@@ -36,6 +39,9 @@ class ChatbotScreen extends StatelessWidget {
                 Expanded(
                   child: TextField(
                     controller: null,
+                    textAlignVertical: TextAlignVertical.top,
+                    maxLines: 3,
+                    keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
                       hintText: "What would you like to talk about...",
                       border: OutlineInputBorder(
@@ -43,9 +49,18 @@ class ChatbotScreen extends StatelessWidget {
                         borderSide: BorderSide(color: Colors.white, width: 2),
                       ),
                       contentPadding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.04,
-                        vertical: MediaQuery.of(context).size.height * 0.04,
+                        horizontal: MediaQuery.of(context).size.width * 0.03,
+                        vertical: MediaQuery.of(context).size.height * 0.02,
                       ),
+                      suffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          LucideIcons.send,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                      
                     ),
                   ),
                 ),
