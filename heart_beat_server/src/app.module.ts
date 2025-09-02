@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
-import { JournalEntriesModule } from './modules/journal_entries/journal_entries.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 
@@ -19,7 +18,6 @@ import { AuthModule } from './modules/auth/auth.module';
       synchronize: false,
     }),
     UsersModule,
-    JournalEntriesModule,
     AuthModule,
   ],
   controllers: [],
