@@ -24,7 +24,7 @@ async function bootstrap() {
       'API Documentation for all available APIs on the Heart-Beat applcation',
     )
     .setVersion('1.0')
-    .addTag('Authentication')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

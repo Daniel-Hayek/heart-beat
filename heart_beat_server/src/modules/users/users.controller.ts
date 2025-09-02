@@ -12,7 +12,13 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('User Endpoints')
 @Controller('users')
@@ -38,25 +44,42 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @ApiOperation({ summary: 'Get a specific user by their ID' })
+  @ApiResponse({ status: 200, description: 'Details of user with given ID' })
+  @ApiResponse({ status: 404, description: 'No user with such an ID found' })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }
 
+  @ApiOperation({ summary: 'Update a specific user by their ID' })
+  @ApiResponse({
+    status: 200,
+    description: 'Details of updated user with given ID',
+  })
+  @ApiResponse({ status: 404, description: 'No user with such an ID found' })
+  @ApiResponse({ status: 409, description: 'A user with email already exists' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
   }
 
+  @ApiOperation({ summary: 'Delete a specific user by their ID' })
+  @ApiResponse({
+    status: 204,
+    description: 'User has been successfully deleted',
+  })
+  @ApiResponse({ status: 404, description: 'No user with such an ID found' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
 
-  @Get('test')
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Test API to check JWT Funcationality' })
   @ApiResponse({ status: 200, description: 'JWT Token successfully accepted' })
   @UseGuards(AuthGuard('jwt'))
+  @Get('test')
   test() {
     return 'Hello World';
   }

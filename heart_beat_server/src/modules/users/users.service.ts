@@ -39,15 +39,17 @@ export class UsersService {
   }
 
   async findAll() {
-    const users = await this.userRepo.find();
-    return users;
+    return plainToInstance(ResponseUserDto, await this.userRepo.find());
   }
 
   async findOne(id: number) {
-    return plainToInstance(
-      ResponseUserDto,
-      await this.userRepo.findOne({ where: { id } }),
-    );
+    const user = await this.userRepo.findOne({ where: { id } });
+
+    if (user == null) {
+      throw new NotFoundException('User with that ID does not exist');
+    }
+
+    return plainToInstance(ResponseUserDto, user);
   }
 
   async findOneByEmail(email: string): Promise<User | null> {
@@ -65,6 +67,12 @@ export class UsersService {
 
     if (!user) {
       throw new NotFoundException(`User with id ${id} not found`);
+    }
+
+    if (updateUserDto.email != null) {
+      if (this.findOneByEmail(updateUserDto.email) != null) {
+        throw new ConflictException('A user with email already exists');
+      }
     }
 
     Object.assign(user, updateUserDto);
