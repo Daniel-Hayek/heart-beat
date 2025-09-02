@@ -15,22 +15,41 @@ import {
 } from '@nestjs/swagger';
 import { LoginUserDto } from './dto/login-user.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiOperation({
+    summary: 'Register a new user in the database and return their token',
+  })
+  @ApiResponse({ status: 201, description: 'User successfully registered' })
+  @ApiResponse({
+    status: 409,
+    description: 'User with that email already exists',
+  })
   @Post('register')
-  async register(
-    @Body() body: { name: string; email: string; password: string },
-  ) {
-    const user = await this.authService.register(body);
-    user.password = body.password;
+  async register(@Body() createUserDto: CreateUserDto) {
+    const user = await this.authService.register(createUserDto);
+    user.password = createUserDto.password;
 
     return this.login(user);
   }
 
+  @ApiOperation({
+    summary: 'Login a user and return their token',
+  })
+  @ApiResponse({ status: 201, description: 'User successfully logged in' })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid email format OR short password',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid Credentials',
+  })
   @Post('login')
   async login(@Body() loginUserDto: LoginUserDto) {
     const user = await this.authService.validateUser(
