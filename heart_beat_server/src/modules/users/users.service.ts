@@ -1,10 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { plainToInstance } from 'class-transformer';
+import { ResponseUserDto } from './dto/response-user.dto';
 @Injectable()
 export class UsersService {
   private readonly salt = 10;
@@ -15,6 +21,12 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    const check = await this.findOneByEmail(createUserDto.email);
+
+    if (check != null) {
+      throw new ConflictException('A user with email already exists');
+    }
+
     const hashed = await bcrypt.hash(createUserDto.password, this.salt);
 
     const user = this.userRepo.create({
@@ -27,12 +39,17 @@ export class UsersService {
   }
 
   async findAll() {
-    const users = await this.userRepo.find();
-    return users;
+    return plainToInstance(ResponseUserDto, await this.userRepo.find());
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    const user = await this.userRepo.findOne({ where: { id } });
+
+    if (user == null) {
+      throw new NotFoundException('User with that ID does not exist');
+    }
+
+    return plainToInstance(ResponseUserDto, user);
   }
 
   async findOneByEmail(email: string): Promise<User | null> {
@@ -50,6 +67,12 @@ export class UsersService {
 
     if (!user) {
       throw new NotFoundException(`User with id ${id} not found`);
+    }
+
+    if (updateUserDto.email != null) {
+      if (this.findOneByEmail(updateUserDto.email) != null) {
+        throw new ConflictException('A user with email already exists');
+      }
     }
 
     Object.assign(user, updateUserDto);
