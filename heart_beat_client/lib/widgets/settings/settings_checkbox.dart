@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class SettingsCheckbox extends StatelessWidget {
   final String label;
@@ -15,10 +17,11 @@ class SettingsCheckbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-      title: Text(label),
+      title: TitleText(text: label, size: 18),
       value: value,
       onChanged: onChanged,
       controlAffinity: ListTileControlAffinity.leading,
+      activeColor: AppColors.primaryColor,
     );
   }
 }
