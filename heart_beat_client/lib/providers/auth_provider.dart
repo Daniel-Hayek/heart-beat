@@ -7,7 +7,7 @@ class AuthProvider extends ChangeNotifier {
 
   String? _token;
   String? _userName;
-  bool _isLoading = false;
+  bool _isLoading = true;
 
   String? get token => _token;
   String? get userName => _userName;

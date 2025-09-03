@@ -10,9 +10,6 @@ import 'package:provider/provider.dart';
 Future main() async {
   await dotenv.load(fileName: ".env");
 
-  final authProvider = AuthProvider();
-  await authProvider.loadToken();
-
   runApp(
     MultiProvider(
       providers: [
