@@ -22,7 +22,6 @@ class QuizQuestionScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              SmallLogo(),
               TitleText(text: "Generic Mood Quiz Question???", size: 24),
               TextFormField(
                 style: const TextStyle(color: Colors.white),
