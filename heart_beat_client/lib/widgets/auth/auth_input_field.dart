@@ -17,34 +17,18 @@ class AuthInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: AppColors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 8),
-        TextFormField(
-          obscureText: isPass,
-          controller: controller,
-          style: const TextStyle(color: AppColors.black),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-            hintText: placeholder,
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 12,
-            ),
-          ),
-        ),
-      ],
+    return TextFormField(
+      obscureText: isPass,
+      controller: controller,
+      style: const TextStyle(color: AppColors.black),
+      decoration: InputDecoration(
+        labelText: label,
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+        hintText: placeholder,
+        contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+      ),
     );
   }
 }
