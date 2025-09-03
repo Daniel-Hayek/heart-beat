@@ -27,6 +27,10 @@ export class AuthController {
   })
   @ApiResponse({ status: 201, description: 'User successfully registered' })
   @ApiResponse({
+    status: 400,
+    description: 'Invalid email format OR short password',
+  })
+  @ApiResponse({
     status: 409,
     description: 'User with that email already exists',
   })

@@ -19,18 +19,18 @@ class FeedbackScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 FeedbackField(
                   label: "Thoughts on this issue",
                   controller: null,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 FeedbackField(
                   label: "Thoughts on this issue",
                   controller: null,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 FeedbackField(
                   label: "Thoughts on this issue",
                   controller: null,

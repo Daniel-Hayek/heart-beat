@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
-import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
+import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
@@ -14,7 +14,7 @@ class QuizBaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Mood Quizzes"),
+      appBar: SimpleAppBar(title: "Mood Quizzes"),
       drawer: const SideBar(),
       body: Column(
         children: [
@@ -56,7 +56,9 @@ class QuizBaseScreen extends StatelessWidget {
               Navigator.pushNamed(context, AppRoutes.quizQuestion);
             },
             label: "Take A Quiz",
+            padding: EdgeInsetsGeometry.symmetric(vertical: 10, horizontal: 28),
           ),
+          SizedBox(height: 10),
           SecondaryButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, AppRoutes.home);

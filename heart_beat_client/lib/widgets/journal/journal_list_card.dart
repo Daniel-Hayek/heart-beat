@@ -23,7 +23,10 @@ class JournalListCard extends StatelessWidget {
         );
       },
       child: Container(
-        decoration: BoxDecoration(color: AppColors.secondaryColor),
+        decoration: BoxDecoration(
+          color: AppColors.secondaryColor,
+          borderRadius: BorderRadius.circular(8),
+        ),
         padding: EdgeInsets.all(14),
         margin: EdgeInsets.symmetric(vertical: 8, horizontal: 14),
         width: double.infinity,
@@ -33,15 +36,15 @@ class JournalListCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TitleText(text: "Title", size: 16),
-                TitleText(text: "Delete", size: 12),
+                TitleText(text: "Title", size: 17),
+                TitleText(text: "Delete", size: 11),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TitleText(text: "Mood", size: 16),
-                TitleText(text: "dd/mm/yy", size: 16),
+                TitleText(text: "Mood", size: 13),
+                TitleText(text: "dd/mm/yy", size: 13),
               ],
             ),
             SizedBox(height: 10),

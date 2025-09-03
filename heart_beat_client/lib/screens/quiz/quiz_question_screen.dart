@@ -4,7 +4,6 @@ import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
-import 'package:heart_beat_client/widgets/common/logos/small_logo.dart';
 
 class QuizQuestionScreen extends StatelessWidget {
   const QuizQuestionScreen({super.key});
@@ -22,7 +21,6 @@ class QuizQuestionScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              SmallLogo(),
               TitleText(text: "Generic Mood Quiz Question???", size: 24),
               TextFormField(
                 style: const TextStyle(color: Colors.white),
