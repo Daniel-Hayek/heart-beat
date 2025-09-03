@@ -1,3 +1,4 @@
+import { IsEmail, IsString, MinLength } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -11,13 +12,16 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @IsString()
   @Column()
   name: string;
 
-  // @IsEmail
+  @IsEmail()
   @Column({ unique: true })
   email: string;
 
+  @IsString()
+  @MinLength(6)
   @Column()
   password: string;
 

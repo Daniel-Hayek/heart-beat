@@ -1,5 +1,5 @@
 import {
-  BadRequestException,
+  ConflictException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -34,7 +34,7 @@ export class AuthService {
     const exists = await this.usersService.findOneByEmail(dto.email);
 
     if (exists) {
-      throw new BadRequestException('Email already used');
+      throw new ConflictException('Email already in use');
     }
 
     const user = await this.usersService.create(dto);
