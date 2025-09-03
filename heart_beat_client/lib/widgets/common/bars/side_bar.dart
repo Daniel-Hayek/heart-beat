@@ -14,7 +14,7 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = context.read<AuthProvider>();
-    final userName = authProvider.userName;
+    final email = authProvider.email;
 
     return Drawer(
       backgroundColor: AppColors.secondaryColor,
@@ -56,7 +56,7 @@ class SideBar extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Text(
-              "Currently logged in as $userName",
+              "Currently logged in as $email",
               style: TextStyle(
                 color: Colors.white.withValues(alpha: 0.7),
                 fontSize: 16,
