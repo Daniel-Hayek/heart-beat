@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class WriteJournalScreen extends StatelessWidget {
@@ -17,12 +18,6 @@ class WriteJournalScreen extends StatelessWidget {
           icon: const Icon(CupertinoIcons.back, color: Colors.white),
         ),
         title: TitleText(text: "New Journal Entry", size: 18),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(CupertinoIcons.floppy_disk, color: Colors.white),
-          ),
-        ],
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor,
       ),
@@ -55,6 +50,7 @@ class WriteJournalScreen extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: PrimaryButton(onPressed: () {}, label: "Save"),
     );
   }
 }
