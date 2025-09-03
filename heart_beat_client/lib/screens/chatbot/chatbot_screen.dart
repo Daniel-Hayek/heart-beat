@@ -40,7 +40,7 @@ class ChatbotScreen extends StatelessWidget {
                   child: TextField(
                     controller: null,
                     textAlignVertical: TextAlignVertical.top,
-                    maxLines: 3,
+                    maxLines: 1,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
                       hintText: "What would you like to talk about...",
