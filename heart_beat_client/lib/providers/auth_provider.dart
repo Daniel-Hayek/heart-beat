@@ -22,6 +22,7 @@ class AuthProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
+    await Future.delayed(const Duration(milliseconds: 200));
     _token = await _storage.read(key: 'auth_token');
 
     if (_token != null) {

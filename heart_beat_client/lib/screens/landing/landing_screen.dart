@@ -13,19 +13,24 @@ class LandingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
 
-    if (authProvider.isLoading) {
-      authProvider.loadToken();
-      return Scaffold(
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (authProvider.isLoading) {
+        authProvider.loadToken();
+      }
+    });
+
+    if (authProvider.isLoading || authProvider.isLoggedIn) {
+      if (authProvider.isLoggedIn) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.pushReplacementNamed(context, AppRoutes.home);
+        });
+      }
+
+      return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(color: AppColors.primaryColor),
         ),
       );
-    }
-
-    if (authProvider.isLoggedIn) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacementNamed(context, AppRoutes.home);
-      });
     }
 
     return Scaffold(
