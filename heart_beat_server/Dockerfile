@@ -4,6 +4,9 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
+# Install bash so wait-for-it.sh works
+RUN apk add --no-cache bash
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
