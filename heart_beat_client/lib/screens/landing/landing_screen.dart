@@ -57,7 +57,12 @@ class LandingScreen extends StatelessWidget {
                     Navigator.pushNamed(context, AppRoutes.login);
                   },
                   label: "Login",
+                  padding: EdgeInsetsGeometry.symmetric(
+                    vertical: 10,
+                    horizontal: 30,
+                  ),
                 ),
+                SizedBox(height: 10),
                 SecondaryButton(
                   onPressed: () {
                     Navigator.pushNamed(context, AppRoutes.register);
