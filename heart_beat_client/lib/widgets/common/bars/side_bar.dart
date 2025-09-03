@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
-import 'package:heart_beat_client/widgets/common/buttons/secondary_button.dart';
+import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:provider/provider.dart';
@@ -20,58 +20,78 @@ class SideBar extends StatelessWidget {
       backgroundColor: AppColors.secondaryColor,
       child: Column(
         children: [
-          DrawerHeader(
+          Container(
+            height: kToolbarHeight + MediaQuery.of(context).padding.top,
             decoration: BoxDecoration(color: AppColors.primaryColor),
-            child: Container(
-              height: 100,
-              alignment: Alignment.center,
-              child: TitleText(text: "Menu", size: 24),
-            ),
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            alignment: Alignment.center,
+            child: TitleText(text: "Menu", size: 24),
           ),
-          ListTile(
-            leading: const Icon(LucideIcons.bookOpenCheck, color: Colors.white),
-            title: const TitleText(text: "Mood Quizzes", size: 20),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, AppRoutes.quiz);
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              CupertinoIcons.profile_circled,
-              color: Colors.white,
-            ),
-            title: const TitleText(text: "Profile", size: 20),
-            onTap: () {
-              Navigator.pushNamed(context, AppRoutes.profile);
-            },
-          ),
-          ListTile(
-            leading: const Icon(CupertinoIcons.gear, color: Colors.white),
-            title: const TitleText(text: "Settings", size: 20),
-            onTap: () {
-              Navigator.pushNamed(context, AppRoutes.settings);
-            },
+          Spacer(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ListTile(
+                leading: const Icon(
+                  LucideIcons.bookOpenCheck,
+                  color: Colors.white,
+                ),
+                title: TitleText(
+                  text: "Mood Quizzes",
+                  size: 20,
+                  align: TextAlign.left,
+                ),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, AppRoutes.quiz);
+                },
+              ),
+              ListTile(
+                leading: const Icon(
+                  CupertinoIcons.profile_circled,
+                  color: Colors.white,
+                ),
+                title: const TitleText(
+                  text: "Profile",
+                  size: 20,
+                  align: TextAlign.left,
+                ),
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.profile);
+                },
+              ),
+              ListTile(
+                leading: const Icon(CupertinoIcons.gear, color: Colors.white),
+                title: const TitleText(
+                  text: "Settings",
+                  size: 20,
+                  align: TextAlign.left,
+                ),
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.settings);
+                },
+              ),
+            ],
           ),
           Spacer(),
           Container(
             margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Text(
-              "Currently logged in as $email",
+              "Currently logged in as\n$email",
               style: TextStyle(
                 color: Colors.white.withValues(alpha: 0.7),
-                fontSize: 16,
+                fontSize: 14,
                 fontFamily: 'montserrat',
               ),
             ),
           ),
-          SecondaryButton(
+          PrimaryButton(
             onPressed: () {
               authProvider.logout();
               Navigator.pushReplacementNamed(context, AppRoutes.landing);
             },
             label: "Logout",
           ),
-          SizedBox(height: 100),
+          SizedBox(height: 70),
         ],
       ),
     );
