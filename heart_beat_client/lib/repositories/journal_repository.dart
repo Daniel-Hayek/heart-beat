@@ -33,12 +33,15 @@ class JournalRepository {
   }) async {
     try {
       final response = await _apiService.client.get(
-        '/journals',
-        queryParameters: {'id': id},
+        '/journals/$id',
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
       final data = response.data as List;
+
+      debugPrint("=======================================");
+      debugPrint("Journals fetched for $id");
+      debugPrint("=======================================");
 
       return data.map((json) => Journal.fromJson(json)).toList();
     } catch (e) {
