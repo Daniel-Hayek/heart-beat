@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateJournalDto } from './dto/create-journal.dto';
-import { UpdateJournalDto } from './dto/update-journal.dto';
 import { Journal } from 'src/entities/journal.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -34,17 +33,13 @@ export class JournalsService {
     return this.journalRepo.save(journal);
   }
 
-  findAll() {
-    return `This action returns all journals`;
+  async findAll() {
+    return await this.journalRepo.find({ relations: ['user'] });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} journal`;
-  }
-
-  update(id: number, updateJournalDto: UpdateJournalDto) {
-    return `This action updates a #${id} journal`;
-  }
+  // async findOne(id: number) {
+  //   const journal = this.journalRepo.findOne({})
+  // }
 
   remove(id: number) {
     return `This action removes a #${id} journal`;

@@ -21,10 +21,10 @@ export class JournalsController {
     return this.journalsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.journalsService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.journalsService.findOne(+id);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
