@@ -7,7 +7,6 @@ import 'package:heart_beat_client/providers/music_player_provider.dart';
 import 'package:heart_beat_client/providers/nav_provider.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
-import 'package:heart_beat_client/services/api_service.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {
