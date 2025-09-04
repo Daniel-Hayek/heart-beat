@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
@@ -40,7 +41,7 @@ class _WriteJournalScreenState extends State<WriteJournalScreen> {
         context,
       ).showSnackBar(AuthSnackBar(content: Text('Journal saved succesfully!')));
 
-      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, AppRoutes.journal);
     } catch (e) {
       ScaffoldMessenger.of(
         context,

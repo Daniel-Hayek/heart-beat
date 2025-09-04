@@ -35,4 +35,8 @@ class JournalProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void addJournal(Journal journal) {
+    _journals.add(journal);
+  }
 }

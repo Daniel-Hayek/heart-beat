@@ -36,6 +36,7 @@ class JournalListCard extends StatelessWidget {
         width: double.infinity,
         height: 160,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

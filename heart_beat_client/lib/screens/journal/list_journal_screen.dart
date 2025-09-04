@@ -23,7 +23,8 @@ class ListJournalScreen extends StatelessWidget {
                 : ListView.builder(
                     itemCount: journalProvider.journals.length,
                     itemBuilder: (context, index) {
-                      final journal = journalProvider.journals[index];
+                      final journal = journalProvider
+                          .journals[journalProvider.journals.length - index - 1];
                       return JournalListCard(
                         title: journal.title,
                         content: journal.content,
