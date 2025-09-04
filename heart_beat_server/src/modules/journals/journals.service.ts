@@ -57,5 +57,7 @@ export class JournalsService {
     if (result.affected == 0) {
       throw new NotFoundException(`Journal ${id} does not exist`);
     }
+
+    return `Journal ${id} deleted`;
   }
 }

@@ -1,15 +1,36 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { JournalsService } from './journals.service';
 import { CreateJournalDto } from './dto/create-journal.dto';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('Journal Endpoints')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 @Controller('journals')
 export class JournalsController {
   constructor(private readonly journalsService: JournalsService) {}
 
   @ApiOperation({ summary: 'Create a new journal entry for a user' })
   @ApiResponse({ status: 201, description: 'New journal created successfully' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
   @ApiResponse({ status: 404, description: 'No user with that ID' })
   @ApiBody({ type: CreateJournalDto })
   @Post()
@@ -24,6 +45,10 @@ export class JournalsController {
     status: 200,
     description: 'List of journals',
   })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
   @Get()
   findAll() {
     return this.journalsService.findAll();
@@ -35,6 +60,10 @@ export class JournalsController {
   @ApiResponse({
     status: 200,
     description: 'List of journals belonging to one user',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
   })
   @ApiResponse({ status: 404, description: 'No user with that ID' })
   @Get(':id')
@@ -48,6 +77,10 @@ export class JournalsController {
   @ApiResponse({
     status: 200,
     description: 'Journal deleted successfully',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
   })
   @ApiResponse({ status: 404, description: 'No journal with that ID' })
   @Delete(':id')

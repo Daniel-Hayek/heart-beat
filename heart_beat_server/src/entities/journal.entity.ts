@@ -33,6 +33,6 @@ export class Journal {
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
 
-  @ManyToOne(() => User, (user) => user.journals)
+  @ManyToOne(() => User, (user) => user.journals, { onDelete: 'CASCADE' })
   user: User;
 }
