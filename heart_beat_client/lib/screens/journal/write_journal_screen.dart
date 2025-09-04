@@ -63,35 +63,41 @@ class _WriteJournalScreenState extends State<WriteJournalScreen> {
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor,
       ),
-      body: Column(
-        children: [
-          Text(
-            "How was your experience today?",
-            style: TextStyle(
-              color: AppColors.primaryColor,
-              fontFamily: 'montserrat',
-              fontSize: 18,
-            ),
-          ),
-          TextFormField(
-            style: const TextStyle(color: Colors.white),
-            controller: _journalController,
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: AppColors.backgroundColor,
-              hintText: "What's on your mind...",
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 12,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "How was your experience today?",
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontFamily: 'montserrat',
+                fontSize: 18,
               ),
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            TextFormField(
+              controller: _journalController,
+              keyboardType: TextInputType.multiline,
+              maxLines: null, // allows unlimited lines
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: AppColors.backgroundColor,
+                hintText: "What's on your mind...",
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 12,
+                ),
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+              ),
+            ),
+            const SizedBox(height: 80), // extra space so FAB doesn't overlap
+          ],
+        ),
       ),
       floatingActionButton: PrimaryButton(
         onPressed: _createJournal,
