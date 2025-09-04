@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
+import 'package:heart_beat_client/providers/journal_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
@@ -18,6 +19,10 @@ class BaseJournalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authProvider = context.read<AuthProvider>();
     final userName = authProvider.userName;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<JournalProvider>().fetchJournals();
+    });
 
     return Scaffold(
       appBar: CustomAppBar(title: "Journal"),
