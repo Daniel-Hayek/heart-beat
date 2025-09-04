@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heart_beat_client/core/constants/app_theme.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
+import 'package:heart_beat_client/providers/journal_provider.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
 import 'package:heart_beat_client/providers/nav_provider.dart';
+import 'package:heart_beat_client/repositories/journal_repository.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
+import 'package:heart_beat_client/services/api_service.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
+
+  final journalRepo = JournalRepository();
 
   runApp(
     MultiProvider(
@@ -16,6 +21,16 @@ Future main() async {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => NavProvider()),
         ChangeNotifierProvider(create: (_) => MusicPlayerProvider()),
+        ChangeNotifierProxyProvider<AuthProvider, JournalProvider>(
+          create: (context) => JournalProvider(
+            journalRepo: journalRepo,
+            authProvider: context.read<AuthProvider>(),
+          ),
+          update: (context, auth, previous) => JournalProvider(
+            journalRepo: journalRepo,
+            authProvider: auth,
+          ),
+        ),
       ],
       child: const MyApp(),
     ),
