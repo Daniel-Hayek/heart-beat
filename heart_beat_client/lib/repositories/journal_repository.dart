@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/models/journal.dart';
 import 'package:heart_beat_client/services/api_service.dart';
 
 class JournalRepository {
@@ -26,4 +27,22 @@ class JournalRepository {
     }
   }
 
+  Future<List<Journal>> getJournals({
+    required String token,
+    required int id,
+  }) async {
+    try {
+      final response = await _apiService.client.get(
+        '/journals',
+        queryParameters: {'id': id},
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      final data = response.data as List;
+
+      return data.map((json) => Journal.fromJson(json)).toList();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
