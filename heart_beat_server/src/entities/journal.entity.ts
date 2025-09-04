@@ -14,7 +14,7 @@ export class Journal {
 
   @IsInt()
   @Column()
-  user_id: number;
+  userId: number;
 
   @IsOptional()
   @IsString()
