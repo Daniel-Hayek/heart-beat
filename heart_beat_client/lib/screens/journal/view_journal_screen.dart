@@ -22,6 +22,7 @@ class ViewJournalScreen extends StatelessWidget {
         children: [
           Text(
             date,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'montserrat',
               color: AppColors.primaryColor,

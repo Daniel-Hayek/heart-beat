@@ -5,6 +5,8 @@ import 'package:heart_beat_client/repositories/journal_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/journal/journal_list_card.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
 
 class ListJournalScreen extends StatefulWidget {
@@ -57,10 +59,17 @@ class _ListJournalScreenState extends State<ListJournalScreen> {
                     itemCount: journals.length,
                     itemBuilder: (context, index) {
                       final journal = journals[journals.length - index - 1];
+
+                      final formattedDate = DateFormat(
+                        'MMM d, yyyy',
+                      ).format(journal.createdAt);
+                      final relativeTime = timeago.format(journal.createdAt);
+                      final displayDate = '$formattedDate • $relativeTime';
+
                       return JournalListCard(
                         title: journal.title,
                         content: journal.content,
-                        date: journal.createdAt,
+                        date: displayDate,
                       );
                     },
                   ),

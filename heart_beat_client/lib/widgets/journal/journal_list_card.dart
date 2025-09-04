@@ -6,7 +6,7 @@ import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class JournalListCard extends StatelessWidget {
   final String title;
-  final DateTime date;
+  final String date;
   final String content;
 
   const JournalListCard({
