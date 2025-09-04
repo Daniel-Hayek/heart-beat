@@ -36,11 +36,20 @@ export class JournalsController {
     status: 200,
     description: 'List of journals belonging to one user',
   })
+  @ApiResponse({ status: 404, description: 'No user with that ID' })
   @Get(':id')
   findOne(@Param('id') userId: string) {
     return this.journalsService.findJournalsByUserId(+userId);
   }
 
+  @ApiOperation({
+    summary: 'Delete a journal by its ID',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Journal deleted successfully',
+  })
+  @ApiResponse({ status: 404, description: 'No journal with that ID' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.journalsService.remove(+id);

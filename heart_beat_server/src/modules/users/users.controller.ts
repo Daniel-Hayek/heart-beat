@@ -58,7 +58,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Delete a specific user by their ID' })
   @ApiResponse({
-    status: 204,
+    status: 200,
     description: 'User has been successfully deleted',
   })
   @ApiResponse({ status: 404, description: 'No user with such an ID found' })
