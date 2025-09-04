@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/models/journal.dart';
 import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
+import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/journal/journal_list_card.dart';
 
 class ListJournalScreen extends StatelessWidget {
-  const ListJournalScreen({super.key});
+  final List<Journal> journals;
+
+  const ListJournalScreen({super.key, required this.journals});
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +16,19 @@ class ListJournalScreen extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: 30),
-          Expanded(
-            child: ListView(
-              children: [
-                JournalListCard(),
-                JournalListCard(),
-                JournalListCard(),
-                JournalListCard(),
-                JournalListCard(),
-              ],
-            ),
-          ),
+          journals.isEmpty
+              ? Center(child: TitleText(text: "No Journals Yet", size: 20))
+              : ListView.builder(
+                  itemCount: journals.length,
+                  itemBuilder: (context, index) {
+                    final journal = journals[index];
+                    return JournalListCard(
+                      title: journal.title,
+                      content: journal.content,
+                      date: journal.createdAt,
+                    );
+                  },
+                ),
         ],
       ),
     );

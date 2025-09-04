@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
-import 'package:heart_beat_client/core/constants/sample_text.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class JournalListCard extends StatelessWidget {
-  const JournalListCard({super.key});
+  final String title;
+  final DateTime date;
+  final String content;
+
+  const JournalListCard({
+    super.key,
+    required this.title,
+    required this.content,
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +23,7 @@ class JournalListCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           AppRoutes.viewJournal,
-          arguments: {
-            'title': "Title",
-            'date': 'dd/mm/yy',
-            'text': SampleText.sampleText,
-          },
+          arguments: {'title': title, 'date': date, 'text': content},
         );
       },
       child: Container(
@@ -36,7 +40,7 @@ class JournalListCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TitleText(text: "Title", size: 17),
+                TitleText(text: title, size: 17),
                 TitleText(text: "Delete", size: 11),
               ],
             ),
@@ -44,11 +48,11 @@ class JournalListCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TitleText(text: "Mood", size: 13),
-                TitleText(text: "dd/mm/yy", size: 13),
+                TitleText(text: date.toString(), size: 13),
               ],
             ),
             SizedBox(height: 10),
-            BodyText(text: SampleText.sampleText, size: 13, maxLines: 4),
+            BodyText(text: content, size: 13, maxLines: 4),
           ],
         ),
       ),
