@@ -34,12 +34,22 @@ export class JournalsService {
   }
 
   async findAll() {
-    return await this.journalRepo.find({ relations: ['user'] });
+    return await this.journalRepo.find();
   }
 
-  // async findOne(id: number) {
-  //   const journal = this.journalRepo.findOne({})
-  // }
+  async findJournalsByUserId(userId: number) {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+
+    if (user == null) {
+      throw new NotFoundException('No user with that ID');
+    }
+
+    const journals = await this.journalRepo.find({
+      where: { user: { id: userId } },
+    });
+
+    return journals;
+  }
 
   remove(id: number) {
     return `This action removes a #${id} journal`;
