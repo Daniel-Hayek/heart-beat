@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:heart_beat_client/services/api_service.dart';
 
 class JournalRepository {
@@ -10,15 +11,27 @@ class JournalRepository {
     required String token,
   }) async {
     try {
-      await _apiService.client.get(
+      debugPrint("==================================================");
+      debugPrint("hello");
+      debugPrint(token);
+      debugPrint(id.toString());
+      debugPrint(content);
+      debugPrint("==================================================");
+
+      final response = await _apiService.client.post(
         '/journals',
-        queryParameters: {
+        
+        data: {
           'userId': id,
           'title': 'My Journal Entry',
           'content': content,
         },
-        options: Options(headers: {'Authorization': token}),
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
+
+      debugPrint(response.statusMessage);
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.data);
 
       return "Journal saved successfully";
     } catch (e) {
