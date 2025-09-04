@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 
 export class CreateJournalDto {
   @ApiProperty({
     description: 'The ID of the user who wrote the entry',
-    example: 20,
+    example: 21,
   })
-  @IsString()
+  @IsInt()
   userId: number;
 
   @ApiProperty({

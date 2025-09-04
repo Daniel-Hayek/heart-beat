@@ -1,20 +1,18 @@
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity('journals')
 export class Journal {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @IsInt()
-  @Column()
-  userId: number;
 
   @IsOptional()
   @IsString()
@@ -34,4 +32,7 @@ export class Journal {
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
+
+  @ManyToOne(() => User, (user) => user.journals)
+  user: User;
 }
