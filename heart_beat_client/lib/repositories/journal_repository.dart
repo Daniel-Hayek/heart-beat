@@ -11,31 +11,19 @@ class JournalRepository {
     required String token,
   }) async {
     try {
-      debugPrint("==================================================");
-      debugPrint("hello");
-      debugPrint(token);
-      debugPrint(id.toString());
-      debugPrint(content);
-      debugPrint("==================================================");
-
       final response = await _apiService.client.post(
         '/journals',
-        
-        data: {
-          'userId': id,
-          'title': 'My Journal Entry',
-          'content': content,
-        },
+
+        data: {'userId': id, 'title': 'My Journal Entry', 'content': content},
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
-      debugPrint(response.statusMessage);
       debugPrint(response.statusCode.toString());
-      debugPrint(response.data);
 
       return "Journal saved successfully";
     } catch (e) {
       throw Exception(e);
     }
   }
+
 }
