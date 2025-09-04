@@ -36,9 +36,18 @@ class BaseJournalScreen extends StatelessWidget {
               childAspectRatio: 160 / 200,
               padding: EdgeInsets.all(8),
               children: [
-                JournalHomeCard(),
-                JournalHomeCard(),
-                JournalHomeCard(),
+                JournalHomeCard(
+                  prompt:
+                      "What is something that happened this week that really bothered you? Why do you think it bothered you so much?",
+                ),
+                JournalHomeCard(
+                  prompt:
+                      "If you're feeling angry, what triggered this anger, and what is my reaction telling me? How would I like to respond to this situation ideally?",
+                ),
+                JournalHomeCard(
+                  prompt:
+                      "Rate your mood today on a scale of 1 to 10 and explain why. Which moments of the day changed your mood the most?",
+                ),
                 JournalHomeCard(),
               ],
             ),

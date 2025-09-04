@@ -4,7 +4,13 @@ import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class JournalHomeCard extends StatelessWidget {
-  const JournalHomeCard({super.key});
+  final String prompt;
+
+  const JournalHomeCard({
+    super.key,
+    this.prompt =
+        "Talk about your experience today, whether at work, school or at home. How did it make you feel?",
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +25,10 @@ class JournalHomeCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          TitleText(text: "Journal Entry #", size: 15),
+          TitleText(text: "Journal Prompt", size: 15),
           SizedBox(height: 8),
-          TitleText(text: "dd/mm/yy", size: 15),
           SizedBox(height: 15),
-          Row(
-            children: [
-              BodyText(text: "Journal Body Text", size: 14, maxLines: null),
-            ],
-          ),
+          BodyText(text: prompt, size: 16, maxLines: 10),
         ],
       ),
     );
