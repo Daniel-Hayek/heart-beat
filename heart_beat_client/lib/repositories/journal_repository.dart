@@ -64,4 +64,33 @@ class JournalRepository {
       throw Exception(e);
     }
   }
+
+  Future<Journal> getLatest({
+    required String token,
+    required int userId,
+  }) async {
+    try {
+      final response = await _apiService.client.get(
+        '/journals/latest/$userId',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      return Journal.fromJson(response.data);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<int> getNumber({required String token, required int userId}) async {
+    try {
+      final response = await _apiService.client.get(
+        '/journals/number/$userId',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      return response.data;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
