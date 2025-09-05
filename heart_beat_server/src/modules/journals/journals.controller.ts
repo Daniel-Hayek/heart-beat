@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { JournalsService } from './journals.service';
 import { CreateJournalDto } from './dto/create-journal.dto';
@@ -86,5 +87,22 @@ export class JournalsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.journalsService.remove(+id);
+  }
+
+  @ApiOperation({
+    summary: 'Get a user`s most recent journal',
+  })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Retrieved the most recent journal, or empty if the user has not written any journals',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
+  @Get('latest/:id')
+  getLatest(@Query('id') userId: string) {
+    return this.journalsService.getLatest(+userId);
   }
 }

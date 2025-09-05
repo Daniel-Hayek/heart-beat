@@ -4,7 +4,6 @@ import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
-import 'package:heart_beat_client/widgets/common/buttons/tertiary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:provider/provider.dart';

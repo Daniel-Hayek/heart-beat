@@ -60,4 +60,13 @@ export class JournalsService {
 
     return `Journal ${id} deleted`;
   }
+
+  async getLatest(userId: number) {
+    const result = await this.journalRepo.findOne({
+      where: { user: { id: userId } },
+      order: { created_at: 'DESC' },
+    });
+
+    return result;
+  }
 }
