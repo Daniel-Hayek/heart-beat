@@ -20,11 +20,11 @@ export class Song {
   artist: string;
 
   @IsString()
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   album: string | null;
 
   @IsString()
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   duration: number | null;
 
   @IsString()

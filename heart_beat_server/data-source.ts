@@ -1,10 +1,10 @@
 import { DataSource } from 'typeorm';
 import 'dotenv/config';
-import { User } from 'src/entities/user.entity';
-import { Journal } from 'src/entities/journal.entity';
-import { Song } from 'src/entities/song.entity';
-import { Mood } from 'src/entities/moods.entity';
-import { SongMood } from 'src/entities/song-moods.entity';
+import { User } from './src/entities/user.entity';
+import { Journal } from './src/entities/journal.entity';
+import { Song } from './src/entities/song.entity';
+import { Mood } from './src/entities/moods.entity';
+import { SongMood } from './src/entities/song-moods.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
