@@ -35,6 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
         token: authProvider.token!,
         userId: authProvider.userId!,
       );
+
+      if (!mounted) {
+        return;
+      }
+
       setState(() {
         latest = recent;
       });
