@@ -81,7 +81,24 @@ class _JournalListCardState extends State<JournalListCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TitleText(text: widget.title, size: 17),
-                TertiaryButton(onPressed: deleteCard, label: "Delete"),
+                TextButton(
+                  onPressed: deleteCard,
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size(0, 0),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  child: Text(
+                    "Delete",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 13,
+                      fontFamily: 'nunito',
+                      fontWeight: FontWeight.w300,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
               ],
             ),
             Row(
