@@ -3,6 +3,7 @@ import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
+import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/tertiary_button.dart';
 import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
@@ -13,6 +14,7 @@ class JournalListCard extends StatefulWidget {
   final String title;
   final String date;
   final String content;
+  final VoidCallback onDelete;
 
   const JournalListCard({
     super.key,
@@ -20,6 +22,7 @@ class JournalListCard extends StatefulWidget {
     required this.title,
     required this.content,
     required this.date,
+    required this.onDelete,
   });
 
   @override
@@ -31,12 +34,18 @@ class _JournalListCardState extends State<JournalListCard> {
 
   void deleteCard() async {
     try {
-      final authProvider = context.watch<AuthProvider>();
+      final authProvider = context.read<AuthProvider>();
 
       journalRepo.deleteJournals(
         token: authProvider.token!,
         journalId: widget.id,
       );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        AuthSnackBar(content: Text("Journal entry deleted successfully")),
+      );
+
+      widget.onDelete();
     } catch (e) {
       throw Exception(e);
     }
@@ -72,7 +81,7 @@ class _JournalListCardState extends State<JournalListCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TitleText(text: widget.title, size: 17),
-                TertiaryButton(onPressed: () {}, label: "Delete"),
+                TertiaryButton(onPressed: deleteCard, label: "Delete"),
               ],
             ),
             Row(

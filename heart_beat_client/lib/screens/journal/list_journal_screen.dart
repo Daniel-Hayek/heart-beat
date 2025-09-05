@@ -70,6 +70,11 @@ class _ListJournalScreenState extends State<ListJournalScreen> {
                         title: journal.title,
                         content: journal.content,
                         date: displayDate,
+                        onDelete: () {
+                          setState(() {
+                            journals.removeWhere((j) => j.id == journal.id);
+                          });
+                        },
                       );
                     },
                   ),
