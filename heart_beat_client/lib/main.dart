@@ -4,6 +4,7 @@ import 'package:heart_beat_client/core/constants/app_theme.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
 import 'package:heart_beat_client/providers/nav_provider.dart';
+import 'package:heart_beat_client/providers/stats_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,9 @@ Future main() async {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => NavProvider()),
         ChangeNotifierProvider(create: (_) => MusicPlayerProvider()),
+        ChangeNotifierProvider(
+          create: (context) => StatsProvider(context.read<AuthProvider>()),
+        ),
       ],
       child: const MyApp(),
     ),

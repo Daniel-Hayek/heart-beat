@@ -1,31 +1,31 @@
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Journal } from './journal.entity';
+import { User } from './user.entity';
 
-@Entity('users')
-export class User {
+@Entity('journals')
+export class Journal {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @IsOptional()
   @IsString()
   @Column()
-  name: string;
-
-  @IsEmail()
-  @Column({ unique: true })
-  email: string;
+  title: string;
 
   @IsString()
-  @MinLength(6)
+  @Column('text')
+  content: string;
+
+  @IsString()
   @Column()
-  password: string;
+  mood_detected: string;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
@@ -33,6 +33,6 @@ export class User {
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
 
-  @OneToMany(() => Journal, (journal) => journal.user)
-  journals: Journal[];
+  @ManyToOne(() => User, (user) => user.journals, { onDelete: 'CASCADE' })
+  user: User;
 }

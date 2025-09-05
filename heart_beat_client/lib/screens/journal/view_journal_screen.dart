@@ -18,26 +18,30 @@ class ViewJournalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(title: title),
-      body: Column(
-        children: [
-          Text(
-            date,
-            style: TextStyle(
-              fontFamily: 'montserrat',
-              color: AppColors.primaryColor,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * 0.02,
+          horizontal: MediaQuery.of(context).size.width * 0.05,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Text(
+                date,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'montserrat',
+                  color: AppColors.primaryColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(8),
-            margin: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            child: Text(
-              text,
-              style: TextStyle(fontFamily: 'nunito', fontSize: 16),
-            ),
-          ),
-        ],
+            const SizedBox(height: 20),
+            Text(text, style: TextStyle(fontFamily: 'nunito', fontSize: 16)),
+          ],
+        ),
       ),
     );
   }
