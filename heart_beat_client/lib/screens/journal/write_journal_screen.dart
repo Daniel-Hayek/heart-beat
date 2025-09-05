@@ -95,7 +95,7 @@ class _WriteJournalScreenState extends State<WriteJournalScreen> {
                 focusedBorder: InputBorder.none,
               ),
             ),
-            const SizedBox(height: 80), // extra space so FAB doesn't overlap
+            const SizedBox(height: 80),
           ],
         ),
       ),

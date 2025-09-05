@@ -23,7 +23,6 @@ class _ListJournalScreenState extends State<ListJournalScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch journals when the screen opens
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final authProvider = context.read<AuthProvider>();
 
@@ -67,6 +66,7 @@ class _ListJournalScreenState extends State<ListJournalScreen> {
                       final displayDate = '$formattedDate • $relativeTime';
 
                       return JournalListCard(
+                        id: journal.id,
                         title: journal.title,
                         content: journal.content,
                         date: displayDate,

@@ -48,4 +48,20 @@ class JournalRepository {
       throw Exception(e);
     }
   }
+
+  Future<String> deleteJournals({
+    required String token,
+    required int journalId,
+  }) async {
+    try {
+      final response = await _apiService.client.delete(
+        '/journals/$journalId',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      return response.data;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
