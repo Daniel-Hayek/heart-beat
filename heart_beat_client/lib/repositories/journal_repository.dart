@@ -81,7 +81,7 @@ class JournalRepository {
     }
   }
 
-  Future<int> getNumber({required String token, required int userId}) async {
+  Future<String> getNumber({required String token, required int userId}) async {
     try {
       final response = await _apiService.client.get(
         '/journals/number/$userId',

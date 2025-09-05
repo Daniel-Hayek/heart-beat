@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/providers/stats_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
@@ -7,20 +8,28 @@ import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/logos/small_logo.dart';
 import 'package:heart_beat_client/widgets/stats/stat_card.dart';
+import 'package:provider/provider.dart';
 
 class StatsScreen extends StatefulWidget {
   const StatsScreen({super.key});
-  
+
   @override
   State<StatsScreen> createState() => _StatsScreenState();
 }
 
 class _StatsScreenState extends State<StatsScreen> {
-
-
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<StatsProvider>().loadStats();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final stats = context.watch<StatsProvider>();
+
     return Scaffold(
       appBar: CustomAppBar(title: "Mood Tracking Stats"),
       drawer: SideBar(),
@@ -49,13 +58,19 @@ class _StatsScreenState extends State<StatsScreen> {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  StatCard(statType: "Journals Written", statNum: 200),
-                  StatCard(statType: "Quizzes Taken", statNum: 12),
+                  StatCard(
+                    statType: "Journals Written",
+                    statNum: stats.journals!,
+                  ),
+                  StatCard(statType: "Quizzes Taken", statNum: stats.quizzes!),
                   StatCard(
                     statType: "Phone Usage (Hours/7 days)",
-                    statNum: 100,
+                    statNum: stats.phoneUsage!,
                   ),
-                  StatCard(statType: "Average Heart Rate", statNum: 90),
+                  StatCard(
+                    statType: "Average Heart Rate",
+                    statNum: stats.avgHeartRate!,
+                  ),
                 ],
               ),
               SizedBox(height: 20),

@@ -14,7 +14,7 @@ class StatsProvider extends ChangeNotifier {
   int _avgHeartRate = 0;
   bool _isLoading = true;
 
-  int? get token => _journals;
+  int? get journals => _journals;
   int? get quizzes => _quizzes;
   int? get phoneUsage => _phoneUsage;
   int? get avgHeartRate => _avgHeartRate;
@@ -25,12 +25,15 @@ class StatsProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _journals = await _journalRepo.getNumber(
-        token: _authProvider.token!,
-        userId: _authProvider.userId!,
+      _journals = int.parse(
+        await _journalRepo.getNumber(
+          token: _authProvider.token!,
+          userId: _authProvider.userId!,
+        ),
       );
     } catch (e) {
-      _journals = 0;
+      _journals = 21;
+      throw Exception(e);
     }
 
     _isLoading = false;

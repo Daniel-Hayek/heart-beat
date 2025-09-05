@@ -17,9 +17,8 @@ Future main() async {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => NavProvider()),
         ChangeNotifierProvider(create: (_) => MusicPlayerProvider()),
-        ChangeNotifierProxyProvider<AuthProvider, StatsProvider>(
+        ChangeNotifierProvider(
           create: (context) => StatsProvider(context.read<AuthProvider>()),
-          update: (context, authProvider, statsProvider) => statsProvider!,
         ),
       ],
       child: const MyApp(),
