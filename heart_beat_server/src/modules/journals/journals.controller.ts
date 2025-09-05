@@ -101,8 +101,32 @@ export class JournalsController {
     status: 401,
     description: 'Unauthorized',
   })
+  @ApiResponse({
+    status: 404,
+    description: 'No user with that ID',
+  })
   @Get('latest/:id')
   getLatest(@Query('id') userId: string) {
     return this.journalsService.getLatest(+userId);
+  }
+
+  @ApiOperation({
+    summary: 'Return the total number of journals written by this user',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved the total number of journals',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No user with that ID',
+  })
+  @Get('number/id')
+  getNumber(@Query('id') userId: string) {
+    return this.journalsService.getNumber(+userId);
   }
 }

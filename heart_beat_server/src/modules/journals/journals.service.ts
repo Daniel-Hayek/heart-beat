@@ -62,9 +62,29 @@ export class JournalsService {
   }
 
   async getLatest(userId: number) {
+    const user = await this.journalRepo.find({ where: { id: userId } });
+
+    if (user == null) {
+      throw new NotFoundException('No user with that ID');
+    }
+
     const result = await this.journalRepo.findOne({
       where: { user: { id: userId } },
       order: { created_at: 'DESC' },
+    });
+
+    return result;
+  }
+
+  async getNumber(userId: number) {
+    const user = await this.journalRepo.find({ where: { id: userId } });
+
+    if (user == null) {
+      throw new NotFoundException('No user with that ID');
+    }
+
+    const result = await this.journalRepo.count({
+      where: { user: { id: userId } },
     });
 
     return result;
