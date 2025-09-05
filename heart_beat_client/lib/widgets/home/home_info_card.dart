@@ -4,7 +4,10 @@ import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class HomeInfoCard extends StatelessWidget {
-  const HomeInfoCard({super.key});
+  final String title;
+  final String content;
+
+  const HomeInfoCard({super.key, required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +21,10 @@ class HomeInfoCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          TitleText(text: "Home Screen Card", size: 20),
+          TitleText(text: title, size: 20),
           Row(
             children: [
-              BodyText(text: "Home Screen Text", size: 16, maxLines: null),
+              BodyText(text: content, size: 16, maxLines: null),
               SizedBox(),
             ],
           ),

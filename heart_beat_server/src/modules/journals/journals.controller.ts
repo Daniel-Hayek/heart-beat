@@ -6,7 +6,6 @@ import {
   Param,
   Delete,
   UseGuards,
-  Query,
 } from '@nestjs/common';
 import { JournalsService } from './journals.service';
 import { CreateJournalDto } from './dto/create-journal.dto';
@@ -106,7 +105,7 @@ export class JournalsController {
     description: 'No user with that ID',
   })
   @Get('latest/:id')
-  getLatest(@Query('id') userId: string) {
+  getLatest(@Param('id') userId: string) {
     return this.journalsService.getLatest(+userId);
   }
 
@@ -125,8 +124,8 @@ export class JournalsController {
     status: 404,
     description: 'No user with that ID',
   })
-  @Get('number/id')
-  getNumber(@Query('id') userId: string) {
+  @Get('number/:id')
+  getNumber(@Param('id') userId: string) {
     return this.journalsService.getNumber(+userId);
   }
 }

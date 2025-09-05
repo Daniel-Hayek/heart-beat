@@ -46,14 +46,6 @@ class AuthProvider extends ChangeNotifier {
     return _token;
   }
 
-  // String loadName() {
-  //   _userName = JwtDecoder.decode(_token!)['name'];
-
-  //   notifyListeners();
-
-  //   return _userName!;
-  // }
-
   void login(String token) async {
     _token = token;
     _userName = JwtDecoder.decode(_token!)['name'];
@@ -72,7 +64,6 @@ class AuthProvider extends ChangeNotifier {
     _userId = null;
 
     await _storage.delete(key: 'auth_token');
-    //_userEmail = null;
     notifyListeners();
   }
 }
