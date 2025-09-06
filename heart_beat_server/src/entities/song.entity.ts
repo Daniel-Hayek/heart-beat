@@ -21,10 +21,6 @@ export class Song {
 
   @IsString()
   @Column({ type: 'varchar', nullable: true })
-  album: string | null;
-
-  @IsString()
-  @Column({ type: 'varchar', nullable: true })
   duration: number | null;
 
   @IsString()
