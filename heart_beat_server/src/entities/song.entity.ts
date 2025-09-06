@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -19,7 +19,7 @@ export class Song {
   @Column()
   artist: string;
 
-  @IsString()
+  @IsInt()
   @Column({ type: 'varchar', nullable: true })
   duration: number | null;
 

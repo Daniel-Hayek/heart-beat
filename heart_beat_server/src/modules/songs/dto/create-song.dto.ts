@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, IsString } from 'class-validator';
 
 export class CreateSongDto {
   @ApiProperty({
@@ -16,19 +16,14 @@ export class CreateSongDto {
   @IsString()
   artist: string;
 
-  
-}
-
-
-
-  @IsString()
-  @Column({ type: 'varchar', nullable: true })
-  album: string | null;
-
-  @IsString()
-  @Column({ type: 'varchar', nullable: true })
+  @ApiProperty({ description: 'Duration of the song in seconds', example: 411 })
+  @IsInt()
   duration: number | null;
 
+  @ApiProperty({
+    description: 'Supabase path of the song',
+    example: 'Vibing%20Over%20Venus.mp3',
+  })
   @IsString()
-  @Column()
   song_url: string;
+}
