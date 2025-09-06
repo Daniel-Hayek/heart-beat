@@ -14,7 +14,7 @@ class SongRepository {
 
       debugPrint(response.data.toString());
 
-      return "Song fetched successfully";
+      return response.data;
     } catch (e) {
       throw Exception(e);
     }

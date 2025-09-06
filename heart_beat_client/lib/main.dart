@@ -16,7 +16,10 @@ Future main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => NavProvider()),
-        ChangeNotifierProvider(create: (_) => MusicPlayerProvider()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              MusicPlayerProvider(context.read<AuthProvider>()),
+        ),
         ChangeNotifierProvider(
           create: (context) => StatsProvider(context.read<AuthProvider>()),
         ),

@@ -1,12 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/providers/music_player_provider.dart';
+import 'package:heart_beat_client/repositories/song_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/common/scaffold/app_scaffold.dart';
 import 'package:heart_beat_client/widgets/playlist/music_track.dart';
+import 'package:provider/provider.dart';
 
-class ViewPlaylistScreen extends StatelessWidget {
+class ViewPlaylistScreen extends StatefulWidget {
   const ViewPlaylistScreen({super.key});
+
+  @override
+  State<ViewPlaylistScreen> createState() => _ViewPlaylistScreenState();
+}
+
+class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
+  //     final playerProvider = context.read<MusicPlayerProvider>();
+
+
+  //     final songRepo = SongRepository();
+  //     final fetchedJournals = await journalRepo.getJournals(
+  //       token: authProvider.token!,
+  //       id: authProvider.userId!,
+  //     );
+  //     setState(() {
+  //       journals = fetchedJournals;
+  //       isLoading = false;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
