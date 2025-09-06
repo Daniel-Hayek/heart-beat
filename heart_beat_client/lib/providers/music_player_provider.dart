@@ -38,7 +38,7 @@ class MusicPlayerProvider extends ChangeNotifier {
 
     _player.playerStateStream.listen((state) {
       if (state.processingState == ProcessingState.completed) {
-        _playNext();
+        playNext();
       }
     });
   }
@@ -100,7 +100,7 @@ class MusicPlayerProvider extends ChangeNotifier {
     // }
   }
 
-  void _playNext() {
+  void playNext() {
     if (_currentIndex + 1 < _playlist.length) {
       _currentIndex++;
       playSong(startIndex: _currentIndex);

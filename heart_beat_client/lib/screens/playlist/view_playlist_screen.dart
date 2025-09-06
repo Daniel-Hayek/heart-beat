@@ -58,7 +58,18 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                     TitleText(text: "12:34 min", size: 20),
                   ],
                 ),
-                Icon(CupertinoIcons.play_circle, size: 80, color: Colors.white),
+                IconButton(
+                  onPressed: () {
+                    context.read<MusicPlayerProvider>().playSong();
+                  },
+                  icon: Icon(
+                    CupertinoIcons.play_circle,
+                    size: 80,
+                    color: Colors.white,
+                  ),
+                  splashColor: Colors.white.withValues(alpha: 0.3),
+                  highlightColor: Colors.white.withValues(alpha: 0.1),
+                ),
               ],
             ),
             SizedBox(height: 150),

@@ -69,7 +69,16 @@ class MusicPlayer extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              Icon(Icons.skip_next_sharp, color: Colors.white, size: 42),
+              IconButton(
+                onPressed: () {
+                  playerProvider.playNext();
+                },
+                icon: Icon(
+                  Icons.skip_next_sharp,
+                  color: Colors.white,
+                  size: 42,
+                ),
+              ),
             ],
           ),
         ],
