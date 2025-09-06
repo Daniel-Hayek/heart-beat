@@ -7,14 +7,15 @@ import 'package:provider/provider.dart';
 
 class MusicTrack extends StatelessWidget {
   final Song song;
+  final int index;
 
-  const MusicTrack({super.key, required this.song});
+  const MusicTrack({super.key, required this.song, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        context.read<MusicPlayerProvider>().playSong(song);
+        context.read<MusicPlayerProvider>().playSong(startIndex: index);
 
         // Navigator.pushNamed(context, AppRoutes.musicTrack);
         debugPrint("Music selected");

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/models/song.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
+import 'package:heart_beat_client/providers/music_player_provider.dart';
 import 'package:heart_beat_client/repositories/song_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
@@ -31,6 +32,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
       );
       setState(() {
         songs = fetchedSongs;
+        context.read<MusicPlayerProvider>().setPlaylist(songs);
       });
     });
   }
@@ -66,7 +68,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                 itemBuilder: (context, index) {
                   final song = songs[index];
 
-                  return MusicTrack(song: song);
+                  return MusicTrack(song: song, index: index);
                 },
               ),
             ),
