@@ -1,5 +1,10 @@
 import { DataSource } from 'typeorm';
 import 'dotenv/config';
+import { User } from './src/entities/user.entity';
+import { Journal } from './src/entities/journal.entity';
+import { Song } from './src/entities/song.entity';
+import { Mood } from './src/entities/moods.entity';
+import { SongMood } from './src/entities/song-moods.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -8,6 +13,6 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME!,
   password: String(process.env.DB_PASSWORD!),
   database: process.env.DB_NAME!,
-  entities: ['src/entities/*.ts'],
+  entities: [User, Journal, Song, Mood, SongMood],
   migrations: ['src/database/migrations/*.ts'],
 });

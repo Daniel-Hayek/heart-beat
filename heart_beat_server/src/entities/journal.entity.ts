@@ -24,8 +24,8 @@ export class Journal {
   content: string;
 
   @IsString()
-  @Column()
-  mood_detected: string;
+  @Column({ type: 'varchar', nullable: true })
+  mood_detected: string | null;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
