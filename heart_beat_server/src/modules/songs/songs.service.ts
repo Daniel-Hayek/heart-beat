@@ -23,7 +23,9 @@ export class SongsService {
   }
 
   findAll() {
-    return `This action returns all songs`;
+    const songs = this.songRepo.find({});
+
+    return songs;
   }
 
   findOne(id: number) {
@@ -36,7 +38,7 @@ export class SongsService {
     return song;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} song`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} song`;
+  // }
 }

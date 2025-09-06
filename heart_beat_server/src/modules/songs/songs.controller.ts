@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongDto } from './dto/create-song.dto';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -19,6 +19,12 @@ export class SongsController {
     return this.songsService.create(createSongDto);
   }
 
+  @ApiOperation({ summary: 'Fetch all songs' })
+  @ApiResponse({ status: 200, description: 'Retrieved all songs' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
   @Get()
   findAll() {
     return this.songsService.findAll();
@@ -39,8 +45,8 @@ export class SongsController {
     return this.songsService.findOne(+id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.songsService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.songsService.remove(+id);
+  // }
 }
