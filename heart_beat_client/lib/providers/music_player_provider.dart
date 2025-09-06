@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/models/song.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/repositories/song_repository.dart';
+import 'package:heart_beat_client/services/supabase_service.dart';
+import 'package:just_audio/just_audio.dart';
 
 class MusicPlayerProvider extends ChangeNotifier {
   // final SongRepository _songRepo = SongRepository();
@@ -9,36 +11,47 @@ class MusicPlayerProvider extends ChangeNotifier {
 
   MusicPlayerProvider(this._authProvider);
 
-  String? title;
-  String? artist;
-  
-  // bool isPlaying = false;
+  final AudioPlayer _player = AudioPlayer();
 
-  // Future<Song> fetchSong() async {
-  //   try {
-  //     Song song = await _songRepo.getSong(id: 1, token: _authProvider.token!);
+  Song? _currentSong;
+  Song? get currentSong => _currentSong;
 
-  //     return song;
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
+  bool _isPlaying = false;
+  bool get isPlaying => _isPlaying;
 
-  void playSong(String songTitle, String songArtist) {
-    title = songTitle;
-    artist = songArtist;
+  void playSong(Song song) async {
+    _currentSong = song;
+    _isPlaying = true;
+
+    final fullUrl = SupabaseService.publicUrl(song.songUrl);
+
+    try {
+      await _player.setUrl(fullUrl);
+      _player.play();
+    } catch (e) {
+      throw Exception(e);
+    }
 
     notifyListeners();
   }
 
   void pause() {
+    _player.pause();
+    _isPlaying = false;
+
     notifyListeners();
   }
 
-  void stop() {
-    title = null;
-    artist = null;
+  // void stop() {
+  //   title = null;
+  //   artist = null;
 
-    notifyListeners();
+  //   notifyListeners();
+  // }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
   }
 }
