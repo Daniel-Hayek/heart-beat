@@ -36,7 +36,7 @@ class ViewPlaylistScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: List.generate(10, (index) {
-                  return MusicTrack(trackName: index.toString());
+                  return MusicTrack(trackName: index.toString(), duration: 100);
                 }),
               ),
             ),

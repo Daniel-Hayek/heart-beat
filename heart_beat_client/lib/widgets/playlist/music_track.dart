@@ -6,8 +6,13 @@ import 'package:provider/provider.dart';
 
 class MusicTrack extends StatelessWidget {
   final String trackName;
+  final int duration;
 
-  const MusicTrack({super.key, required this.trackName});
+  const MusicTrack({
+    super.key,
+    required this.trackName,
+    required this.duration,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +31,9 @@ class MusicTrack extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TitleText(text: "Song Name $trackName", size: 20),
+            TitleText(text: trackName, size: 20),
             Text(
-              "xx:xx",
+              duration.toString(),
               style: TextStyle(
                 fontFamily: 'montserrat',
                 fontWeight: FontWeight.w200,
