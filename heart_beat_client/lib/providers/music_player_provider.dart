@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/models/song.dart';
-import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/services/supabase_service.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicPlayerProvider extends ChangeNotifier {
-  // final SongRepository _songRepo = SongRepository();
-  final AuthProvider _authProvider;
-
-  MusicPlayerProvider(this._authProvider);
+  MusicPlayerProvider();
 
   final AudioPlayer _player = AudioPlayer();
 

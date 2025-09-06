@@ -26,9 +26,11 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
       final authProvider = context.read<AuthProvider>();
 
       final songRepo = SongRepository();
-      final song = await songRepo.getSong(id: 1, token: authProvider.token!);
+      final fetchedSongs = await songRepo.getAllSongs(
+        token: authProvider.token!,
+      );
       setState(() {
-        songs.add(song);
+        songs = fetchedSongs;
       });
     });
   }

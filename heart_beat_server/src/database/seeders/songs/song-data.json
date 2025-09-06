@@ -3,7 +3,7 @@
     "title": "Old Times pell",
     "artist": "AirFlow",
     "duration": 224,
-    "song_url": "OldTimespell.mp3"
+    "song_url": "OldTimesPell.flac"
   },
   {
     "title": "Shasha",
@@ -33,13 +33,13 @@
     "title": "Down the Rabbit Hole",
     "artist": "The Gray Room",
     "duration": 184,
-    "song_url": "Down%20the%20Rabbit%20Hole.mp3"
+    "song_url": "Down%20the%20Rabbit%20Hole"
   },
   {
     "title": "Missed the Free Throw",
     "artist": "E-Prosounds",
     "duration": 206,
-    "song_url": "Missed%20the%20Free%20Throw.mp3"
+    "song_url": "Missed%20The%20Free%20Throw.mp3"
   },
   {
     "title": "Water World",
@@ -69,7 +69,7 @@
     "title": "Boulevard St. Germain",
     "artist": "Jahzzar",
     "duration": 279,
-    "song_url": "Boulevard%20St.%20Germain.mp3"
+    "song_url": "Boulevard%20St%20Germain.mp3"
   },
   {
     "title": "Blooming Poison",
@@ -123,12 +123,12 @@
     "title": "Uplifting Ukelele",
     "artist": "Waveloom",
     "duration": 142,
-    "song_url": "Uplifting%20Ukelele.mp3"
+    "song_url": "Uplifting%20Ukulele.mp3"
   },
   {
     "title": "Dark Ambience",
     "artist": "YuraSloop",
     "duration": 168,
-    "song_url": "Dark%20Ambience.mp3"
+    "song_url": "Dark%20Ambient.mp3"
   }
 ]
