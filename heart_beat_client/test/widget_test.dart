@@ -7,6 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heart_beat_client/screens/home/home_screen.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/nav_provider.dart';
+
 import 'package:heart_beat_client/repositories/journal_repository.dart';
 
 // Mock classes
