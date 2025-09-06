@@ -4,6 +4,7 @@ import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { JournalsModule } from './modules/journals/journals.module';
+import { SongsModule } from './modules/songs/songs.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { JournalsModule } from './modules/journals/journals.module';
     AuthModule,
     UsersModule,
     JournalsModule,
+    SongsModule,
   ],
   controllers: [],
   providers: [],
