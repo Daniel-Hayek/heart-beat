@@ -64,10 +64,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                 itemBuilder: (context, index) {
                   final song = songs[index];
 
-                  return MusicTrack(
-                    trackName: song.title,
-                    duration: song.duration,
-                  );
+                  return MusicTrack(song: song);
                 },
               ),
             ),
