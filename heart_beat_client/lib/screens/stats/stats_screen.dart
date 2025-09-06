@@ -62,15 +62,9 @@ class _StatsScreenState extends State<StatsScreen> {
                     statType: "Journals Written",
                     statNum: stats.journals!,
                   ),
-                  StatCard(statType: "Quizzes Taken", statNum: stats.quizzes!),
-                  StatCard(
-                    statType: "Phone Usage (Hours/7 days)",
-                    statNum: stats.phoneUsage!,
-                  ),
-                  StatCard(
-                    statType: "Average Heart Rate",
-                    statNum: stats.avgHeartRate!,
-                  ),
+                  StatCard(statType: "Quizzes Taken", statNum: 0),
+                  StatCard(statType: "Phone Usage (Hours/7 days)", statNum: 0),
+                  StatCard(statType: "Average Heart Rate", statNum: 0),
                 ],
               ),
               SizedBox(height: 20),

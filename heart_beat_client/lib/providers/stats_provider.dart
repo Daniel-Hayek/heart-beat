@@ -9,15 +9,15 @@ class StatsProvider extends ChangeNotifier {
   StatsProvider(this._authProvider);
 
   int _journals = 0;
-  int _quizzes = 0;
-  int _phoneUsage = 0;
-  int _avgHeartRate = 0;
+  // int _quizzes = 0;
+  // int _phoneUsage = 0;
+  // int _avgHeartRate = 0;
   bool _isLoading = true;
 
   int? get journals => _journals;
-  int? get quizzes => _quizzes;
-  int? get phoneUsage => _phoneUsage;
-  int? get avgHeartRate => _avgHeartRate;
+  // int? get quizzes => _quizzes;
+  // int? get phoneUsage => _phoneUsage;
+  // int? get avgHeartRate => _avgHeartRate;
   bool get isLoading => _isLoading;
 
   void loadStats() async {
