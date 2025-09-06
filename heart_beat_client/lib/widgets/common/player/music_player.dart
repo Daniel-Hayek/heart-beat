@@ -23,7 +23,7 @@ class MusicPlayer extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TitleText(text: "00:40", size: 14),
+              TitleText(text: playerProvider.formattedPosition, size: 14),
               IconButton(
                 onPressed: () {
                   if (playerProvider.isPlaying) {
@@ -45,11 +45,11 @@ class MusicPlayer extends StatelessWidget {
           Column(
             children: [
               TitleText(
-                text: playerProvider.currentSong?.title ?? "test",
+                text: playerProvider.currentSong?.title ?? "",
                 size: 16,
               ),
               Text(
-                playerProvider.currentSong?.artist ?? "Test",
+                playerProvider.currentSong?.artist ?? "",
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.7),
                   fontFamily: 'montserrat',
@@ -62,7 +62,7 @@ class MusicPlayer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                playerProvider.currentSong?.duration.toString() ?? "test",
+                playerProvider.formattedTotalDuration,
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.6),
                   fontFamily: 'montserrat',

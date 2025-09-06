@@ -4,8 +4,6 @@ import 'package:heart_beat_client/services/supabase_service.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicPlayerProvider extends ChangeNotifier {
-  MusicPlayerProvider();
-
   final AudioPlayer _player = AudioPlayer();
 
   Song? _currentSong;
@@ -13,6 +11,24 @@ class MusicPlayerProvider extends ChangeNotifier {
 
   bool _isPlaying = false;
   bool get isPlaying => _isPlaying;
+
+  Duration _currentPosition = Duration.zero;
+  Duration get currentPosition => _currentPosition;
+
+  Duration _totalDuration = Duration.zero;
+  Duration get totalDuration => _totalDuration;
+
+  MusicPlayerProvider() {
+    _player.positionStream.listen((position) {
+      _currentPosition = position;
+      notifyListeners();
+    });
+
+    _player.durationStream.listen((duration) {
+      _totalDuration = duration ?? Duration.zero;
+      notifyListeners();
+    });
+  }
 
   void playSong(Song song) async {
     _currentSong = song;
@@ -50,6 +66,15 @@ class MusicPlayerProvider extends ChangeNotifier {
 
   //   notifyListeners();
   // }
+
+  String get formattedPosition => _formatDuration(_currentPosition);
+  String get formattedTotalDuration => _formatDuration(_totalDuration);
+
+  String _formatDuration(Duration duration) {
+    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
 
   @override
   void dispose() {
