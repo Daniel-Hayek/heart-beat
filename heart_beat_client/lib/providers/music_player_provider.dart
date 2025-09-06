@@ -41,6 +41,13 @@ class MusicPlayerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void resume() {
+    _player.play();
+    _isPlaying = true;
+
+    notifyListeners();
+  }
+
   // void stop() {
   //   title = null;
   //   artist = null;

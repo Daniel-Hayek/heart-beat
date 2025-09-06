@@ -15,7 +15,7 @@ class MusicPlayer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(color: AppColors.secondaryColor),
       width: double.infinity,
-      height: 80,
+      height: 100,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,9 +26,19 @@ class MusicPlayer extends StatelessWidget {
               TitleText(text: "00:40", size: 14),
               IconButton(
                 onPressed: () {
-                  playerProvider.pause();
+                  if (playerProvider.isPlaying) {
+                    playerProvider.pause();
+                  } else {
+                    playerProvider.resume();
+                  }
                 },
-                icon: Icon(CupertinoIcons.pause, size: 30, color: Colors.white),
+                icon: Icon(
+                  playerProvider.isPlaying
+                      ? CupertinoIcons.pause
+                      : CupertinoIcons.play_arrow_solid,
+                  size: 30,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),
@@ -52,7 +62,7 @@ class MusicPlayer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "02:03",
+                playerProvider.currentSong?.duration.toString() ?? "test",
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.6),
                   fontFamily: 'montserrat',
