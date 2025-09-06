@@ -4,8 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:heart_beat_client/screens/home/home_screen.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/nav_provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() async {
+    await dotenv.load(fileName: ".env");
+  });
+  
   testWidgets('HomeScreen renders with providers', (WidgetTester tester) async {
     // Wrap HomeScreen with both providers it needs
     await tester.pumpWidget(
