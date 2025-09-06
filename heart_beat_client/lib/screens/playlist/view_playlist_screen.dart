@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/providers/music_player_provider.dart';
+import 'package:heart_beat_client/models/song.dart';
+import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/repositories/song_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
@@ -16,24 +17,21 @@ class ViewPlaylistScreen extends StatefulWidget {
 }
 
 class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
-  //     final playerProvider = context.read<MusicPlayerProvider>();
+  List<Song> songs = [];
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final authProvider = context.read<AuthProvider>();
 
-  //     final songRepo = SongRepository();
-  //     final fetchedJournals = await journalRepo.getJournals(
-  //       token: authProvider.token!,
-  //       id: authProvider.userId!,
-  //     );
-  //     setState(() {
-  //       journals = fetchedJournals;
-  //       isLoading = false;
-  //     });
-  //   });
-  // }
+      final songRepo = SongRepository();
+      final song = await songRepo.getSong(id: 1, token: authProvider.token!);
+      setState(() {
+        songs.add(song);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +59,16 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
             ),
             SizedBox(height: 150),
             Expanded(
-              child: ListView(
-                children: List.generate(10, (index) {
-                  return MusicTrack(trackName: index.toString(), duration: 100);
-                }),
+              child: ListView.builder(
+                itemCount: songs.length,
+                itemBuilder: (context, index) {
+                  final song = songs[index];
+
+                  return MusicTrack(
+                    trackName: song.title,
+                    duration: song.duration,
+                  );
+                },
               ),
             ),
           ],
