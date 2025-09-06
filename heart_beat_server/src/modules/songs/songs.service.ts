@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSongDto } from './dto/create-song.dto';
 import { Song } from 'src/entities/song.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -27,7 +27,13 @@ export class SongsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} song`;
+    const song = this.songRepo.findOne({ where: { id } });
+
+    if (song == null) {
+      throw new NotFoundException('No song with such an ID');
+    }
+
+    return song;
   }
 
   remove(id: number) {

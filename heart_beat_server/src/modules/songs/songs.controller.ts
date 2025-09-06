@@ -24,6 +24,16 @@ export class SongsController {
     return this.songsService.findAll();
   }
 
+  @ApiOperation({ summary: 'Fetch a song`s metadata' })
+  @ApiResponse({ status: 200, description: 'Metadata retrieved' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No song with such an ID',
+  })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.songsService.findOne(+id);
