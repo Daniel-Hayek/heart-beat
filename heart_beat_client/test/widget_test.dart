@@ -20,7 +20,7 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   // Load dotenv env manually for tests
-  await dotenv.load(fileName: 'test/.env.test');
+  await dotenv.load(fileName: '.env.test');
 
   testWidgets('HomeScreen renders safely with mocked providers', (
     WidgetTester tester,
