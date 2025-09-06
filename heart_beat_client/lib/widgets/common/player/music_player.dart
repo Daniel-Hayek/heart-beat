@@ -24,14 +24,22 @@ class MusicPlayer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TitleText(text: "00:40", size: 14),
-              Icon(CupertinoIcons.pause, size: 30, color: Colors.white),
+              IconButton(
+                onPressed: () {
+                  playerProvider.pause();
+                },
+                icon: Icon(CupertinoIcons.pause, size: 30, color: Colors.white),
+              ),
             ],
           ),
           Column(
             children: [
-              TitleText(text: playerProvider.title ?? "Unknown Track", size: 16),
+              TitleText(
+                text: playerProvider.currentSong?.title ?? "test",
+                size: 16,
+              ),
               Text(
-                playerProvider.artist ?? "Unknown Artist",
+                playerProvider.currentSong?.artist ?? "Test",
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.7),
                   fontFamily: 'montserrat',
