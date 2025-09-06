@@ -15,7 +15,7 @@ class MusicPlayer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(color: AppColors.secondaryColor),
       width: double.infinity,
-      height: 80,
+      height: 100,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -23,15 +23,33 @@ class MusicPlayer extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TitleText(text: "00:40", size: 14),
-              Icon(CupertinoIcons.pause, size: 30, color: Colors.white),
+              TitleText(text: playerProvider.formattedPosition, size: 14),
+              IconButton(
+                onPressed: () {
+                  if (playerProvider.isPlaying) {
+                    playerProvider.pause();
+                  } else {
+                    playerProvider.resume();
+                  }
+                },
+                icon: Icon(
+                  playerProvider.isPlaying
+                      ? CupertinoIcons.pause
+                      : CupertinoIcons.play_arrow_solid,
+                  size: 30,
+                  color: Colors.white,
+                ),
+              ),
             ],
           ),
           Column(
             children: [
-              TitleText(text: playerProvider.title ?? "Unknown Track", size: 16),
+              TitleText(
+                text: playerProvider.currentSong?.title ?? "",
+                size: 16,
+              ),
               Text(
-                playerProvider.artist ?? "Unknown Artist",
+                playerProvider.currentSong?.artist ?? "",
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.7),
                   fontFamily: 'montserrat',
@@ -44,14 +62,23 @@ class MusicPlayer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "02:03",
+                playerProvider.formattedTotalDuration,
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.6),
                   fontFamily: 'montserrat',
                   fontSize: 14,
                 ),
               ),
-              Icon(Icons.skip_next_sharp, color: Colors.white, size: 30),
+              IconButton(
+                onPressed: () {
+                  playerProvider.playNext();
+                },
+                icon: Icon(
+                  Icons.skip_next_sharp,
+                  color: Colors.white,
+                  size: 42,
+                ),
+              ),
             ],
           ),
         ],

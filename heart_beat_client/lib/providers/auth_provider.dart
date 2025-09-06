@@ -8,11 +8,13 @@ class AuthProvider extends ChangeNotifier {
   String? _token;
   String? _userName;
   String? _email;
+  int? _userId;
   bool _isLoading = true;
 
   String? get token => _token;
   String? get userName => _userName;
   String? get email => _email;
+  int? get userId => _userId;
   bool get isLoggedIn => _token != null;
   bool get isLoading => _isLoading;
 
@@ -30,9 +32,11 @@ class AuthProvider extends ChangeNotifier {
     if (_token != null) {
       _userName = JwtDecoder.decode(_token!)['name'];
       _email = JwtDecoder.decode(_token!)['email'];
+      _userId = JwtDecoder.decode(_token!)['sub'];
     } else {
       _token = null;
       _userName = null;
+      _userId = null;
     }
 
     _isLoading = false;
@@ -42,18 +46,11 @@ class AuthProvider extends ChangeNotifier {
     return _token;
   }
 
-  // String loadName() {
-  //   _userName = JwtDecoder.decode(_token!)['name'];
-
-  //   notifyListeners();
-
-  //   return _userName!;
-  // }
-
   void login(String token) async {
     _token = token;
     _userName = JwtDecoder.decode(_token!)['name'];
     _email = JwtDecoder.decode(_token!)['email'];
+    _userId = JwtDecoder.decode(_token!)['sub'];
 
     await _storage.write(key: 'auth_token', value: token);
 
@@ -64,9 +61,9 @@ class AuthProvider extends ChangeNotifier {
     _token = null;
     _userName = null;
     _email = null;
+    _userId = null;
 
     await _storage.delete(key: 'auth_token');
-    //_userEmail = null;
     notifyListeners();
   }
 }

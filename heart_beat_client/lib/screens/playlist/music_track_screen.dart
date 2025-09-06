@@ -27,9 +27,12 @@ class MusicTrackScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 40),
-          TitleText(text: playerProvider.title ?? "Unknown Track", size: 20),
+          TitleText(
+            text: playerProvider.currentSong?.title ?? "test",
+            size: 20,
+          ),
           Text(
-            playerProvider.artist ?? "Unknown artist",
+            playerProvider.currentSong?.artist ?? "test",
             style: TextStyle(
               fontFamily: 'montserrat',
               fontSize: 15,

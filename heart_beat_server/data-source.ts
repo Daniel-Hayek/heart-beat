@@ -1,13 +1,18 @@
-import { User } from 'src/entities/user.entity';
 import { DataSource } from 'typeorm';
+import 'dotenv/config';
+import { User } from './src/entities/user.entity';
+import { Journal } from './src/entities/journal.entity';
+import { Song } from './src/entities/song.entity';
+import { Mood } from './src/entities/moods.entity';
+import { SongMood } from './src/entities/song-moods.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: '12345',
-  database: 'heartbeat_db',
-  entities: [User],
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT!),
+  username: process.env.DB_USERNAME!,
+  password: String(process.env.DB_PASSWORD!),
+  database: process.env.DB_NAME!,
+  entities: [User, Journal, Song, Mood, SongMood],
   migrations: ['src/database/migrations/*.ts'],
 });
