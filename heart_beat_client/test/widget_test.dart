@@ -12,6 +12,7 @@ import 'package:heart_beat_client/repositories/journal_repository.dart';
 
 // Mock classes
 class MockAuthProvider extends Mock implements AuthProvider {}
+
 class MockJournalRepository extends Mock implements JournalRepository {}
 
 Future<void> main() async {
@@ -19,10 +20,11 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   // Load dotenv env manually for tests
-  dotenv.env['API_URL'] = 'http://localhost:3000';
-  dotenv.env['OTHER_KEY'] = 'dummy_value';
+  await dotenv.load(fileName: 'test/.env.test');
 
-  testWidgets('HomeScreen renders safely with mocked providers', (WidgetTester tester) async {
+  testWidgets('HomeScreen renders safely with mocked providers', (
+    WidgetTester tester,
+  ) async {
     // Create mocks
     final mockAuthProvider = MockAuthProvider();
     final mockRepo = MockJournalRepository();
