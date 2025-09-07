@@ -18,10 +18,6 @@ export class Playlist {
   @Column()
   name: string;
 
-  @IsString()
-  @Column({ nullable: true })
-  description: string | null;
-
   @IsBoolean()
   @Column()
   is_auto_generated: boolean;

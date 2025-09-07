@@ -1,11 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
-import { UpdatePlaylistDto } from './dto/update-playlist.dto';
+import { Playlist } from 'src/entities/playlist.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from 'src/entities/user.entity';
+import { PlaylistResponseDto } from './dto/playlist-response.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class PlaylistService {
-  create(createPlaylistDto: CreatePlaylistDto) {
-    return 'This action adds a new playlist';
+  constructor(
+    @InjectRepository(Playlist)
+    private readonly playlistRepo: Repository<Playlist>,
+
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
+  ) {}
+
+  async create(createPlaylistDto: CreatePlaylistDto) {
+    const user = await this.userRepo.findOne({
+      where: { id: createPlaylistDto.userId },
+    });
+
+    if (user == null) {
+      throw new NotFoundException('No user with such an ID');
+    }
+
+    const playlist = this.playlistRepo.create({
+      name: createPlaylistDto.name,
+      user,
+    });
+
+    const response = this.playlistRepo.save(playlist);
+
+    return plainToInstance(PlaylistResponseDto, response, {
+      excludeExtraneousValues: true,
+    });
   }
 
   findAll() {
@@ -14,13 +44,5 @@ export class PlaylistService {
 
   findOne(id: number) {
     return `This action returns a #${id} playlist`;
-  }
-
-  update(id: number, updatePlaylistDto: UpdatePlaylistDto) {
-    return `This action updates a #${id} playlist`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} playlist`;
   }
 }
