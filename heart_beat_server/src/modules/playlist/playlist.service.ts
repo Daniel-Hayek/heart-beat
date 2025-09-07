@@ -39,7 +39,7 @@ export class PlaylistService {
   }
 
   findAll() {
-    return `This action returns all playlist`;
+    return this.playlistRepo.find();
   }
 
   findOne(id: number) {
