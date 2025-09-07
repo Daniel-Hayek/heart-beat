@@ -27,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
     createdAt: DateTime.now(),
   );
 
+  Playlist recentPlaylist = Playlist(id: 0, name: "");
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
       debugPrint(temp[0].name);
 
       playlistProvider.setPlaylists(temp);
+
+      recentPlaylist = temp[temp.length - 1];
 
       if (!mounted) {
         return;
@@ -86,7 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: 'Recent Journal Entry',
                   content: latest.content,
                 ),
-                HomeInfoCard(title: "Title", content: "Content"),
+                HomeInfoCard(
+                  title: 'Recent Playlist',
+                  content: recentPlaylist.name,
+                ),
                 HomeInfoCard(title: "Title", content: "Content"),
               ],
             ),
