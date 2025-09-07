@@ -57,6 +57,8 @@ describe('SongsService', () => {
         song_url: dto.song_url,
         created_at: new Date(),
         updated_at: new Date(),
+        playlistSongs: [],
+        user: mockUser,
       } as Song;
 
       (userRepo.findOne as jest.Mock).mockResolvedValue(mockUser);
