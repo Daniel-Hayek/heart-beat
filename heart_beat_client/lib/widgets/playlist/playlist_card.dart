@@ -58,6 +58,7 @@ class PlaylistCard extends StatelessWidget {
                 onPressed: () {
                   context.read<PlaylistProvider>().setActivePlaylist(
                     playlistId,
+                    playlistName,
                   );
 
                   Navigator.pushNamed(context, AppRoutes.viewPlaylist);

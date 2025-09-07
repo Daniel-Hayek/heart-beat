@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_beat_client/models/song.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
+import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/repositories/song_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
@@ -25,9 +26,11 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final authProvider = context.read<AuthProvider>();
+      final playlistProvider = context.read<PlaylistProvider>();
 
       final songRepo = SongRepository();
-      final fetchedSongs = await songRepo.getAllSongs(
+      final fetchedSongs = await songRepo.getPlaylistSongs(
+        playlistId: playlistProvider.activePlaylistId,
         token: authProvider.token!,
       );
       setState(() {
@@ -53,7 +56,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    TitleText(text: "Playlist Title", size: 29),
+                    TitleText(text: context.read<PlaylistProvider>().activePlaylistName, size: 29),
                     TitleText(text: "No of Songs", size: 24),
                     TitleText(text: "12:34 min", size: 20),
                   ],
