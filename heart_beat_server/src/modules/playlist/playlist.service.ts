@@ -42,6 +42,20 @@ export class PlaylistService {
     return this.playlistRepo.find();
   }
 
+  async findPlaylistsByUserId(userId: number) {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+
+    if (user == null) {
+      throw new NotFoundException('No user with that ID');
+    }
+
+    const playlists = await this.playlistRepo.find({
+      where: { user: { id: userId } },
+    });
+
+    return playlists;
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} playlist`;
   }

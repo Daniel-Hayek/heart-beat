@@ -40,22 +40,22 @@ export class PlaylistController {
     return this.playlistService.findAll();
   }
 
-  // @ApiOperation({
-  //   summary: 'Return a journal entries by a user`s ID',
-  // })
-  // @ApiResponse({
-  //   status: 200,
-  //   description: 'List of journals belonging to one user',
-  // })
-  // @ApiResponse({
-  //   status: 401,
-  //   description: 'Unauthorized',
-  // })
-  // @ApiResponse({ status: 404, description: 'No user with that ID' })
-  // @Get(':id')
-  // findOneByUser(@Param('id') userId: string) {
-  //   return this.playlistService.findPlaylistsByUserId(+userId);
-  // }
+  @ApiOperation({
+    summary: 'Return all playlists by a user`s ID',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of playlists belonging to one user',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
+  @ApiResponse({ status: 404, description: 'No user with that ID' })
+  @Get(':id')
+  findOneByUser(@Param('id') userId: string) {
+    return this.playlistService.findPlaylistsByUserId(+userId);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
