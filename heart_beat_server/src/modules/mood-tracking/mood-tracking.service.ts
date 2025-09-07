@@ -1,26 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMoodTrackingDto } from './dto/create-mood-tracking.dto';
-import { UpdateMoodTrackingDto } from './dto/update-mood-tracking.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/entities/user.entity';
+import { MoodTracking } from 'src/entities/mood-tracking.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MoodTrackingService {
-  create(createMoodTrackingDto: CreateMoodTrackingDto) {
+  constructor(
+    @InjectRepository(MoodTracking)
+    private readonly trackingRepo: Repository<MoodTracking>,
+
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
+  ) {}
+
+  async create(createMoodTrackingDto: CreateMoodTrackingDto) {
+    const user = await this.userRepo.findOne({
+      where: { id: createMoodTrackingDto.userId },
+    });
+
+    if (user == null) {
+      throw new NotFoundException('No user with such an ID');
+    }
+
     return 'This action adds a new moodTracking';
   }
 
-  findAll() {
-    return `This action returns all moodTracking`;
-  }
-
-  findOne(id: number) {
+  getMoodsByUserId(id: number) {
     return `This action returns a #${id} moodTracking`;
-  }
-
-  update(id: number, updateMoodTrackingDto: UpdateMoodTrackingDto) {
-    return `This action updates a #${id} moodTracking`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} moodTracking`;
   }
 }

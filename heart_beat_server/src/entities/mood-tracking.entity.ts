@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsInt, IsString, Max, Min } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -21,9 +21,11 @@ export class MoodTracking {
   @Column()
   mood: string;
 
-  @IsString()
+  @IsInt()
   @Column()
-  score: string;
+  @Min(0)
+  @Max(10)
+  score: number;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;
