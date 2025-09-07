@@ -7,6 +7,7 @@ import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
+import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/common/logos/small_logo.dart';
 import 'package:heart_beat_client/widgets/stats/stat_card.dart';
 import 'package:heart_beat_client/widgets/stats/stats_chart.dart';
@@ -49,6 +50,7 @@ class _StatsScreenState extends State<StatsScreen> {
             children: [
               SizedBox(height: 30),
               SmallLogo(),
+              TitleText(text: "Your Mood Scores", size: 24),
               SizedBox(
                 height: 250,
                 width: MediaQuery.of(context).size.width * 0.85,
