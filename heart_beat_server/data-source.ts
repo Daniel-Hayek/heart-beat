@@ -7,6 +7,7 @@ import { Mood } from './src/entities/moods.entity';
 import { SongMood } from './src/entities/song-moods.entity';
 import { Playlist } from './src/entities/playlist.entity';
 import { PlaylistSong } from './src/entities/playlist-song.entity';
+import { MoodTracking } from './src/entities/mood-tracking.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -15,6 +16,15 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME!,
   password: String(process.env.DB_PASSWORD!),
   database: process.env.DB_NAME!,
-  entities: [User, Journal, Song, Mood, SongMood, Playlist, PlaylistSong],
+  entities: [
+    User,
+    Journal,
+    Song,
+    Mood,
+    SongMood,
+    Playlist,
+    PlaylistSong,
+    MoodTracking,
+  ],
   migrations: ['src/database/migrations/*.ts'],
 });
