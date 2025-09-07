@@ -55,11 +55,12 @@ class _StatsScreenState extends State<StatsScreen> {
               SmallLogo(),
               TitleText(text: "Your Mood Scores", size: 24),
               SizedBox(
-                height: 250,
-                width: MediaQuery.of(context).size.width * 0.85,
+                height: 300,
+                width: MediaQuery.of(context).size.width * 0.9,
                 child: StatsChart(
                   scores: [4, 6, 7, 5, 8, 3, 9],
                   days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                  moods: moodTracker.lastSeven(),
                 ),
               ),
               GridView.count(

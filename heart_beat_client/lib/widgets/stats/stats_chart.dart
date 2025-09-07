@@ -1,28 +1,46 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/models/mood_tracking.dart';
 
 class StatsChart extends StatelessWidget {
   final List<int> scores;
   final List<String> days;
+  final List<MoodTracking> moods;
 
-  const StatsChart({super.key, required this.scores, required this.days});
+  const StatsChart({
+    super.key,
+    required this.scores,
+    required this.days,
+    required this.moods,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final spots = List.generate(
+      moods.length,
+      (i) => FlSpot(i.toDouble(), moods[i].score.toDouble()),
+    );
+
+    // Generate the labels for the bottom axis
+    final labels = moods
+        .map((mood) => "${mood.timestamp.day}/${mood.timestamp.month}")
+        .toList();
+
     return SizedBox.expand(
       child: LineChart(
         LineChartData(
           minY: 0,
           maxY: 10,
           titlesData: FlTitlesData(
-            leftTitles: AxisTitles(
+            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
                   final index = value.toInt();
 
-                  if (index < 0 || index >= days.length) return Container();
-                  return Text(days[index]);
+                  if (index < 0 || index >= labels.length) return Container();
+                  return Text(labels[index]);
                 },
               ),
             ),
@@ -33,10 +51,7 @@ class StatsChart extends StatelessWidget {
             LineChartBarData(
               isCurved: true,
               barWidth: 3,
-              spots: List.generate(
-                scores.length,
-                (i) => FlSpot(i.toDouble(), scores[i].toDouble()),
-              ),
+              spots: spots,
               dotData: FlDotData(show: true),
               color: Colors.blue,
             ),
