@@ -6,6 +6,8 @@ import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class PlaylistCard extends StatelessWidget {
+  final String playlistName;
+
   final List<Color> colors = [
     Colors.red,
     Colors.blue,
@@ -14,7 +16,7 @@ class PlaylistCard extends StatelessWidget {
     Colors.pink,
   ];
 
-  PlaylistCard({super.key});
+  PlaylistCard({super.key, required this.playlistName});
 
   Color getRandomColor() {
     final Random random = Random();
@@ -38,8 +40,8 @@ class PlaylistCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleText(text: "Playlist Name", size: 28),
-              TitleText(text: "Artists, Artist, Art", size: 20),
+              TitleText(text: playlistName, size: 30),
+              // TitleText(text: "Artists, Artist, Art", size: 20),
             ],
           ),
           Row(

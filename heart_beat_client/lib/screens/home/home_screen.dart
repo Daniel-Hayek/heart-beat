@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         authProvider.userId!,
       );
 
-      debugPrint(temp.length.toString());
+      debugPrint(temp[0].name);
 
       playlistProvider.setPlaylists(temp);
 
