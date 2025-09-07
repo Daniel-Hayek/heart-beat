@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/core/helpers/time_converter.dart';
 import 'package:heart_beat_client/models/song.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
@@ -20,6 +21,7 @@ class ViewPlaylistScreen extends StatefulWidget {
 
 class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
   List<Song> songs = [];
+  int totalDuration = 0;
 
   @override
   void initState() {
@@ -33,6 +35,11 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
         playlistId: playlistProvider.activePlaylistId,
         token: authProvider.token!,
       );
+
+      for (final s in fetchedSongs) {
+        totalDuration += s.duration;
+      }
+
       setState(() {
         songs = fetchedSongs;
         context.read<MusicPlayerProvider>().setPlaylist(songs);
@@ -60,8 +67,12 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                       text: context.read<PlaylistProvider>().activePlaylistName,
                       size: 29,
                     ),
-                    TitleText(text: "No of Songs", size: 24),
-                    TitleText(text: "12:34 min", size: 20),
+                    TitleText(text: "${songs.length} songs", size: 24),
+                    TitleText(
+                      text:
+                          "${TimeConverter.convertTime(totalDuration)} minutes",
+                      size: 20,
+                    ),
                   ],
                 ),
                 IconButton(
