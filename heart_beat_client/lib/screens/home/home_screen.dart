@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/models/journal.dart';
+import 'package:heart_beat_client/models/playlist.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
+import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
+import 'package:heart_beat_client/repositories/playlist_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
@@ -29,7 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final authProvider = context.read<AuthProvider>();
+      final playlistProvider = context.read<PlaylistProvider>();
+
       final journalRepo = JournalRepository();
+      final playlistRepo = PlaylistRepository();
 
       final recent = await journalRepo.getLatest(
         token: authProvider.token!,
@@ -39,6 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
       if (!mounted) {
         return;
       }
+
+      List<Playlist> temp = await playlistRepo.getAllPlaylists(
+        authProvider.token!,
+        authProvider.userId!,
+      );
+
+      debugPrint(temp.length.toString());
+
+      playlistProvider.setPlaylists(temp);
 
       setState(() {
         latest = recent;

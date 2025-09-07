@@ -5,4 +5,8 @@ class PlaylistProvider extends ChangeNotifier {
   List<Playlist> _playlists = [];
 
   List<Playlist> get playlists => _playlists;
+
+  void setPlaylists(List<Playlist> list) {
+    _playlists = list;
+  }
 }
