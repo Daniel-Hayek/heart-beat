@@ -3,8 +3,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { PlaylistSong } from './playlist-song.entity';
 
 @Entity('songs')
 export class Song {
@@ -29,4 +31,7 @@ export class Song {
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
+
+  @OneToMany(() => PlaylistSong, (playlistSong) => playlistSong.song)
+  playlistSongs: PlaylistSong[];
 }

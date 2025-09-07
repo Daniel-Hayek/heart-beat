@@ -4,10 +4,12 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { PlaylistSong } from './playlist-song.entity';
 
 @Entity('playlists')
 export class Playlist {
@@ -30,4 +32,9 @@ export class Playlist {
 
   @ManyToOne(() => User, (user) => user.playlists, { onDelete: 'CASCADE' })
   user: User;
+
+  @OneToMany(() => PlaylistSong, (playlistSong) => playlistSong.playlist, {
+    cascade: true,
+  })
+  playlistSongs: PlaylistSong[];
 }
