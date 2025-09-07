@@ -35,4 +35,22 @@ class SongRepository {
       throw Exception(e);
     }
   }
+
+  Future<List<Song>> getPlaylistSongs({
+    required String token,
+    required int playlistId,
+  }) async {
+    try {
+      final response = await _apiService.client.get(
+        '/playlist-song/$playlistId',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      final data = response.data as List;
+
+      return data.map((json) => Song.fromJson(json)).toList();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

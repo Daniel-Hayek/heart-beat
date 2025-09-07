@@ -47,7 +47,10 @@ class PlaylistHomeScreen extends StatelessWidget {
                       top: index * overlap,
                       left: 0,
                       right: 0,
-                      child: PlaylistCard(playlistName: playlists[index].name),
+                      child: PlaylistCard(
+                        playlistName: playlists[index].name,
+                        playlistId: playlists[index].id,
+                      ),
                     );
                   }),
                 ),

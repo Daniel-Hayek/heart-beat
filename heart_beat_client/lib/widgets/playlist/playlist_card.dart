@@ -2,11 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
+import 'package:provider/provider.dart';
 
 class PlaylistCard extends StatelessWidget {
   final String playlistName;
+  final int playlistId;
 
   final List<Color> colors = [
     Colors.red,
@@ -16,7 +19,11 @@ class PlaylistCard extends StatelessWidget {
     Colors.pink,
   ];
 
-  PlaylistCard({super.key, required this.playlistName});
+  PlaylistCard({
+    super.key,
+    required this.playlistName,
+    required this.playlistId,
+  });
 
   Color getRandomColor() {
     final Random random = Random();
@@ -49,6 +56,10 @@ class PlaylistCard extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
+                  context.read<PlaylistProvider>().setActivePlaylist(
+                    playlistId,
+                  );
+
                   Navigator.pushNamed(context, AppRoutes.viewPlaylist);
                 },
                 icon: Icon(
