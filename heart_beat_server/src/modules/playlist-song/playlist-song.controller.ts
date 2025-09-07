@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { PlaylistSongService } from './playlist-song.service';
 import { CreatePlaylistSongDto } from './dto/create-playlist-song.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -13,14 +13,14 @@ export class PlaylistSongController {
     return this.playlistSongService.create(createPlaylistSongDto);
   }
 
-  @Get()
-  findAll() {
-    return this.playlistSongService.findAll();
+  @Get(':id')
+  getSongsInPlaylist(@Param('id') playlistId: string) {
+    return this.playlistSongService.getSongsInPlaylist(+playlistId);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.playlistSongService.findOne(+id);
+  // @Get()
+  // findAll() {
+  //   return this.playlistSongService.findAll();
   // }
 
   // @Patch(':id')

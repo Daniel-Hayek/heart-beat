@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePlaylistSongDto } from './dto/create-playlist-song.dto';
-import { UpdatePlaylistSongDto } from './dto/update-playlist-song.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Playlist } from 'src/entities/playlist.entity';
 import { Repository } from 'typeorm';
@@ -50,19 +49,27 @@ export class PlaylistSongService {
     return this.playlistSongRepo.save(playlistSong);
   }
 
-  findAll() {
-    return `This action returns all playlistSong`;
+  async getSongsInPlaylist(playlistId: number) {
+    const playlistSongs = await this.playlistSongRepo.find({
+      where: { playlist: { id: playlistId } },
+      relations: ['song'],
+      order: { orderIndex: 'ASC' },
+    });
+
+    const songs = playlistSongs.map((playlistSong) => playlistSong.song);
+
+    return songs;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} playlistSong`;
-  }
+  // findAll() {
+  //   return `This action returns all playlistSong`;
+  // }
 
-  update(id: number, updatePlaylistSongDto: UpdatePlaylistSongDto) {
-    return `This action updates a #${id} playlistSong`;
-  }
+  // update(id: number, updatePlaylistSongDto: UpdatePlaylistSongDto) {
+  //   return `This action updates a #${id} playlistSong`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} playlistSong`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} playlistSong`;
+  // }
 }
