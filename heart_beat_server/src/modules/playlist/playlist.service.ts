@@ -55,8 +55,4 @@ export class PlaylistService {
 
     return playlists;
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} playlist`;
-  }
 }

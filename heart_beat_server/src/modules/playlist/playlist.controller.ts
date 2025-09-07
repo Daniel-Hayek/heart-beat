@@ -1,9 +1,18 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('Playlist Endpoints')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 @Controller('playlist')
 export class PlaylistController {
   constructor(private readonly playlistService: PlaylistService) {}
@@ -55,11 +64,6 @@ export class PlaylistController {
   @Get(':id')
   findOneByUser(@Param('id') userId: string) {
     return this.playlistService.findPlaylistsByUserId(+userId);
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.playlistService.findOne(+id);
   }
 
   // @Patch(':id')
