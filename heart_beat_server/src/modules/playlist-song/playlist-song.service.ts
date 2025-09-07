@@ -56,6 +56,10 @@ export class PlaylistSongService {
       order: { orderIndex: 'ASC' },
     });
 
+    if (playlistSongs == null) {
+      throw new NotFoundException('No such playlist ID');
+    }
+
     const songs = playlistSongs.map((playlistSong) => playlistSong.song);
 
     return songs;
