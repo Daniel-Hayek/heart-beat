@@ -55,6 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
       playlistProvider.setPlaylists(temp);
 
+      if (!mounted) {
+        return;
+      }
+
       setState(() {
         latest = recent;
       });

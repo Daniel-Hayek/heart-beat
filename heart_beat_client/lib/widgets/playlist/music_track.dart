@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/core/helpers/time_converter.dart';
 import 'package:heart_beat_client/models/song.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
 // import 'package:heart_beat_client/routes/app_routes.dart';
@@ -27,7 +28,7 @@ class MusicTrack extends StatelessWidget {
           children: [
             TitleText(text: song.title, size: 20),
             Text(
-              song.duration.toString(),
+              TimeConverter.convertTime(song.duration),
               style: TextStyle(
                 fontFamily: 'montserrat',
                 fontWeight: FontWeight.w200,
