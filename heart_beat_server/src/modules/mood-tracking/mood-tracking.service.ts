@@ -31,10 +31,18 @@ export class MoodTrackingService {
       user,
     });
 
-    return moodTracking;
+    return this.trackingRepo.save(moodTracking);
   }
 
   getMoodsByUserId(id: number) {
-    return `This action returns a #${id} moodTracking`;
+    const user = this.userRepo.findOne({ where: { id } });
+
+    if (user == null) {
+      throw new NotFoundException('No user with such an ID');
+    }
+
+    const moodTrackings = this.trackingRepo.find({ where: { user: { id } } });
+
+    return moodTrackings;
   }
 }
