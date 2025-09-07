@@ -42,8 +42,8 @@ export class MoodTrackingService {
     return this.trackingRepo.save(moodTracking);
   }
 
-  getMoodsByUserId(id: number) {
-    const user = this.userRepo.findOne({ where: { id } });
+  async getMoodsByUserId(id: number) {
+    const user = await this.userRepo.findOne({ where: { id } });
 
     if (user == null) {
       throw new NotFoundException('No user with such an ID');

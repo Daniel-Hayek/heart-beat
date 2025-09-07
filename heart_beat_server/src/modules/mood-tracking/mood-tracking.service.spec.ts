@@ -127,7 +127,7 @@ describe('MoodTrackingService', () => {
 
     it('should throw NotFoundException if user does not exist', async () => {
       (userRepo.findOne as jest.Mock).mockResolvedValue(null);
-      await expect(service.getMoodsByUserId(99)).rejects.toThrow(
+      await expect(service.getMoodsByUserId(9999)).rejects.toThrow(
         NotFoundException,
       );
     });
