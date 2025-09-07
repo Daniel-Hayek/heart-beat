@@ -56,7 +56,10 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    TitleText(text: context.read<PlaylistProvider>().activePlaylistName, size: 29),
+                    TitleText(
+                      text: context.read<PlaylistProvider>().activePlaylistName,
+                      size: 29,
+                    ),
                     TitleText(text: "No of Songs", size: 24),
                     TitleText(text: "12:34 min", size: 20),
                   ],
@@ -77,14 +80,24 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
             ),
             SizedBox(height: 150),
             Expanded(
-              child: ListView.builder(
-                itemCount: songs.length,
-                itemBuilder: (context, index) {
-                  final song = songs[index];
-
-                  return MusicTrack(song: song, index: index);
-                },
-              ),
+              child: songs.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "No songs available",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                          fontFamily: 'nunito',
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: songs.length,
+                      itemBuilder: (context, index) {
+                        final song = songs[index];
+                        return MusicTrack(song: song, index: index);
+                      },
+                    ),
             ),
           ],
         ),

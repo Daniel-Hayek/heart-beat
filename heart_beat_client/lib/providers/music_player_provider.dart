@@ -45,6 +45,10 @@ class MusicPlayerProvider extends ChangeNotifier {
   }
 
   void playSong({int startIndex = 0}) async {
+    if (_playlist.isEmpty) {
+      return;
+    }
+
     _currentIndex = startIndex;
     _isPlaying = true;
 
@@ -87,7 +91,6 @@ class MusicPlayerProvider extends ChangeNotifier {
       TimeConverter.convertTime(_currentPosition.inSeconds);
   String get formattedTotalDuration =>
       TimeConverter.convertTime(_totalDuration.inSeconds);
-
 
   void setPlaylist(List<Song> songs) {
     _playlist = songs;
