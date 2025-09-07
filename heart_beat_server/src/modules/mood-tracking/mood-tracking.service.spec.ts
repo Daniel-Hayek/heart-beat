@@ -64,7 +64,12 @@ describe('MoodTrackingService', () => {
       expect(userRepo.findOne).toHaveBeenCalledWith({
         where: { id: dto.userId },
       });
-      expect(moodRepo.create).toHaveBeenCalledWith({ user: mockUser, ...dto });
+      expect(moodRepo.create).toHaveBeenCalledWith({
+        user: mockUser,
+        score: dto.score,
+        mood: dto.mood,
+        source: dto.source,
+      });
       expect(moodRepo.save).toHaveBeenCalledWith(mockMood);
     });
 
@@ -121,7 +126,6 @@ describe('MoodTrackingService', () => {
       expect(userRepo.findOne).toHaveBeenCalledWith({ where: { id: 21 } });
       expect(moodRepo.find).toHaveBeenCalledWith({
         where: { user: { id: 21 } },
-        order: { createdAt: 'ASC' },
       });
     });
 
