@@ -8,5 +8,7 @@ class MoodTrackingProvider extends ChangeNotifier {
 
   void setMoods(List<MoodTracking> moods) {
     _userMoods = moods;
+
+    notifyListeners();
   }
 }

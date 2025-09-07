@@ -9,6 +9,7 @@ import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:heart_beat_client/widgets/common/buttons/primary_button.dart';
 import 'package:heart_beat_client/widgets/common/logos/small_logo.dart';
 import 'package:heart_beat_client/widgets/stats/stat_card.dart';
+import 'package:heart_beat_client/widgets/stats/stats_chart.dart';
 import 'package:provider/provider.dart';
 
 class StatsScreen extends StatefulWidget {
@@ -50,10 +51,10 @@ class _StatsScreenState extends State<StatsScreen> {
               SmallLogo(),
               SizedBox(
                 height: 250,
-                width: 330,
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(color: AppColors.secondaryColor),
+                width: MediaQuery.of(context).size.width * 0.85,
+                child: StatsChart(
+                  scores: [4, 6, 7, 5, 8, 3, 9],
+                  days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                 ),
               ),
               GridView.count(

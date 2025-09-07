@@ -96,6 +96,8 @@ class MusicPlayerProvider extends ChangeNotifier {
     _playlist = songs;
     _currentIndex = 0;
 
+    notifyListeners();
+
     // if (_playlist.isNotEmpty) {
     //   playSong(_playlist[_currentIndex]);
     // }

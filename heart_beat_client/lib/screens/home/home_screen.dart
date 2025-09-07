@@ -32,12 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
   MoodTracking recentMood = MoodTracking(
     id: 0,
     source: "",
-    mood: "",
+    mood: "No Mood Data Found",
     score: 0,
     timestamp: DateTime.now(),
   );
 
-  Playlist recentPlaylist = Playlist(id: 0, name: "");
+  Playlist recentPlaylist = Playlist(id: 0, name: "No Playlist Found");
 
   @override
   void initState() {
