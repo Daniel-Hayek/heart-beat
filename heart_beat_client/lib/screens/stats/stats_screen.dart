@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/providers/mood_tracking_provider.dart';
 import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/providers/stats_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
@@ -36,6 +36,9 @@ class _StatsScreenState extends State<StatsScreen> {
   @override
   Widget build(BuildContext context) {
     final stats = context.watch<StatsProvider>();
+    final moodTracker = context.watch<MoodTrackingProvider>();
+
+    debugPrint(moodTracker.lastSeven().toString());
 
     return Scaffold(
       appBar: CustomAppBar(title: "Mood Tracking Stats"),
