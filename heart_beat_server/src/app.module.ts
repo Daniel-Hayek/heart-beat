@@ -7,6 +7,7 @@ import { JournalsModule } from './modules/journals/journals.module';
 import { SongsModule } from './modules/songs/songs.module';
 import { PlaylistModule } from './modules/playlist/playlist.module';
 import { PlaylistSongModule } from './modules/playlist-song/playlist-song.module';
+import { MoodTrackingModule } from './modules/mood-tracking/mood-tracking.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { PlaylistSongModule } from './modules/playlist-song/playlist-song.module
     SongsModule,
     PlaylistModule,
     PlaylistSongModule,
+    MoodTrackingModule,
   ],
   controllers: [],
   providers: [],
