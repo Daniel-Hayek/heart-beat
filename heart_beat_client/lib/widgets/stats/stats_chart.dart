@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/models/mood_tracking.dart';
 
 class StatsChart extends StatelessWidget {
@@ -45,7 +46,7 @@ class StatsChart extends StatelessWidget {
               ),
             ),
           ),
-          gridData: FlGridData(show: true),
+          gridData: FlGridData(show: false),
           borderData: FlBorderData(show: true),
           lineBarsData: [
             LineChartBarData(
@@ -53,7 +54,7 @@ class StatsChart extends StatelessWidget {
               barWidth: 3,
               spots: spots,
               dotData: FlDotData(show: true),
-              color: Colors.blue,
+              color: AppColors.primaryColor,
             ),
           ],
         ),

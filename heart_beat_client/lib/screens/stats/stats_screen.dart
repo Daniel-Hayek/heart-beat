@@ -38,8 +38,6 @@ class _StatsScreenState extends State<StatsScreen> {
     final stats = context.watch<StatsProvider>();
     final moodTracker = context.watch<MoodTrackingProvider>();
 
-    debugPrint(moodTracker.lastSeven().toString());
-
     return Scaffold(
       appBar: CustomAppBar(title: "Mood Tracking Stats"),
       drawer: SideBar(),

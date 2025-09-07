@@ -13,12 +13,17 @@ class MoodTrackingProvider extends ChangeNotifier {
   }
 
   List<MoodTracking> lastSeven() {
+    List<MoodTracking> temp = [];
     List<MoodTracking> seven = [];
 
     for (int i = 0; i < 7 && i < _userMoods.length; i++) {
-      seven.add(_userMoods[_userMoods.length - i - 1]);
+      temp.add(_userMoods[_userMoods.length - i - 1]);
     }
 
+    for (int i = 0; i < temp.length; i++) {
+      seven.add(temp[temp.length - i - 1]);
+    }
+    
     return seven;
   }
 }
