@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateMoodTrackingDto } from './dto/create-mood-tracking.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
@@ -22,6 +26,10 @@ export class MoodTrackingService {
 
     if (user == null) {
       throw new NotFoundException('No user with such an ID');
+    }
+
+    if (createMoodTrackingDto.score > 10 || createMoodTrackingDto.score < 0) {
+      throw new BadRequestException('Score can only be between 0 and 10');
     }
 
     const moodTracking = this.trackingRepo.create({
