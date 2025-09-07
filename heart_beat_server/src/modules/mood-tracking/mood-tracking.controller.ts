@@ -13,6 +13,6 @@ export class MoodTrackingController {
 
   @Get(':id')
   getMoodsByUserId(@Param('id') id: string) {
-    return this.moodTrackingService.findOne(+id);
+    return this.moodTrackingService.getMoodsByUserId(+id);
   }
 }

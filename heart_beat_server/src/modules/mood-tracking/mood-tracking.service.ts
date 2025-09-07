@@ -24,7 +24,14 @@ export class MoodTrackingService {
       throw new NotFoundException('No user with such an ID');
     }
 
-    return 'This action adds a new moodTracking';
+    const moodTracking = this.trackingRepo.create({
+      source: createMoodTrackingDto.source,
+      mood: createMoodTrackingDto.mood,
+      score: createMoodTrackingDto.score,
+      user,
+    });
+
+    return moodTracking;
   }
 
   getMoodsByUserId(id: number) {
