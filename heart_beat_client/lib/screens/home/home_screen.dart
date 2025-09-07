@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/models/journal.dart';
+import 'package:heart_beat_client/models/playlist.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
+import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
+import 'package:heart_beat_client/repositories/playlist_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
@@ -24,17 +27,37 @@ class _HomeScreenState extends State<HomeScreen> {
     createdAt: DateTime.now(),
   );
 
+  Playlist recentPlaylist = Playlist(id: 0, name: "");
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final authProvider = context.read<AuthProvider>();
+      final playlistProvider = context.read<PlaylistProvider>();
+
       final journalRepo = JournalRepository();
+      final playlistRepo = PlaylistRepository();
 
       final recent = await journalRepo.getLatest(
         token: authProvider.token!,
         userId: authProvider.userId!,
       );
+
+      if (!mounted) {
+        return;
+      }
+
+      List<Playlist> temp = await playlistRepo.getAllPlaylists(
+        authProvider.token!,
+        authProvider.userId!,
+      );
+
+      debugPrint(temp[0].name);
+
+      playlistProvider.setPlaylists(temp);
+
+      recentPlaylist = temp[temp.length - 1];
 
       if (!mounted) {
         return;
@@ -67,7 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: 'Recent Journal Entry',
                   content: latest.content,
                 ),
-                HomeInfoCard(title: "Title", content: "Content"),
+                HomeInfoCard(
+                  title: 'Recent Playlist',
+                  content: recentPlaylist.name,
+                ),
                 HomeInfoCard(title: "Title", content: "Content"),
               ],
             ),

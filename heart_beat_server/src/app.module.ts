@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { JournalsModule } from './modules/journals/journals.module';
 import { SongsModule } from './modules/songs/songs.module';
+import { PlaylistModule } from './modules/playlist/playlist.module';
+import { PlaylistSongModule } from './modules/playlist-song/playlist-song.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { SongsModule } from './modules/songs/songs.module';
     UsersModule,
     JournalsModule,
     SongsModule,
+    PlaylistModule,
+    PlaylistSongModule,
   ],
   controllers: [],
   providers: [],

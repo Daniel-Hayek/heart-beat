@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/core/helpers/time_converter.dart';
 import 'package:heart_beat_client/models/song.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
+import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/repositories/song_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/simple_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
@@ -19,17 +21,25 @@ class ViewPlaylistScreen extends StatefulWidget {
 
 class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
   List<Song> songs = [];
+  int totalDuration = 0;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final authProvider = context.read<AuthProvider>();
+      final playlistProvider = context.read<PlaylistProvider>();
 
       final songRepo = SongRepository();
-      final fetchedSongs = await songRepo.getAllSongs(
+      final fetchedSongs = await songRepo.getPlaylistSongs(
+        playlistId: playlistProvider.activePlaylistId,
         token: authProvider.token!,
       );
+
+      for (final s in fetchedSongs) {
+        totalDuration += s.duration;
+      }
+
       setState(() {
         songs = fetchedSongs;
         context.read<MusicPlayerProvider>().setPlaylist(songs);
@@ -53,9 +63,16 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    TitleText(text: "Playlist Title", size: 29),
-                    TitleText(text: "No of Songs", size: 24),
-                    TitleText(text: "12:34 min", size: 20),
+                    TitleText(
+                      text: context.read<PlaylistProvider>().activePlaylistName,
+                      size: 29,
+                    ),
+                    TitleText(text: "${songs.length} songs", size: 24),
+                    TitleText(
+                      text:
+                          "${TimeConverter.convertTime(totalDuration)} minutes",
+                      size: 20,
+                    ),
                   ],
                 ),
                 IconButton(
@@ -74,14 +91,24 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
             ),
             SizedBox(height: 150),
             Expanded(
-              child: ListView.builder(
-                itemCount: songs.length,
-                itemBuilder: (context, index) {
-                  final song = songs[index];
-
-                  return MusicTrack(song: song, index: index);
-                },
-              ),
+              child: songs.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "No songs available",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                          fontFamily: 'nunito',
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: songs.length,
+                      itemBuilder: (context, index) {
+                        final song = songs[index];
+                        return MusicTrack(song: song, index: index);
+                      },
+                    ),
             ),
           ],
         ),

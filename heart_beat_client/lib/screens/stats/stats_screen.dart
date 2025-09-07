@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
+import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/providers/stats_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
@@ -18,10 +19,14 @@ class StatsScreen extends StatefulWidget {
 }
 
 class _StatsScreenState extends State<StatsScreen> {
+  int playlists = 0;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      playlists = context.read<PlaylistProvider>().playlists.length;
+
       context.read<StatsProvider>().loadStats();
     });
   }
@@ -62,7 +67,7 @@ class _StatsScreenState extends State<StatsScreen> {
                     statType: "Journals Written",
                     statNum: stats.journals!,
                   ),
-                  StatCard(statType: "Quizzes Taken", statNum: 0),
+                  StatCard(statType: "Playlists Created", statNum: playlists),
                   StatCard(statType: "Phone Usage (Hours/7 days)", statNum: 0),
                   StatCard(statType: "Average Heart Rate", statNum: 0),
                 ],

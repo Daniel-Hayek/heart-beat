@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/core/helpers/time_converter.dart';
 import 'package:heart_beat_client/models/song.dart';
 import 'package:heart_beat_client/services/supabase_service.dart';
 import 'package:just_audio/just_audio.dart';
@@ -44,6 +45,10 @@ class MusicPlayerProvider extends ChangeNotifier {
   }
 
   void playSong({int startIndex = 0}) async {
+    if (_playlist.isEmpty) {
+      return;
+    }
+
     _currentIndex = startIndex;
     _isPlaying = true;
 
@@ -82,14 +87,10 @@ class MusicPlayerProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  String get formattedPosition => _formatDuration(_currentPosition);
-  String get formattedTotalDuration => _formatDuration(_totalDuration);
-
-  String _formatDuration(Duration duration) {
-    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
-    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return '$minutes:$seconds';
-  }
+  String get formattedPosition =>
+      TimeConverter.convertTime(_currentPosition.inSeconds);
+  String get formattedTotalDuration =>
+      TimeConverter.convertTime(_totalDuration.inSeconds);
 
   void setPlaylist(List<Song> songs) {
     _playlist = songs;
