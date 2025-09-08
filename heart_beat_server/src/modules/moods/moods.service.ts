@@ -1,11 +1,29 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateMoodDto } from './dto/create-mood.dto';
 import { UpdateMoodDto } from './dto/update-mood.dto';
+import { Mood } from 'src/entities/moods.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MoodsService {
-  create(createMoodDto: CreateMoodDto) {
-    return 'This action adds a new mood';
+  constructor(
+    @InjectRepository(Mood)
+    private readonly moodRepo: Repository<Mood>,
+  ) {}
+
+  async create(createMoodDto: CreateMoodDto) {
+    const exists = await this.moodRepo.findOne({
+      where: { name: createMoodDto.name },
+    });
+
+    if (exists != null) {
+      throw new ConflictException('That mood label already exists');
+    }
+
+    const mood = this.moodRepo.create({ name: createMoodDto.name });
+
+    return this.moodRepo.save(mood);
   }
 
   findAll() {

@@ -1,12 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MoodController } from './moods.controller';
-import { MoodService } from './moods.service';
+import { MoodsController } from './moods.controller';
+import { MoodsService } from './moods.service';
+import { MoodsModule } from './moods.module';
+import { CreateMoodDto } from './dto/create-mood.dto';
 
-describe('MoodController', () => {
-  let controller: MoodController;
-  let service: MoodService;
+describe('MoodsController', () => {
+  let controller: MoodsController;
+  let service: MoodsService;
 
-  const mockMood = { id: 1, mood: 'Happy' };
+  const mockMood = { id: 1, name: 'Happy' };
 
   const mockService = {
     create: jest.fn(),
@@ -18,12 +20,13 @@ describe('MoodController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [MoodController],
-      providers: [{ provide: MoodService, useValue: mockService }],
+      imports: [MoodsModule],
+      controllers: [MoodsController],
+      providers: [{ provide: MoodsService, useValue: mockService }],
     }).compile();
 
-    controller = module.get<MoodController>(MoodController);
-    service = module.get<MoodService>(MoodService);
+    controller = module.get<MoodsController>(MoodsController);
+    service = module.get<MoodsService>(MoodsService);
   });
 
   afterEach(() => {
@@ -36,10 +39,13 @@ describe('MoodController', () => {
 
   describe('create', () => {
     it('should call service.create', async () => {
+      const dto: CreateMoodDto = { name: 'Happy' };
       mockService.create.mockResolvedValue(mockMood);
-      const result = await controller.create({ mood: 'Happy' });
+
+      const result = await controller.create(dto);
+
       expect(result).toEqual(mockMood);
-      expect(mockService.create).toHaveBeenCalledWith({ mood: 'Happy' });
+      expect(mockService.create).toHaveBeenCalledWith(dto);
     });
   });
 
@@ -63,10 +69,10 @@ describe('MoodController', () => {
 
   describe('update', () => {
     it('should call service.update', async () => {
-      mockService.update.mockResolvedValue({ ...mockMood, mood: 'Sad' });
-      const result = await controller.update('1', { mood: 'Sad' });
-      expect(result).toEqual({ ...mockMood, mood: 'Sad' });
-      expect(mockService.update).toHaveBeenCalledWith(1, { mood: 'Sad' });
+      mockService.update.mockResolvedValue({ ...mockMood, name: 'Sad' });
+      const result = await controller.update('1', { name: 'Sad' });
+      expect(result).toEqual({ ...mockMood, name: 'Sad' });
+      expect(mockService.update).toHaveBeenCalledWith(1, { name: 'Sad' });
     });
   });
 

@@ -1,16 +1,19 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MoodService } from './moods.service';
+import { MoodsService } from './moods.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Mood } from './mood.entity';
 import { Repository } from 'typeorm';
+import { CreateMoodDto } from './dto/create-mood.dto';
+import { MoodsModule } from './moods.module';
 
-describe('MoodService', () => {
-  let service: MoodService;
+describe('MoodsService', () => {
+  let service: MoodsService;
   let repository: Repository<Mood>;
 
-  const mockMood = { id: 1, mood: 'Happy' };
+  const mockMood = { id: 1, name: 'Happy' };
 
   const mockRepo = {
+    create: jest.fn(),
     save: jest.fn(),
     find: jest.fn(),
     findOne: jest.fn(),
@@ -20,13 +23,14 @@ describe('MoodService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [MoodsModule],
       providers: [
-        MoodService,
+        MoodsService,
         { provide: getRepositoryToken(Mood), useValue: mockRepo },
       ],
     }).compile();
 
-    service = module.get<MoodService>(MoodService);
+    service = module.get<MoodsService>(MoodsService);
     repository = module.get<Repository<Mood>>(getRepositoryToken(Mood));
   });
 
@@ -40,10 +44,15 @@ describe('MoodService', () => {
 
   describe('create', () => {
     it('should create and return a mood', async () => {
+      const dto: CreateMoodDto = { name: 'Happy' };
+      mockRepo.create.mockReturnValue(mockMood);
       mockRepo.save.mockResolvedValue(mockMood);
-      const result = await service.create({ mood: 'Happy' });
+
+      const result = await service.create(dto);
+
       expect(result).toEqual(mockMood);
-      expect(mockRepo.save).toHaveBeenCalledWith({ mood: 'Happy' });
+      expect(mockRepo.create).toHaveBeenCalledWith(dto);
+      expect(mockRepo.save).toHaveBeenCalledWith(mockMood);
     });
   });
 
@@ -68,10 +77,10 @@ describe('MoodService', () => {
   describe('update', () => {
     it('should update and return the mood', async () => {
       mockRepo.update.mockResolvedValue({ affected: 1 });
-      mockRepo.findOne.mockResolvedValue({ ...mockMood, mood: 'Sad' });
-      const result = await service.update(1, { mood: 'Sad' });
-      expect(result).toEqual({ ...mockMood, mood: 'Sad' });
-      expect(mockRepo.update).toHaveBeenCalledWith(1, { mood: 'Sad' });
+      mockRepo.findOne.mockResolvedValue({ ...mockMood, name: 'Sad' });
+      const result = await service.update(1, { name: 'Sad' });
+      expect(result).toEqual({ ...mockMood, name: 'Sad' });
+      expect(mockRepo.update).toHaveBeenCalledWith(1, { name: 'Sad' });
     });
   });
 

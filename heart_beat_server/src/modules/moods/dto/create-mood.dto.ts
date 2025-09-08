@@ -7,5 +7,5 @@ export class CreateMoodDto {
     example: 'Happy',
   })
   @IsString()
-  title: string;
+  name: string;
 }
