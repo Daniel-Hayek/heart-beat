@@ -1,34 +1,42 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Param, Delete, Body } from '@nestjs/common';
 import { SongMoodsService } from './song-moods.service';
-import { CreateSongMoodDto } from './dto/create-song-mood.dto';
-import { UpdateSongMoodDto } from './dto/update-song-mood.dto';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AssignMoodDto } from './dto/assign-mood.dto';
 
 @Controller('song-moods')
 export class SongMoodsController {
   constructor(private readonly songMoodsService: SongMoodsService) {}
 
-  @Post()
-  create(@Body() createSongMoodDto: CreateSongMoodDto) {
-    return this.songMoodsService.create(createSongMoodDto);
+  @ApiOperation({ summary: 'Assign a mood to a song' })
+  @ApiResponse({
+    status: 201,
+    description: 'Mood assigned to song successfully',
+  })
+  @ApiResponse({ status: 404, description: 'Song OR Mood not found' })
+  @ApiBody({ type: AssignMoodDto })
+  @Post('assign')
+  assignMoodToSong(@Body() assignMoodDto: AssignMoodDto) {
+    return this.songMoodsService.assignMoodToSong(assignMoodDto);
   }
 
-  @Get()
-  findAll() {
-    return this.songMoodsService.findAll();
-  }
+  // // Remove a mood from a song
+  // @Delete(':songId/moods/:moodId')
+  // removeMoodFromSong(
+  //   @Param('songId', ParseIntPipe) songId: number,
+  //   @Param('moodId', ParseIntPipe) moodId: number,
+  // ) {
+  //   return this.songMoodsService.removeMoodFromSong(songId, moodId);
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.songMoodsService.findOne(+id);
-  }
+  // // Get all moods for a song
+  // @Get(':songId/moods')
+  // getMoodsForSong(@Param('songId', ParseIntPipe) songId: number) {
+  //   return this.songMoodsService.getMoodsForSong(songId);
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSongMoodDto: UpdateSongMoodDto) {
-    return this.songMoodsService.update(+id, updateSongMoodDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.songMoodsService.remove(+id);
-  }
+  // // Get all songs for a mood
+  // @Get('mood/:moodId/songs')
+  // getSongsForMood(@Param('moodId', ParseIntPipe) moodId: number) {
+  //   return this.songMoodsService.getSongsForMood(moodId);
+  // }
 }

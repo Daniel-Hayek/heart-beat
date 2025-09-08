@@ -39,6 +39,8 @@ export class Song {
   playlistSongs: PlaylistSong[];
 
   @ManyToMany(() => Mood, (mood) => mood.songs)
-  @JoinTable()
+  @JoinTable({
+    name: 'song_moods',
+  })
   moods: Mood[];
 }
