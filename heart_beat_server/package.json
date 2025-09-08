@@ -21,7 +21,7 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "seed:moods": "ts-node src/database/seeders/moods/mood.seed.ts",
     "seed:songs": "ts-node src/database/seeders/songs/song.seed.ts",
-    "seed": "npm run seed:moods && npm run seed:songs"
+    "seed": "npm run seed:moods; npm run seed:songs"
   },
   "dependencies": {
     "@debiprasadmishra50/swagger-dark-mode": "^1.0.1",

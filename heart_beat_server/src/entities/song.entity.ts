@@ -41,6 +41,8 @@ export class Song {
   @ManyToMany(() => Mood, (mood) => mood.songs)
   @JoinTable({
     name: 'song_moods',
+    joinColumn: { name: 'songsId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'moodsId', referencedColumnName: 'id' },
   })
   moods: Mood[];
 }

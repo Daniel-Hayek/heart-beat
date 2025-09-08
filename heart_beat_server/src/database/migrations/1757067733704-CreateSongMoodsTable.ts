@@ -7,12 +7,12 @@ export class CreateSongMoodsTable1757067733704 implements MigrationInterface {
         name: 'song_moods',
         columns: [
           {
-            name: 'song_id',
+            name: 'songsId',
             type: 'int',
             isPrimary: true,
           },
           {
-            name: 'mood_id',
+            name: 'moodsId',
             type: 'int',
             isPrimary: true,
           },
