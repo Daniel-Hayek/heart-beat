@@ -19,7 +19,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-commonjs",
-    "seed": "ts-node src/database/seeders/songs/song.seed.ts"
+    "seed:moods": "ts-node src/database/seeders/moods/mood.seed.ts",
+    "seed:songs": "ts-node src/database/seeders/songs/song.seed.ts",
+    "seed": "npm run seed:moods && npm run seed:songs"
   },
   "dependencies": {
     "@debiprasadmishra50/swagger-dark-mode": "^1.0.1",

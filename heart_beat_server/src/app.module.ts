@@ -8,6 +8,8 @@ import { SongsModule } from './modules/songs/songs.module';
 import { PlaylistModule } from './modules/playlist/playlist.module';
 import { PlaylistSongModule } from './modules/playlist-song/playlist-song.module';
 import { MoodTrackingModule } from './modules/mood-tracking/mood-tracking.module';
+import { MoodsModule } from './modules/moods/moods.module';
+import { SongMoodsModule } from './modules/song-moods/song-moods.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { MoodTrackingModule } from './modules/mood-tracking/mood-tracking.module
     PlaylistModule,
     PlaylistSongModule,
     MoodTrackingModule,
+    MoodsModule,
+    SongMoodsModule,
   ],
   controllers: [],
   providers: [],
