@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateMoodDto } from './dto/create-mood.dto';
 import { UpdateMoodDto } from './dto/update-mood.dto';
 import { Mood } from 'src/entities/moods.entity';
@@ -27,18 +31,30 @@ export class MoodsService {
   }
 
   findAll() {
-    return `This action returns all moods`;
+    return this.moodRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mood`;
+  async findOne(id: number) {
+    const mood = await this.moodRepo.findOne({ where: { id } });
+    if (mood == null) {
+      throw new NotFoundException('No mood with that ID');
+    }
+    return mood;
   }
 
-  update(id: number, updateMoodDto: UpdateMoodDto) {
-    return `This action updates a #${id} mood`;
+  async update(id: number, updateMoodDto: UpdateMoodDto) {
+    const mood = await this.findOne(id);
+    Object.assign(mood, updateMoodDto);
+    return this.moodRepo.save(mood);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} mood`;
+  async remove(id: number) {
+    const result = await this.moodRepo.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException('No mood with that ID');
+    }
+
+    return 'Mood deleted successfully';
   }
 }
