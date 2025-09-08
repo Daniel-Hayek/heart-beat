@@ -41,16 +41,49 @@ export class MoodsController {
     return this.moodsService.findAll();
   }
 
+  @ApiOperation({
+    summary: 'Return a mood based on its ID',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Mood Name',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No mood with that ID',
+  })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.moodsService.findOne(+id);
   }
 
+  @ApiOperation({
+    summary: 'Update a mood',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Mood updated',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No mood with that ID',
+  })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMoodDto: UpdateMoodDto) {
     return this.moodsService.update(+id, updateMoodDto);
   }
 
+  @ApiOperation({
+    summary: 'Delete a mood',
+  })
+  @ApiResponse({
+    status: 204,
+    description: 'Mood deleted',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No mood with that ID',
+  })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.moodsService.remove(+id);
