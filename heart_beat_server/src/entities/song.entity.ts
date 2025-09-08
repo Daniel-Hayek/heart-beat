@@ -3,10 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PlaylistSong } from './playlist-song.entity';
+import { Mood } from './moods.entity';
 
 @Entity('songs')
 export class Song {
@@ -34,4 +37,8 @@ export class Song {
 
   @OneToMany(() => PlaylistSong, (playlistSong) => playlistSong.song)
   playlistSongs: PlaylistSong[];
+
+  @ManyToMany(() => Mood, (mood) => mood.songs)
+  @JoinTable()
+  moods: Mood[];
 }
