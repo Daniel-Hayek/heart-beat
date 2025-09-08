@@ -38,7 +38,7 @@ export class SongMoodsService {
     return this.songRepo.save(song);
   }
 
-  async removeMoodFromSong(removeSongDto: RemoveMoodDto): Promise<Song> {
+  async removeMoodFromSong(removeSongDto: RemoveMoodDto) {
     const song = await this.songRepo.findOne({
       where: { id: removeSongDto.songId },
       relations: ['moods'],
@@ -53,5 +53,29 @@ export class SongMoodsService {
     return this.songRepo.save(song);
   }
 
-  
+  async getMoodsForSong(songId: number) {
+    const song = await this.songRepo.findOne({
+      where: { id: songId },
+      relations: ['moods'],
+    });
+
+    if (song == null) {
+      throw new NotFoundException('No song with that ID');
+    }
+
+    return song.moods;
+  }
+
+  async getSongsForMood(moodId: number) {
+    const mood = await this.moodRepo.findOne({
+      where: { id: moodId },
+      relations: ['songs'],
+    });
+
+    if (mood == null) {
+      throw new NotFoundException('No mood with that ID');
+    }
+
+    return mood.songs;
+  }
 }

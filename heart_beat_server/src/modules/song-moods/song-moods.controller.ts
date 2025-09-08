@@ -28,15 +28,17 @@ export class SongMoodsController {
     return this.songMoodsService.removeMoodFromSong(removeMoodDto);
   }
 
-  // // Get all moods for a song
-  // @Get(':songId/moods')
-  // getMoodsForSong(@Param('songId', ParseIntPipe) songId: number) {
-  //   return this.songMoodsService.getMoodsForSong(songId);
-  // }
+  @ApiOperation({ summary: 'Get all moods assigned to a song' })
+  @ApiResponse({ status: 200, description: 'List of moods for the song' })
+  @Get('/moods/:id')
+  getMoodsForSong(@Param('id') id: string) {
+    return this.songMoodsService.getMoodsForSong(+id);
+  }
 
-  // // Get all songs for a mood
-  // @Get('mood/:moodId/songs')
-  // getSongsForMood(@Param('moodId', ParseIntPipe) moodId: number) {
-  //   return this.songMoodsService.getSongsForMood(moodId);
-  // }
+  @ApiOperation({ summary: 'Get all songs that have a specific mood' })
+  @ApiResponse({ status: 200, description: 'List of songs with that mood' })
+  @Get('/songs/:id')
+  getSongsForMood(@Param('id') id: string) {
+    return this.songMoodsService.getSongsForMood(+id);
+  }
 }
