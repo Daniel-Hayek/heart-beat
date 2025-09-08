@@ -2,6 +2,7 @@ import { Controller, Get, Post, Param, Delete, Body } from '@nestjs/common';
 import { SongMoodsService } from './song-moods.service';
 import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AssignMoodDto } from './dto/assign-mood.dto';
+import { RemoveMoodDto } from './dto/remove-mood.dto';
 
 @Controller('song-moods')
 export class SongMoodsController {
@@ -19,14 +20,13 @@ export class SongMoodsController {
     return this.songMoodsService.assignMoodToSong(assignMoodDto);
   }
 
-  // // Remove a mood from a song
-  // @Delete(':songId/moods/:moodId')
-  // removeMoodFromSong(
-  //   @Param('songId', ParseIntPipe) songId: number,
-  //   @Param('moodId', ParseIntPipe) moodId: number,
-  // ) {
-  //   return this.songMoodsService.removeMoodFromSong(songId, moodId);
-  // }
+  @ApiOperation({ summary: 'Remove a mood from a song' })
+  @ApiResponse({ status: 200, description: 'Mood removed from song' })
+  @ApiBody({ type: RemoveMoodDto })
+  @Delete('remove')
+  removeMoodFromSong(@Body() removeMoodDto: RemoveMoodDto) {
+    return this.songMoodsService.removeMoodFromSong(removeMoodDto);
+  }
 
   // // Get all moods for a song
   // @Get(':songId/moods')
