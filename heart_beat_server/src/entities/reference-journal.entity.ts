@@ -21,8 +21,8 @@ export class ReferenceJournal {
   @ManyToMany(() => Mood, (mood) => mood.referenceJournals)
   @JoinTable({
     name: 'reference_journal_moods',
-    joinColumn: { name: 'journal_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'moodsId', referencedColumnName: 'id' },
+    joinColumn: { name: 'reference_journal_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'mood_id', referencedColumnName: 'id' },
   })
   moods: Mood[];
 }

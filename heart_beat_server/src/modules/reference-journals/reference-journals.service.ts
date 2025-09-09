@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateReferenceJournalDto } from './dto/create-reference-journal.dto';
 import { UpdateReferenceJournalDto } from './dto/update-reference-journal.dto';
+import { Repository } from 'typeorm';
+import { ReferenceJournal } from 'src/entities/reference-journal.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ReferenceJournalsService {
+  constructor(
+    @InjectRepository(ReferenceJournal)
+    private readonly refJournalRepo: Repository<ReferenceJournal>,
+  ) {}
+
   create(createReferenceJournalDto: CreateReferenceJournalDto) {
     return 'This action adds a new referenceJournal';
   }
 
   findAll() {
-    return `This action returns all referenceJournals`;
+    return this.refJournalRepo.find();
   }
 
   findOne(id: number) {
