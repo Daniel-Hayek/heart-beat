@@ -17,18 +17,10 @@ export class ReferenceJournalsService {
   }
 
   findAll() {
-    return this.refJournalRepo.find();
+    return this.refJournalRepo.find({ relations: ['moods'] });
   }
 
   findOne(id: number) {
     return `This action returns a #${id} referenceJournal`;
-  }
-
-  update(id: number, updateReferenceJournalDto: UpdateReferenceJournalDto) {
-    return `This action updates a #${id} referenceJournal`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} referenceJournal`;
   }
 }
