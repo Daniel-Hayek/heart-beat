@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateJournalDto } from './dto/create-journal.dto';
-import OpenAI from 'openai';
 
 @Injectable()
 export class JournalsChunks {
@@ -19,19 +18,26 @@ export class JournalsChunks {
   }
 
   static async embedJournal(chunks: Array<string>) {
-    const embeddings: number[][] = [];
+    // const embeddings: number[][] = [];
+    const modelUrl = `https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2`;
 
-    const client = new OpenAI({ apiKey: process.env.OPENAI_KEY });
+    const response = await fetch(modelUrl, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.HF_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ inputs: 'Sentence' }),
+    });
 
-    for (const chunk of chunks) {
-      const response = await client.embeddings.create({
-        model: 'text-embedding-3-small',
-        input: chunk,
-      });
-
-      embeddings.push(response.data[0].embedding);
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error('HF API error:', errText);
+      throw new Error(errText);
     }
 
-    console.log(embeddings[0]);
+    const emb: number[][] = (await response.json()) as number[][];
+
+    console.log(emb);
   }
 }
