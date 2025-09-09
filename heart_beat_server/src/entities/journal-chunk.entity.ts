@@ -20,9 +20,8 @@ export class JournalChunk {
   @Column('text')
   chunk_text: string;
 
-  @IsString()
-  @Column()
-  embedding: number[];
+  @Column({ type: 'varchar', nullable: true })
+  embedding: string;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

@@ -10,15 +10,13 @@ import { Mood } from './moods.entity';
 @Entity({ name: 'reference_journals' })
 export class ReferenceJournal {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ type: 'text' })
   content: string;
 
-  @Column({
-    nullable: true,
-  })
-  embedding: number[];
+  @Column({ type: 'varchar', nullable: true })
+  embedding: string;
 
   @ManyToMany(() => Mood, (mood) => mood.referenceJournals)
   @JoinTable({

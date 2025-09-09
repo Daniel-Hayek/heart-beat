@@ -7,7 +7,9 @@ import { Mood } from './src/entities/moods.entity';
 import { Playlist } from './src/entities/playlist.entity';
 import { PlaylistSong } from './src/entities/playlist-song.entity';
 import { MoodTracking } from './src/entities/mood-tracking.entity';
-import { JournalChunk } from 'src/entities/journal-chunk.entity';
+import { JournalChunk } from './src/entities/journal-chunk.entity';
+import { ReferenceJournal } from './src/entities/reference-journal.entity';
+import { ReferenceJournalMood } from './src/entities/reference-journal-mood.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -25,6 +27,8 @@ export const AppDataSource = new DataSource({
     PlaylistSong,
     MoodTracking,
     JournalChunk,
+    ReferenceJournal,
+    ReferenceJournalMood,
   ],
   migrations: ['src/database/migrations/*.ts'],
 });

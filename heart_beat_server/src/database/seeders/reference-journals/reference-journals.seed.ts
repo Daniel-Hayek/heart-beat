@@ -1,8 +1,8 @@
 import { DataSource } from 'typeorm';
-import { ReferenceJournal } from '../../../entities/reference-journal.entity';
-import { ReferenceJournalMood } from '../../../entities/reference-journal-mood.entity';
 import { Mood } from '../../../entities/moods.entity';
 import { referenceEntries } from './reference-journals.data';
+import { ReferenceJournal } from 'src/entities/reference-journal.entity';
+import { ReferenceJournalMood } from 'src/entities/reference-journal-mood.entity';
 
 export const seedReferenceJournals = async (dataSource: DataSource) => {
   const refJournalRepo = dataSource.getRepository(ReferenceJournal);
@@ -15,7 +15,7 @@ export const seedReferenceJournals = async (dataSource: DataSource) => {
 
     for (const entry of entries) {
       const refJournal = refJournalRepo.create({
-        entry,
+        content: entry,
         embedding: null,
       });
       await refJournalRepo.save(refJournal);

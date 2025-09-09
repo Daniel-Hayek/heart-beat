@@ -4,8 +4,8 @@ import { Mood } from './moods.entity';
 
 @Entity({ name: 'reference_journal_moods' })
 export class ReferenceJournalMood {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @ManyToOne(() => ReferenceJournal, (refJournal) => refJournal.moods, {
     onDelete: 'CASCADE',
