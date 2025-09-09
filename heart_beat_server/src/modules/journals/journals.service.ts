@@ -31,9 +31,11 @@ export class JournalsService {
       user,
     });
 
-    JournalsChunks.chunkJournal(createJournalDto);
+    await this.journalRepo.save(journal);
 
-    return this.journalRepo.save(journal);
+    await JournalsChunks.chunkJournal(createJournalDto);
+
+    return 'Journal added';
   }
 
   async findAll() {
