@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
 import { JournalsChunks } from './journals-chunks.service';
+import { ReferenceJournal } from 'src/entities/reference-journal.entity';
 
 @Injectable()
 export class JournalsService {
@@ -14,6 +15,9 @@ export class JournalsService {
 
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
+
+    @InjectRepository(ReferenceJournal)
+    private readonly refJournalRepo: Repository<ReferenceJournal>,
   ) {}
 
   async create(createJournalDto: CreateJournalDto) {
@@ -33,9 +37,16 @@ export class JournalsService {
 
     const saved = await this.journalRepo.save(journal);
 
-    await JournalsChunks.chunkJournal(saved);
+    const chunks = JournalsChunks.chunkJournal(saved);
+    const embeddings = await JournalsChunks.embedJournal(chunks);
 
-    return 'Journal added';
+    const refJournals = await this.refJournalRepo.find({
+      relations: ['moods'],
+    });
+
+    const scores = JournalsChunks.determineJournalMood(embeddings, refJournals);
+
+    return scores;
   }
 
   async findAll() {

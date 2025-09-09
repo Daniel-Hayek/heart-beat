@@ -4,15 +4,20 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JournalChunk } from 'src/entities/journal-chunk.entity';
 import { Journal } from 'src/entities/journal.entity';
+import { ReferenceJournal } from 'src/entities/reference-journal.entity';
+import cosineSimilarity from 'compute-cosine-similarity';
 
 @Injectable()
 export class JournalsChunks {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepo: Repository<JournalChunk>,
+    @InjectRepository(JournalChunk)
+    private readonly journalChunkRepo: Repository<JournalChunk>,
+
+    @InjectRepository(ReferenceJournal)
+    private readonly refJournalRepo: Repository<ReferenceJournal>,
   ) {}
 
-  static async chunkJournal(saved: Journal) {
+  static chunkJournal(saved: Journal) {
     console.log('Hello from chunk journals');
 
     const content = saved.content;
@@ -23,7 +28,7 @@ export class JournalsChunks {
       chunks.push(content.substring(i, i + chunk_length));
     }
 
-    await this.embedJournal(chunks);
+    return chunks;
   }
 
   static async embedJournal(chunks: Array<string>) {
@@ -45,7 +50,35 @@ export class JournalsChunks {
     }
 
     const embeddings = (await response.json()) as number[][];
+    return embeddings;
+  }
 
-    console.log(embeddings[0][0]);
+  static determineJournalMood(
+    userEmbeddings: number[][],
+    referenceJournals: ReferenceJournal[],
+  ) {
+    const moodScores: Record<string, number[]> = {};
+
+    for (const chunkEmbedding of userEmbeddings) {
+      for (const ref of referenceJournals) {
+        const sim = cosineSimilarity(
+          chunkEmbedding,
+          JSON.parse(ref.embedding!),
+        );
+
+        for (const mood of ref.moods.map((m) => m.name)) {
+          if (!moodScores[mood]) moodScores[mood] = [];
+          moodScores[mood].push(sim!);
+        }
+      }
+    }
+
+    const averagedScores = Object.entries(moodScores).map(([mood, scores]) => ({
+      mood,
+      score: scores.reduce((a, b) => a + b, 0) / scores.length,
+    }));
+
+    // Sort descending
+    return averagedScores.sort((a, b) => b.score - a.score);
   }
 }
