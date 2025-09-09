@@ -4,6 +4,7 @@ import { Journal } from 'src/entities/journal.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
+import { JournalsChunks } from './journals-chunks.service';
 
 @Injectable()
 export class JournalsService {
@@ -29,6 +30,8 @@ export class JournalsService {
       content: createJournalDto.content,
       user,
     });
+
+    JournalsChunks.chunkJournal(createJournalDto);
 
     return this.journalRepo.save(journal);
   }
