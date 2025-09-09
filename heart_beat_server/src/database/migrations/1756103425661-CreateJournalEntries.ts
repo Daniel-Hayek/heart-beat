@@ -27,11 +27,6 @@ export class CreateJournalEntries1756103425661 implements MigrationInterface {
             type: 'text',
           },
           {
-            name: 'mood_detected',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

@@ -31,9 +31,9 @@ export class JournalsService {
       user,
     });
 
-    await this.journalRepo.save(journal);
+    const saved = await this.journalRepo.save(journal);
 
-    await JournalsChunks.chunkJournal(createJournalDto);
+    await JournalsChunks.chunkJournal(saved);
 
     return 'Journal added';
   }

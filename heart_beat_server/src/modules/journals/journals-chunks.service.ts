@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JournalChunk } from 'src/entities/journal-chunk.entity';
 import { CohereClient } from 'cohere-ai';
+import { Journal } from 'src/entities/journal.entity';
 
 @Injectable()
 export class JournalsChunks {
@@ -13,14 +14,14 @@ export class JournalsChunks {
     private readonly userRepo: Repository<JournalChunk>,
   ) {}
 
-  static async chunkJournal(createJournalDto: CreateJournalDto) {
+  static async chunkJournal(saved: Journal) {
     console.log('Hello from chunk journals');
 
-    const content = createJournalDto.content;
-    const chunk_length = 250;
+    const content = saved.content;
+    const chunk_length = 500;
     const chunks: string[] = [];
 
-    for (let i = 0; i < content.length; i = i + chunk_length) {
+    for (let i = 0; i < content.length; i = i + chunk_length - 50) {
       chunks.push(content.substring(i, i + chunk_length));
     }
 
@@ -48,26 +49,5 @@ export class JournalsChunks {
     const embeddings = (await response.json()) as number[][];
 
     console.log(embeddings[0][0]);
-
-    await this.analyzeEmbeddings(embeddings);
-  }
-
-  static async analyzeEmbeddings(embeddings: number[][]) {
-    const cohere = new CohereClient({ token: process.env.CH_API_KEY! });
-
-    const prompt = `You are a mood analysis assistant. 
-    A journal entry has the following embedding vector: 
-    ${JSON.stringify(embeddings)}
-    
-    Tell me how this person is feeling.
-    `;
-
-    const response = await cohere.generate({
-      model: 'command-light',
-      prompt: prompt,
-      maxTokens: 100,
-    });
-
-    console.log(response.generations[0].text);
   }
 }
