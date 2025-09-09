@@ -12,12 +12,13 @@ services:
       - DB_USERNAME=postgres
       - DB_PASSWORD=12345
       - DB_NAME=heartbeat_db
+      - CHOKIDAR_USEPOLLING=true
     volumes:
-      - ./heart_beat_server:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./heart_beat_server:/app
+      - /app/node_modules
     command: >
       sh -c "./wait-for-it.sh postgres:5432 --timeout=30 --strict -- \
-           npx typeorm-ts-node-commonjs migration:run -d dist/data-source.js && \
+           npx typeorm-ts-node-commonjs migration:run -d data-source.ts && \
            npm run start:dev"
 
   postgres:
