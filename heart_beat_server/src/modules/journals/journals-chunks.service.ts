@@ -18,8 +18,7 @@ export class JournalsChunks {
   }
 
   static async embedJournal(chunks: Array<string>) {
-    // const embeddings: number[][] = [];
-    const modelUrl = `https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2`;
+    const modelUrl = process.env.HF_API_URL + process.env.HF_MODEL_ID!;
 
     const response = await fetch(modelUrl, {
       method: 'POST',
@@ -27,7 +26,7 @@ export class JournalsChunks {
         Authorization: `Bearer ${process.env.HF_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ inputs: 'Sentence' }),
+      body: JSON.stringify({ inputs: chunks }),
     });
 
     if (!response.ok) {
@@ -36,8 +35,8 @@ export class JournalsChunks {
       throw new Error(errText);
     }
 
-    const emb: number[][] = (await response.json()) as number[][];
+    const embeddings = (await response.json()) as number[][];
 
-    console.log(emb);
+    console.log(embeddings);
   }
 }
