@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Mood } from './moods.entity';
 
-@Entity({ name: 'reference_journals' })
+@Entity('reference_journals')
 export class ReferenceJournal {
   @PrimaryGeneratedColumn()
   id: number;
@@ -16,13 +16,13 @@ export class ReferenceJournal {
   content: string;
 
   @Column({ type: 'varchar', nullable: true })
-  embedding: string;
+  embedding: string | null;
 
   @ManyToMany(() => Mood, (mood) => mood.referenceJournals)
   @JoinTable({
     name: 'reference_journal_moods',
-    joinColumn: { name: 'reference_journal_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'mood_id', referencedColumnName: 'id' },
+    joinColumn: { name: 'journal_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'moodsId', referencedColumnName: 'id' },
   })
   moods: Mood[];
 }

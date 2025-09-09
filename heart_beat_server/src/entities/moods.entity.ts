@@ -15,6 +15,9 @@ export class Mood {
   @ManyToMany(() => Song, (song) => song.moods)
   songs: Song[];
 
-  @ManyToMany(() => ReferenceJournal, (refJournal) => refJournal.moods)
+  @ManyToMany(
+    () => ReferenceJournal,
+    (referenceJournal) => referenceJournal.moods,
+  )
   referenceJournals: ReferenceJournal[];
 }

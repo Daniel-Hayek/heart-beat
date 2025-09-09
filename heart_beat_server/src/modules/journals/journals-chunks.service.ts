@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateJournalDto } from './dto/create-journal.dto';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JournalChunk } from 'src/entities/journal-chunk.entity';
-import { CohereClient } from 'cohere-ai';
 import { Journal } from 'src/entities/journal.entity';
 
 @Injectable()

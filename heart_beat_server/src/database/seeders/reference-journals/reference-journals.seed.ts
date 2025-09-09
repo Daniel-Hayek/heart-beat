@@ -1,12 +1,10 @@
 import { DataSource } from 'typeorm';
 import { Mood } from '../../../entities/moods.entity';
+import { ReferenceJournal } from '../../../entities/reference-journal.entity';
 import { referenceEntries } from './reference-journals.data';
-import { ReferenceJournal } from 'src/entities/reference-journal.entity';
-import { ReferenceJournalMood } from 'src/entities/reference-journal-mood.entity';
 
 export const seedReferenceJournals = async (dataSource: DataSource) => {
   const refJournalRepo = dataSource.getRepository(ReferenceJournal);
-  const refJournalMoodRepo = dataSource.getRepository(ReferenceJournalMood);
   const moodRepo = dataSource.getRepository(Mood);
 
   for (const [moodLabel, entries] of Object.entries(referenceEntries)) {
@@ -17,16 +15,12 @@ export const seedReferenceJournals = async (dataSource: DataSource) => {
       const refJournal = refJournalRepo.create({
         content: entry,
         embedding: null,
+        moods: [mood],
       });
-      await refJournalRepo.save(refJournal);
 
-      const pivot = refJournalMoodRepo.create({
-        referenceJournal: refJournal,
-        mood,
-      });
-      await refJournalMoodRepo.save(pivot);
+      await refJournalRepo.save(refJournal);
     }
   }
 
-  console.log('Reference journals seeded successfully.');
+  console.log('✅ Reference journals seeded successfully.');
 };

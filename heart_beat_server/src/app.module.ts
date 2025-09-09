@@ -10,6 +10,7 @@ import { PlaylistSongModule } from './modules/playlist-song/playlist-song.module
 import { MoodTrackingModule } from './modules/mood-tracking/mood-tracking.module';
 import { MoodsModule } from './modules/moods/moods.module';
 import { SongMoodsModule } from './modules/song-moods/song-moods.module';
+import { ReferenceJournalsModule } from './modules/reference-journals/reference-journals.module';
 
 @Module({
   imports: [
@@ -33,6 +34,8 @@ import { SongMoodsModule } from './modules/song-moods/song-moods.module';
     MoodTrackingModule,
     MoodsModule,
     SongMoodsModule,
+    MoodsModule,
+    ReferenceJournalsModule,
   ],
   controllers: [],
   providers: [],
