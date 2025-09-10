@@ -57,6 +57,10 @@ export class JournalsService {
     return saved;
   }
 
+  async find(id: number) {
+    return await this.journalRepo.findOne({ where: { id } });
+  }
+
   async findAll() {
     return await this.journalRepo.find();
   }
