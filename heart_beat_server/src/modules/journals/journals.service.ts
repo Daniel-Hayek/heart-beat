@@ -18,9 +18,6 @@ export class JournalsService {
 
     @InjectRepository(ReferenceJournal)
     private readonly refJournalRepo: Repository<ReferenceJournal>,
-
-    @InjectRepository(ReferenceJournal)
-    private readonly journalMoodRepo: Repository<ReferenceJournal>,
   ) {}
 
   async create(createJournalDto: CreateJournalDto) {
@@ -38,9 +35,7 @@ export class JournalsService {
       user,
     });
 
-    const saved = await this.journalRepo.save(journal);
-
-    const chunks = JournalsChunks.chunkJournal(saved);
+    const chunks = JournalsChunks.chunkJournal(journal);
     const embeddings = await JournalsChunks.embedJournal(chunks);
 
     const refJournals = await this.refJournalRepo.find({
@@ -49,7 +44,12 @@ export class JournalsService {
 
     const scores = JournalsChunks.determineJournalMood(embeddings, refJournals);
 
-    return scores;
+    journal.moods_assigned =
+      scores[0].mood + ', ' + scores[1].mood + ', ' + scores[2].mood;
+
+    const saved = await this.journalRepo.save(journal);
+
+    return saved;
   }
 
   async findAll() {
