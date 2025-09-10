@@ -8,6 +8,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { MoodTracking } from 'src/entities/mood-tracking.entity';
 import { Repository } from 'typeorm';
+import { Journal } from 'src/entities/journal.entity';
+import { OnEvent } from '@nestjs/event-emitter';
+import { Mood } from 'src/entities/moods.entity';
 
 @Injectable()
 export class MoodTrackingService {
@@ -17,6 +20,9 @@ export class MoodTrackingService {
 
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
+
+    @InjectRepository(Mood)
+    private readonly moodRepo: Repository<Mood>,
   ) {}
 
   async create(createMoodTrackingDto: CreateMoodTrackingDto) {
@@ -52,5 +58,31 @@ export class MoodTrackingService {
     const moodTrackings = this.trackingRepo.find({ where: { user: { id } } });
 
     return moodTrackings;
+  }
+
+  @OnEvent('journal.created')
+  async handleJournalCreation(journal: Journal) {
+    const moods = journal.moods_assigned?.split(',').map((m) => m.trim());
+    let average = 0;
+
+    for (const m of moods!) {
+      const curMood = await this.moodRepo.findOne({
+        where: { name: m },
+        select: ['score'],
+      });
+
+      average += curMood!.score;
+    }
+
+    average = average / 3;
+
+    const moodTracking = this.trackingRepo.create({
+      source: 'Journal',
+      mood: journal.moods_assigned!,
+      score: average,
+      user: journal.user,
+    });
+
+    return this.trackingRepo.save(moodTracking);
   }
 }

@@ -11,6 +11,7 @@ import { MoodTrackingModule } from './modules/mood-tracking/mood-tracking.module
 import { MoodsModule } from './modules/moods/moods.module';
 import { SongMoodsModule } from './modules/song-moods/song-moods.module';
 import { ReferenceJournalsModule } from './modules/reference-journals/reference-journals.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ReferenceJournalsModule } from './modules/reference-journals/reference-
       autoLoadEntities: true,
       synchronize: false,
     }),
+    EventEmitterModule.forRoot(),
     AuthModule,
     UsersModule,
     JournalsModule,

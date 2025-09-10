@@ -6,6 +6,8 @@ import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
 import { JournalsChunks } from './journals-chunks.service';
 import { ReferenceJournal } from 'src/entities/reference-journal.entity';
+import { MoodTracking } from 'src/entities/mood-tracking.entity';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class JournalsService {
@@ -18,6 +20,11 @@ export class JournalsService {
 
     @InjectRepository(ReferenceJournal)
     private readonly refJournalRepo: Repository<ReferenceJournal>,
+
+    @InjectRepository(MoodTracking)
+    private readonly trackingRepo: Repository<MoodTracking>,
+
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async create(createJournalDto: CreateJournalDto) {
@@ -48,6 +55,8 @@ export class JournalsService {
       scores[0].mood + ', ' + scores[1].mood + ', ' + scores[2].mood;
 
     const saved = await this.journalRepo.save(journal);
+
+    this.eventEmitter.emit('journal.created', journal);
 
     return saved;
   }
