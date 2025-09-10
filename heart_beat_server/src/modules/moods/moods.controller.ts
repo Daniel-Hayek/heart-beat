@@ -12,12 +12,12 @@ import { CreateMoodDto } from './dto/create-mood.dto';
 import { UpdateMoodDto } from './dto/update-mood.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Mood Label Endpoints (For Music Mood Labels)')
+@ApiTags('Mood Label Endpoints')
 @Controller('moods')
 export class MoodsController {
   constructor(private readonly moodsService: MoodsService) {}
 
-  @ApiOperation({ summary: 'Create a new mood label for music' })
+  @ApiOperation({ summary: 'Create a new mood label' })
   @ApiResponse({ status: 201, description: 'New mood created successfully' })
   @ApiResponse({
     status: 409,
