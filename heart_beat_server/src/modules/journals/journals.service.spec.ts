@@ -6,6 +6,7 @@ import { User } from 'src/entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
 import { CreateJournalDto } from './dto/create-journal.dto';
+import { ReferenceJournal } from 'src/entities/reference-journal.entity';
 
 describe('JournalsService', () => {
   let service: JournalsService;
@@ -26,11 +27,26 @@ describe('JournalsService', () => {
       findOne: jest.fn(),
     };
 
+    const refJournalRepo = {
+      find: jest.fn(),
+      findOne: jest.fn(),
+      save: jest.fn(),
+    };
+
+    const mockQueue = {
+      add: jest.fn(),
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         JournalsService,
         { provide: getRepositoryToken(Journal), useValue: journalRepo },
         { provide: getRepositoryToken(User), useValue: userRepo },
+        {
+          provide: getRepositoryToken(ReferenceJournal),
+          useValue: refJournalRepo,
+        },
+        { provide: 'BullQueue_journal-processing', useValue: mockQueue },
       ],
     }).compile();
 
@@ -54,7 +70,7 @@ describe('JournalsService', () => {
         user: mockUser,
         title: dto.title,
         content: dto.content,
-        mood_detected: null,
+        moods_assigned: 'null',
         created_at: new Date(),
         updated_at: new Date(),
       } as Journal;
