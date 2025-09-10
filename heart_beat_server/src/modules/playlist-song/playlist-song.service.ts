@@ -5,6 +5,7 @@ import { Playlist } from 'src/entities/playlist.entity';
 import { Repository } from 'typeorm';
 import { Song } from 'src/entities/song.entity';
 import { PlaylistSong } from 'src/entities/playlist-song.entity';
+import { MoodTracking } from 'src/entities/mood-tracking.entity';
 
 @Injectable()
 export class PlaylistSongService {
@@ -65,15 +66,22 @@ export class PlaylistSongService {
     return songs;
   }
 
-  // findAll() {
-  //   return `This action returns all playlistSong`;
-  // }
+  async addMoodSongs(mood_tracking: MoodTracking, playlist: Playlist) {
+    const moods = mood_tracking.mood.split(',').map((m) => m.trim());
 
-  // update(id: number, updatePlaylistSongDto: UpdatePlaylistSongDto) {
-  //   return `This action updates a #${id} playlistSong`;
-  // }
+    const primarySongs = this.songRepo.find({
+      where: { moods: { name: moods[0] } },
+      take: 3,
+    });
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} playlistSong`;
-  // }
+    const secondarySongs = this.songRepo.find({
+      where: { moods: { name: moods[0] } },
+      take: 2,
+    });
+
+    const tertiarySongs = this.songRepo.find({
+      where: { moods: { name: moods[0] } },
+      take: 1,
+    });
+  }
 }

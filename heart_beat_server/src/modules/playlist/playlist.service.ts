@@ -6,6 +6,8 @@ import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
 import { PlaylistResponseDto } from './dto/playlist-response.dto';
 import { plainToInstance } from 'class-transformer';
+import { OnEvent } from '@nestjs/event-emitter';
+import { MoodTracking } from 'src/entities/mood-tracking.entity';
 
 @Injectable()
 export class PlaylistService {
@@ -54,5 +56,15 @@ export class PlaylistService {
     });
 
     return playlists;
+  }
+
+  @OnEvent('mood.tracked')
+  async handleJournalCreation(mood_tracking: MoodTracking) {
+    const newPlaylist = this.playlistRepo.create({
+      name: 'Generated Playlist',
+      user: mood_tracking.user,
+    });
+
+    await this.playlistRepo.save(newPlaylist);
   }
 }
