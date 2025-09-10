@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JournalChunk } from 'src/entities/journal-chunk.entity';
@@ -61,13 +60,14 @@ export class JournalsChunks {
 
     for (const chunkEmbedding of userEmbeddings) {
       for (const ref of referenceJournals) {
-        const sim = cosineSimilarity(
-          chunkEmbedding,
-          JSON.parse(ref.embedding!),
-        );
+        const emb = JSON.parse(ref.embedding!) as number[];
+        const sim = cosineSimilarity(chunkEmbedding, emb);
 
         for (const mood of ref.moods.map((m) => m.name)) {
-          if (!moodScores[mood]) moodScores[mood] = [];
+          if (!moodScores[mood]) {
+            moodScores[mood] = [];
+          }
+
           moodScores[mood].push(sim!);
         }
       }
@@ -78,7 +78,6 @@ export class JournalsChunks {
       score: scores.reduce((a, b) => a + b, 0) / scores.length,
     }));
 
-    // Sort descending
     return averagedScores.sort((a, b) => b.score - a.score);
   }
 }
