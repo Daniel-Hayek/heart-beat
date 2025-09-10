@@ -64,11 +64,12 @@ export class PlaylistService {
   async handleJournalCreation(mood_tracking: MoodTracking) {
     const newPlaylist = this.playlistRepo.create({
       name: 'Generated Playlist',
+      is_auto_generated: true,
       user: mood_tracking.user,
     });
 
     await this.playlistRepo.save(newPlaylist);
 
-    this.eventEmitter.emit('playlist.generated', newPlaylist, mood_tracking);
+    this.eventEmitter.emit('playlist.generated', mood_tracking, newPlaylist);
   }
 }

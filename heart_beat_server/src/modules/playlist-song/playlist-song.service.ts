@@ -69,21 +69,38 @@ export class PlaylistSongService {
 
   @OnEvent('playlist.generated')
   async addMoodSongs(mood_tracking: MoodTracking, playlist: Playlist) {
+    console.log(mood_tracking.mood);
+    console.log(playlist);
+
     const moods = mood_tracking.mood.split(',').map((m) => m.trim());
 
-    const primarySongs = this.songRepo.find({
+    const primarySongs = await this.songRepo.find({
       where: { moods: { name: moods[0] } },
       take: 3,
     });
 
-    const secondarySongs = this.songRepo.find({
-      where: { moods: { name: moods[0] } },
+    const secondarySongs = await this.songRepo.find({
+      where: { moods: { name: moods[1] } },
       take: 2,
     });
 
-    const tertiarySongs = this.songRepo.find({
-      where: { moods: { name: moods[0] } },
+    const tertiarySongs = await this.songRepo.find({
+      where: { moods: { name: moods[2] } },
       take: 1,
     });
+
+    const allSongs = [...primarySongs, ...secondarySongs, ...tertiarySongs];
+
+    let i = 0;
+    for (const song of allSongs) {
+      i++;
+      await this.playlistSongRepo.save({
+        playlist,
+        song,
+        orderIndex: i,
+      });
+    }
+
+    console.log('New playlist created and populated!');
   }
 }
