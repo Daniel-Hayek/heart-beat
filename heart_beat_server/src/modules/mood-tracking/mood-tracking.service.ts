@@ -79,7 +79,7 @@ export class MoodTrackingService {
     const moodTracking = this.trackingRepo.create({
       source: 'Journal',
       mood: journal.moods_assigned!,
-      score: average,
+      score: parseFloat(average.toFixed(1)),
       user: journal.user,
     });
 
