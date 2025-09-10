@@ -19,6 +19,8 @@ class PlaylistCard extends StatelessWidget {
 
   int setColor() {
     int colorCode = int.parse("0xFF$playlistColor");
+    debugPrint(playlistColor);
+    debugPrint(colorCode.toString());
     return colorCode;
   }
 
@@ -29,7 +31,7 @@ class PlaylistCard extends StatelessWidget {
       height: 250,
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Color(setColor()),
+        color: Color(int.parse("FF$playlistColor", radix: 16)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
