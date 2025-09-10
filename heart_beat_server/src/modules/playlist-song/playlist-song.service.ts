@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { Song } from 'src/entities/song.entity';
 import { PlaylistSong } from 'src/entities/playlist-song.entity';
 import { MoodTracking } from 'src/entities/mood-tracking.entity';
+import { OnEvent } from '@nestjs/event-emitter';
 
 @Injectable()
 export class PlaylistSongService {
@@ -66,6 +67,7 @@ export class PlaylistSongService {
     return songs;
   }
 
+  @OnEvent('playlist.generated')
   async addMoodSongs(mood_tracking: MoodTracking, playlist: Playlist) {
     const moods = mood_tracking.mood.split(',').map((m) => m.trim());
 
