@@ -30,6 +30,6 @@ export class JournalsProcessor {
 
     await this.journalService.assignMoods(savedJournal!);
 
-    this.eventEmitter.emit('journal.created', savedJournal);
+    this.eventEmitter.emit('journal.created', savedJournal!);
   }
 }

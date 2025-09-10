@@ -16,8 +16,8 @@ import { BullModule } from '@nestjs/bull';
     JournalsQueueModule,
     BullModule.forRoot({
       redis: {
-        host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT!),
+        host: process.env.REDIS_HOST! || 'redis',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
       },
     }),
   ],

@@ -6,6 +6,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_started
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
@@ -46,6 +48,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-      
+
 volumes:
   postgres_data:
