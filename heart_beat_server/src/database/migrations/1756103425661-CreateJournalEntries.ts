@@ -23,6 +23,11 @@ export class CreateJournalEntries1756103425661 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: 'moods_assigned',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'content',
             type: 'text',
           },

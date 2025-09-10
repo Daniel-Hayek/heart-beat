@@ -18,6 +18,9 @@ export class JournalsService {
 
     @InjectRepository(ReferenceJournal)
     private readonly refJournalRepo: Repository<ReferenceJournal>,
+
+    @InjectRepository(ReferenceJournal)
+    private readonly journalMoodRepo: Repository<ReferenceJournal>,
   ) {}
 
   async create(createJournalDto: CreateJournalDto) {

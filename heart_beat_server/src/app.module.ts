@@ -11,6 +11,7 @@ import { MoodTrackingModule } from './modules/mood-tracking/mood-tracking.module
 import { MoodsModule } from './modules/moods/moods.module';
 import { SongMoodsModule } from './modules/song-moods/song-moods.module';
 import { ReferenceJournalsModule } from './modules/reference-journals/reference-journals.module';
+import { JournalMoodsModule } from './modules/journal-moods/journal-moods.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { ReferenceJournalsModule } from './modules/reference-journals/reference-
     SongMoodsModule,
     MoodsModule,
     ReferenceJournalsModule,
+    JournalMoodsModule,
   ],
   controllers: [],
   providers: [],
