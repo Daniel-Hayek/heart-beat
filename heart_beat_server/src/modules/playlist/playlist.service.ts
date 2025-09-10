@@ -72,8 +72,9 @@ export class PlaylistService {
       messages: [
         {
           role: 'user',
-          content: `Generate a name and color for a playlist that is based on the following moods: ${mood_tracking.mood}.
-          Return ONLY a string with two fields in this format: playlist-name,color. Don't give me an explanation as to why you picked those choices and do not wrap the title in quotations and no space after the comma.`,
+          content: `Generate a name and color hex (without the #) for a playlist that is based on the following moods: ${mood_tracking.mood}.
+          Return ONLY a string with two fields in this format: playlist-name,color. Don't give me an explanation as to why you picked those choices and do not wrap the title in quotations and no space after the comma.
+          Your output should look similar to Cloudy Day,BC3EC2`,
         },
       ],
       temperature: 0.8,
