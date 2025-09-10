@@ -22,6 +22,10 @@ export class CreatePlaylistsTable1756103563665 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'color',
+            type: 'varchar',
+          },
+          {
             name: 'description',
             type: 'text',
             isNullable: true,
