@@ -40,21 +40,34 @@ class PlaylistHomeScreen extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: SizedBox(
-                height: stackHeight,
-                child: Stack(
-                  children: List.generate(playlists.length, (index) {
-                    return Positioned(
-                      top: index * overlap,
-                      left: 0,
-                      right: 0,
-                      child: PlaylistCard(
-                        playlistName:
-                            playlists[playlists.length - index - 1].name,
-                        playlistId: playlists[playlists.length - index - 1].id,
+                height: playlists.isEmpty
+                    ? 200
+                    : stackHeight,
+                child: playlists.isEmpty
+                    ? Center(
+                        child: Text(
+                          'No playlists available',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      )
+                    : Stack(
+                        children: List.generate(playlists.length, (index) {
+                          return Positioned(
+                            top: index * overlap,
+                            left: 0,
+                            right: 0,
+                            child: PlaylistCard(
+                              playlistName:
+                                  playlists[playlists.length - index - 1].name,
+                              playlistId:
+                                  playlists[playlists.length - index - 1].id,
+                            ),
+                          );
+                        }),
                       ),
-                    );
-                  }),
-                ),
               ),
             ),
           ),
