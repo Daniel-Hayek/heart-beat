@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
 import { ReferenceJournal } from 'src/entities/reference-journal.entity';
 import { InjectQueue } from '@nestjs/bull';
-import { Queue } from 'bull';
+import type { Queue } from 'bull';
 
 @Injectable()
 export class JournalsService {

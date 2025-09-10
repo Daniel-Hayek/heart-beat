@@ -1,6 +1,6 @@
 import { Process, Processor } from '@nestjs/bull';
 import { JournalsService } from './journals.service';
-import { Job } from 'bull';
+import type { Job } from 'bull';
 import { JournalsChunks } from './journals-chunks.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
@@ -28,7 +28,7 @@ export class JournalsProcessor {
     savedJournal!.moods_assigned =
       scores[0].mood + ', ' + scores[1].mood + ', ' + scores[2].mood;
 
-    await this.journalService.assignMoods(savedJournal);
+    await this.journalService.assignMoods(savedJournal!);
 
     this.eventEmitter.emit('journal.created', savedJournal);
   }
