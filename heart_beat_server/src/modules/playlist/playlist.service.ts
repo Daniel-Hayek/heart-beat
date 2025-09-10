@@ -79,8 +79,6 @@ export class PlaylistService {
       temperature: 0.8,
     });
 
-    console.log(response.message.content);
-
     const playlistDetails = response.message.content![0]['text'] as string;
 
     const splitDetails = playlistDetails.split(',');

@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     timestamp: DateTime.now(),
   );
 
-  Playlist recentPlaylist = Playlist(id: 0, name: "No Playlist Found");
+  Playlist recentPlaylist = Playlist(id: 0, name: "No Playlist Found", color:'');
 
   @override
   void initState() {

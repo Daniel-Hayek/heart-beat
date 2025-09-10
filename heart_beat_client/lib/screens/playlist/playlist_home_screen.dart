@@ -40,9 +40,7 @@ class PlaylistHomeScreen extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: SizedBox(
-                height: playlists.isEmpty
-                    ? 200
-                    : stackHeight,
+                height: playlists.isEmpty ? 200 : stackHeight,
                 child: playlists.isEmpty
                     ? Center(
                         child: Text(
@@ -64,6 +62,8 @@ class PlaylistHomeScreen extends StatelessWidget {
                                   playlists[playlists.length - index - 1].name,
                               playlistId:
                                   playlists[playlists.length - index - 1].id,
+                              playlistColor:
+                                  playlists[playlists.length - index - 1].color,
                             ),
                           );
                         }),
