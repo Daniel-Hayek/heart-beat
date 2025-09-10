@@ -4,9 +4,9 @@ import { Journal } from 'src/entities/journal.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
-import { JournalsChunks } from './journals-chunks.service';
 import { ReferenceJournal } from 'src/entities/reference-journal.entity';
-import { EventEmitter2 } from '@nestjs/event-emitter';
+import { InjectQueue } from '@nestjs/bull';
+import { Queue } from 'bull';
 
 @Injectable()
 export class JournalsService {
@@ -20,7 +20,7 @@ export class JournalsService {
     @InjectRepository(ReferenceJournal)
     private readonly refJournalRepo: Repository<ReferenceJournal>,
 
-    private readonly eventEmitter: EventEmitter2,
+    @InjectQueue('journal-processing') private readonly journalQueue: Queue,
   ) {}
 
   async create(createJournalDto: CreateJournalDto) {
@@ -38,23 +38,11 @@ export class JournalsService {
       user,
     });
 
-    const chunks = JournalsChunks.chunkJournal(journal);
-    const embeddings = await JournalsChunks.embedJournal(chunks);
+    await this.journalRepo.save(journal);
 
-    const refJournals = await this.refJournalRepo.find({
-      relations: ['moods'],
-    });
+    await this.journalQueue.add({ journalId: journal.id });
 
-    const scores = JournalsChunks.determineJournalMood(embeddings, refJournals);
-
-    journal.moods_assigned =
-      scores[0].mood + ', ' + scores[1].mood + ', ' + scores[2].mood;
-
-    const saved = await this.journalRepo.save(journal);
-
-    this.eventEmitter.emit('journal.created', journal);
-
-    return saved;
+    return journal;
   }
 
   async find(id: number) {
@@ -116,5 +104,15 @@ export class JournalsService {
     });
 
     return result;
+  }
+
+  async getRefernceJournals() {
+    return await this.refJournalRepo.find({
+      relations: ['moods'],
+    });
+  }
+
+  async assignMoods(journal: Journal) {
+    return await this.journalRepo.save(journal);
   }
 }
