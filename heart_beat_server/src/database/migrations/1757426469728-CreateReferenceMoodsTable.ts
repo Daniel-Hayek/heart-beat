@@ -1,26 +1,22 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateMoodsTable1757067344612 implements MigrationInterface {
+export class CreateReferenceMoodsTable1757426469728
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'moods',
+        name: 'reference_journal_moods',
         columns: [
           {
-            name: 'id',
+            name: 'reference_journal_id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
           },
           {
-            name: 'name',
-            type: 'varchar',
-            isUnique: true,
-          },
-          {
-            name: 'score',
+            name: 'mood_id',
             type: 'int',
+            isPrimary: true,
           },
         ],
       }),
@@ -29,6 +25,6 @@ export class CreateMoodsTable1757067344612 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('moods');
+    await queryRunner.dropTable('reference_journal_moods');
   }
 }

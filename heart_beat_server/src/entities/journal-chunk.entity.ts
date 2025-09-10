@@ -1,40 +1,31 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from './user.entity';
-import { Optional } from '@nestjs/common';
 
-@Entity('journals')
-export class Journal {
+@Entity('journal_chunks')
+export class JournalChunk {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @IsOptional()
-  @IsString()
+  @IsInt()
   @Column()
-  title: string;
+  journal_id: number;
 
   @IsString()
   @Column('text')
-  content: string;
+  chunk_text: string;
 
-  @IsString()
-  @Optional()
   @Column({ type: 'varchar', nullable: true })
-  moods_assigned: string | null;
+  embedding: string;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
-
-  @ManyToOne(() => User, (user) => user.journals, { onDelete: 'CASCADE' })
-  user: User;
 }

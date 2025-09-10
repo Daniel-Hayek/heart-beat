@@ -10,17 +10,14 @@ RUN apk add --no-cache bash
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Install dependencies (including nodemon)
 RUN npm install
 
 # Copy source code
 COPY . .
 
-# Build the application
-RUN npm run build
-
 # Expose port 3000
 EXPOSE 3000
 
-# Start the application
-CMD ["node", "dist/src/main.js"]
+# Default command
+CMD ["npm", "run", "start:dev"]

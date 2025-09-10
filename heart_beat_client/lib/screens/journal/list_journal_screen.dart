@@ -68,6 +68,7 @@ class _ListJournalScreenState extends State<ListJournalScreen> {
                       return JournalListCard(
                         id: journal.id,
                         title: journal.title,
+                        moods: journal.moods,
                         content: journal.content,
                         date: displayDate,
                         onDelete: () {

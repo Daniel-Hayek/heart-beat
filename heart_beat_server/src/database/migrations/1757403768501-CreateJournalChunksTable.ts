@@ -1,10 +1,12 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateJournalEntries1756103425661 implements MigrationInterface {
+export class CreateJournalChunksTable1757403768501
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'journal_entries',
+        name: 'journal_chunks',
         columns: [
           {
             name: 'id',
@@ -14,40 +16,37 @@ export class CreateJournalEntries1756103425661 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'user_id',
+            name: 'journal_id',
             type: 'int',
+            isNullable: false,
           },
           {
-            name: 'title',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'moods_assigned',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'content',
+            name: 'chunk_text',
             type: 'text',
+            isNullable: false,
+          },
+          {
+            name: 'embedding',
+            type: 'vector',
+            length: '384',
+            isNullable: true,
           },
           {
             name: 'created_at',
             type: 'timestamp',
-            default: 'now()',
+            default: 'NOW()',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()',
+            default: 'NOW()',
           },
         ],
       }),
       true,
     );
   }
-
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('journal_entries');
+    await queryRunner.dropTable('journal_chunks');
   }
 }

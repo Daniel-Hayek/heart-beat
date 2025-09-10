@@ -24,7 +24,7 @@ class AuthInputField extends StatelessWidget {
           label,
           style: const TextStyle(
             color: AppColors.white,
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
             fontFamily: 'montserrat',
           ),

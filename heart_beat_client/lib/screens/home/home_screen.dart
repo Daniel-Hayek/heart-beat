@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Journal latest = Journal(
     id: 0,
     title: "",
+    moods: "",
     content: "No Journal Entry Found",
     createdAt: DateTime.now(),
   );

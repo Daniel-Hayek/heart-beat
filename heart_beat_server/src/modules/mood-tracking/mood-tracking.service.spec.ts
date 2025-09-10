@@ -6,11 +6,13 @@ import { User } from 'src/entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { CreateMoodTrackingDto } from './dto/create-mood-tracking.dto';
 import { NotFoundException } from '@nestjs/common';
+import { Mood } from 'src/entities/moods.entity';
 
 describe('MoodTrackingService', () => {
   let service: MoodTrackingService;
   let moodRepo: Partial<Repository<MoodTracking>>;
   let userRepo: Partial<Repository<User>>;
+  let moodLabelRepo: Partial<Repository<User>>;
 
   beforeEach(async () => {
     moodRepo = {
@@ -21,12 +23,16 @@ describe('MoodTrackingService', () => {
     userRepo = {
       findOne: jest.fn(),
     };
+    moodLabelRepo = {
+      findOne: jest.fn(),
+    };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         MoodTrackingService,
         { provide: getRepositoryToken(MoodTracking), useValue: moodRepo },
         { provide: getRepositoryToken(User), useValue: userRepo },
+        { provide: getRepositoryToken(Mood), useValue: moodLabelRepo },
       ],
     }).compile();
 

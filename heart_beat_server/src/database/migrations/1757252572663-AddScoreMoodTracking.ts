@@ -6,7 +6,7 @@ export class AddScoreMoodTracking1757252572663 implements MigrationInterface {
       'mood_tracking',
       new TableColumn({
         name: 'score',
-        type: 'int',
+        type: 'real',
         isNullable: true,
         default: null,
       }),

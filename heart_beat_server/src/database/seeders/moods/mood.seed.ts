@@ -5,9 +5,20 @@ async function seedMoods() {
   await AppDataSource.initialize();
   const moodRepo = AppDataSource.getRepository(Mood);
 
-  const moods = ['Happy', 'Sad', 'Calm', 'Focus', 'Energetic'].map((name) =>
-    moodRepo.create({ name }),
-  );
+  const moods = [
+    { name: 'Happy', score: 10 },
+    { name: 'Sad', score: 1 },
+    { name: 'Calm', score: 6 },
+    { name: 'Focus', score: 5 },
+    { name: 'Energetic', score: 8 },
+    { name: 'Angry', score: 3 },
+    { name: 'Anxious', score: 4 },
+    { name: 'Tired', score: 5 },
+    { name: 'Lonely', score: 2 },
+    { name: 'Excited', score: 9 },
+    { name: 'Frustrated', score: 3 },
+    { name: 'Hopeful', score: 7 },
+  ].map((m) => moodRepo.create(m));
 
   for (const mood of moods) {
     await moodRepo.save(mood);
