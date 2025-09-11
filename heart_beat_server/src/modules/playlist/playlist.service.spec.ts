@@ -6,6 +6,7 @@ import { User } from 'src/entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { NotFoundException } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 describe('PlaylistService', () => {
   let service: PlaylistService;
@@ -28,6 +29,10 @@ describe('PlaylistService', () => {
         PlaylistService,
         { provide: getRepositoryToken(Playlist), useValue: playlistRepo },
         { provide: getRepositoryToken(User), useValue: userRepo },
+        {
+          provide: EventEmitter2,
+          useValue: { emit: jest.fn() },
+        },
       ],
     }).compile();
 
