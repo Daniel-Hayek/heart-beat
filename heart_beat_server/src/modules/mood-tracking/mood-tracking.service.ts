@@ -9,7 +9,7 @@ import { User } from 'src/entities/user.entity';
 import { MoodTracking } from 'src/entities/mood-tracking.entity';
 import { Repository } from 'typeorm';
 import { Journal } from 'src/entities/journal.entity';
-import { OnEvent } from '@nestjs/event-emitter';
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { Mood } from 'src/entities/moods.entity';
 
 @Injectable()
@@ -23,6 +23,8 @@ export class MoodTrackingService {
 
     @InjectRepository(Mood)
     private readonly moodRepo: Repository<Mood>,
+
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   async create(createMoodTrackingDto: CreateMoodTrackingDto) {
@@ -82,6 +84,8 @@ export class MoodTrackingService {
       score: parseFloat(average.toFixed(1)),
       user: journal.user,
     });
+
+    this.eventEmitter.emit('mood.tracked', moodTracking);
 
     return this.trackingRepo.save(moodTracking);
   }

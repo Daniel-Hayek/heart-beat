@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/providers/playlist_provider.dart';
@@ -10,24 +8,20 @@ import 'package:provider/provider.dart';
 class PlaylistCard extends StatelessWidget {
   final String playlistName;
   final int playlistId;
+  final String playlistColor;
 
-  final List<Color> colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.indigo,
-    Colors.pink,
-  ];
-
-  PlaylistCard({
+  const PlaylistCard({
     super.key,
     required this.playlistName,
     required this.playlistId,
+    required this.playlistColor,
   });
 
-  Color getRandomColor() {
-    final Random random = Random();
-    return colors[random.nextInt(colors.length)];
+  int setColor() {
+    int colorCode = int.parse("0xFF$playlistColor");
+    debugPrint(playlistColor);
+    debugPrint(colorCode.toString());
+    return colorCode;
   }
 
   @override
@@ -37,7 +31,7 @@ class PlaylistCard extends StatelessWidget {
       height: 250,
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: getRandomColor(),
+        color: Color(int.parse("FF$playlistColor", radix: 16)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(

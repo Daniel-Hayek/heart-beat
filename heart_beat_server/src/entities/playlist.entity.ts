@@ -20,6 +20,10 @@ export class Playlist {
   @Column()
   name: string;
 
+  @IsString()
+  @Column({ nullable: true })
+  color: string;
+
   @IsBoolean()
   @Column()
   is_auto_generated: boolean;

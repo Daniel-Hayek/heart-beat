@@ -7,6 +7,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { CreateMoodTrackingDto } from './dto/create-mood-tracking.dto';
 import { NotFoundException } from '@nestjs/common';
 import { Mood } from 'src/entities/moods.entity';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 describe('MoodTrackingService', () => {
   let service: MoodTrackingService;
@@ -33,6 +34,10 @@ describe('MoodTrackingService', () => {
         { provide: getRepositoryToken(MoodTracking), useValue: moodRepo },
         { provide: getRepositoryToken(User), useValue: userRepo },
         { provide: getRepositoryToken(Mood), useValue: moodLabelRepo },
+        {
+          provide: EventEmitter2,
+          useValue: { emit: jest.fn() },
+        },
       ],
     }).compile();
 
