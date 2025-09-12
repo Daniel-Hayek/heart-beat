@@ -11,6 +11,8 @@ mlflow.set_tracking_uri("http://localhost:5000")
 mlflow.set_experiment("Stress Level Analysis")
 mlflow.sklearn.autolog(log_models=False)
 
+artifact_path = 'stress_level_artifact'
+
 with mlflow.start_run(run_name="CVM_ovo_cv10fold") as run:
 
     df = pd.read_csv("../datasets/synthetic_sleep_stress_dataset_final.csv")
@@ -70,14 +72,16 @@ with mlflow.start_run(run_name="CVM_ovo_cv10fold") as run:
 
     try:
 
-        df.to_csv("train_dataset.csv", index=False)
-        mlflow.log_artifact("train_dataset.csv")
-
         mlflow.log_metric("f1_weighted", f1_score(y_validation, y_validation_pred, average="weighted"))
-        mlflow.log_metric("accuracy", best_score)  # best CV score
+        mlflow.log_metric("accuracy", best_score,)  # best CV score
         mlflow.log_metric("f1_macro", f1_score(y_validation, y_validation_pred, average="macro"))
 
-        mlflow.sklearn.log_model(best_model, "svm_ovo_best_model")
+        mlflow.sklearn.log_model(
+            sk_model=best_model,
+            artifact_path="svm_ovo_best_model",
+            registered_model_name="svm_ovo_best_model"
+        )
+
         mlflow.log_params({
         "kernel": "rbf",
         "decision_function_shape": "ovo",
