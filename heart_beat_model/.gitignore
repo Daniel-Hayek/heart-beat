@@ -6,3 +6,7 @@ __pycache__/
 *.pyo
 *.pyd
 *.sqlite3
+
+# MLflow artifacts and logs
+mlflow_tracking/
+mlruns/
