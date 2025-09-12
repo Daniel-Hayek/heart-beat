@@ -27,6 +27,9 @@ with mlflow.start_run(run_name="CVM_ovo_cv10fold") as run:
 
     X_train, X_validation, y_train, y_validation = train_test_split(X, y, random_state = 42, test_size = 0.2)
 
+    y_train = y_train.to_numpy()
+
+    y_validation = y_validation.to_numpy()
 
     #================================ Classifiers ================================
 
@@ -52,6 +55,9 @@ with mlflow.start_run(run_name="CVM_ovo_cv10fold") as run:
     best_model = cv_results["estimator"][best_idx]
     print("Best Model Score", best_score)
 
+
+    #================================ Results ================================
+    
     y_validation_pred = best_model.predict(X_validation)
     print("Confusion Matrix:")
     print(confusion_matrix(y_validation, y_validation_pred))
@@ -60,8 +66,24 @@ with mlflow.start_run(run_name="CVM_ovo_cv10fold") as run:
     print("Classification Report:")
     print(class_report)
 
-    mlflow.log_metric("f1_weighted", f1_score(y_validation, y_validation_pred, average="weighted"))
+    #================================ MLFlow Logging ================================
 
-    mlflow.log_param("dummy_param", 123)
+    try:
 
-    mlflow.sklearn.log_model(best_model, "svm_ovo_best_model")
+        df.to_csv("train_dataset.csv", index=False)
+        mlflow.log_artifact("train_dataset.csv")
+
+        mlflow.log_metric("f1_weighted", f1_score(y_validation, y_validation_pred, average="weighted"))
+        mlflow.log_metric("accuracy", best_score)  # best CV score
+        mlflow.log_metric("f1_macro", f1_score(y_validation, y_validation_pred, average="macro"))
+
+        mlflow.sklearn.log_model(best_model, "svm_ovo_best_model")
+        mlflow.log_params({
+        "kernel": "rbf",
+        "decision_function_shape": "ovo",
+        "C": 1.0,
+        "gamma": "scale",
+        "random_state": 42
+        })
+    except Exception as e:
+        print("Failed to log:", e)
