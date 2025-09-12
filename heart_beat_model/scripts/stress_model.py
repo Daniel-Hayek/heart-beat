@@ -1,11 +1,13 @@
 import pandas as pd 
 import numpy as np
 import mlflow
+from mlflow.models.signature import infer_signature
 
 from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report, confusion_matrix, f1_score
+
 
 mlflow.set_tracking_uri("http://localhost:5000")
 mlflow.set_experiment("Stress Level Analysis")
@@ -72,14 +74,20 @@ with mlflow.start_run(run_name="CVM_ovo_cv10fold") as run:
 
     try:
 
+        input_example = df[["Sleep Duration", "Physical Activity Level", "Heart Rate", "Daily Steps"]].head()
+
+        signature = infer_signature(X_train, best_model.predict(X_train))
+
         mlflow.log_metric("f1_weighted", f1_score(y_validation, y_validation_pred, average="weighted"))
         mlflow.log_metric("accuracy", best_score,)  # best CV score
         mlflow.log_metric("f1_macro", f1_score(y_validation, y_validation_pred, average="macro"))
 
         mlflow.sklearn.log_model(
             sk_model=best_model,
-            artifact_path="svm_ovo_best_model",
-            registered_model_name="svm_ovo_best_model"
+            name="svm_ovo_best_model",
+            registered_model_name="svm_ovo_best_model",
+            input_example=input_example,
+            signature=signature
         )
 
         mlflow.log_params({
