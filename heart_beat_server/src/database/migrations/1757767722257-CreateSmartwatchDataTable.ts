@@ -41,6 +41,7 @@ export class CreateSmartwatchDataTable1757767722257
           {
             name: 'predicted_stress',
             type: 'int',
+            isNullable: true,
           },
         ],
       }),

@@ -135,7 +135,7 @@ synthetic_df = pd.concat([synthetic_df, extreme_samples], ignore_index=True)
 # --- Step 14: Explicitly add more stress extremes (1–2 and 9–10) ---
 
 # Generate low-stress synthetic cases (1–2)
-n_low_stress = 2000   # increase from 2000 → stronger representation
+n_low_stress = 1600   # increase from 2000 → stronger representation
 low_stress_df = pd.DataFrame({
     SLEEP_DURATION: rng.uniform(8, 12, n_low_stress),        # healthy sleep
     PHYSICAL_ACTIVITY: rng.uniform(120, 280, n_low_stress),  # decent activity
@@ -146,7 +146,7 @@ low_stress_df = pd.DataFrame({
 low_stress_df[STRESS_LEVEL] = rng.choice([1, 2], size=n_low_stress, p=[0.5, 0.5])
 
 # Generate high-stress synthetic cases (9–10)
-n_high_stress = 2000  # increase from 2000
+n_high_stress = 1600  # increase from 2000
 high_stress_df = pd.DataFrame({
     SLEEP_DURATION: rng.uniform(3, 5, n_high_stress),        # very little sleep
     PHYSICAL_ACTIVITY: rng.uniform(0, 30, n_high_stress),    # very low activity

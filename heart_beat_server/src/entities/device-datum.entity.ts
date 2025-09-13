@@ -1,4 +1,4 @@
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -9,7 +9,7 @@ import {
 import { User } from './user.entity';
 
 @Entity('device_data')
-export class DeviceData {
+export class DeviceDatum {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -34,8 +34,9 @@ export class DeviceData {
   phone_usage: number | null;
 
   @IsNumber()
-  @Column()
-  predicted_stress: number;
+  @IsOptional()
+  @Column({ nullable: true })
+  predicted_stress: number | null;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
