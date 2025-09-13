@@ -14,6 +14,10 @@ export class CreateSmartwatchDataTable1757767722257
             isPrimary: true,
           },
           {
+            name: 'user_id',
+            type: 'int',
+          },
+          {
             name: 'sleep_duration',
             type: 'real',
           },
@@ -30,8 +34,13 @@ export class CreateSmartwatchDataTable1757767722257
             type: 'real',
           },
           {
-            name: 'phone_usage ',
+            name: 'phone_usage',
             type: 'real',
+            isNullable: true,
+          },
+          {
+            name: 'predicted_stress',
+            type: 'int',
           },
         ],
       }),

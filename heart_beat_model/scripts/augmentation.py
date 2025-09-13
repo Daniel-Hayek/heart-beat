@@ -82,7 +82,7 @@ for cls in rare_classes:
 X_real = oversampled_df[cont_features]
 y_real = oversampled_df[STRESS_LEVEL]
 
-rf = RandomForestRegressor(n_estimators=200, max_depth=8, random_state=42, min_samples_leaf=1, max_features=1.0)
+rf = RandomForestRegressor(n_estimators=150, max_depth=8, random_state=42, min_samples_leaf=1, max_features=1.0)
 rf.fit(X_real, y_real)
 
 n_extreme = 300
