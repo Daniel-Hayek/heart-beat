@@ -9,6 +9,7 @@ import { MoodTracking } from './src/entities/mood-tracking.entity';
 import { JournalChunk } from './src/entities/journal-chunk.entity';
 import { Mood } from './src/entities/moods.entity';
 import { ReferenceJournal } from './src/entities/reference-journal.entity';
+import { DeviceDatum } from './src/entities/device-datum.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -27,6 +28,7 @@ export const AppDataSource = new DataSource({
     JournalChunk,
     Mood,
     ReferenceJournal,
+    DeviceDatum,
   ],
   migrations: ['src/database/migrations/*.ts'],
 });

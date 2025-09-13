@@ -36,7 +36,7 @@ export class DeviceDatum {
   @IsNumber()
   @IsOptional()
   @Column({ nullable: true })
-  predicted_stress: number | null;
+  predicted_stress: number;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
