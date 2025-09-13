@@ -1,29 +1,20 @@
 import 'package:flutter/cupertino.dart';
-import 'package:heart_beat_client/models/mood_tracking.dart';
+import 'package:heart_beat_client/models/device_data.dart';
 
 class DeviceDataProvider extends ChangeNotifier {
-  List<MoodTracking> _userMoods = [];
+  List<DeviceData> _userData = [];
 
-  List<MoodTracking> get userMoods => _userMoods;
+  List<DeviceData> get userData => _userData;
 
-  void setMoods(List<MoodTracking> moods) {
-    _userMoods = moods;
+  void setMoods(List<DeviceData> data) {
+    _userData = data;
 
     notifyListeners();
   }
 
-  List<MoodTracking> lastSeven() {
-    List<MoodTracking> temp = [];
-    List<MoodTracking> seven = [];
+  DeviceData latestData() {
+    DeviceData latest = _userData[_userData.length - 1];
 
-    for (int i = 0; i < 7 && i < _userMoods.length; i++) {
-      temp.add(_userMoods[_userMoods.length - i - 1]);
-    }
-
-    for (int i = 0; i < temp.length; i++) {
-      seven.add(temp[temp.length - i - 1]);
-    }
-    
-    return seven;
+    return latest;
   }
 }
