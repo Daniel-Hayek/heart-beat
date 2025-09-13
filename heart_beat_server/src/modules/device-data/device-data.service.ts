@@ -4,6 +4,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { DeviceDatum } from 'src/entities/device-datum.entity';
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
+
+interface PredictionResponse {
+  predicted_stress: number;
+}
 
 @Injectable()
 export class DeviceDataService {
@@ -13,6 +19,8 @@ export class DeviceDataService {
 
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
+
+    private readonly httpService: HttpService,
   ) {}
 
   async create(createDeviceDatumDto: CreateDeviceDatumDto) {
@@ -24,12 +32,27 @@ export class DeviceDataService {
       throw new NotFoundException('No user with that ID');
     }
 
+    const response = await firstValueFrom(
+      this.httpService.post<PredictionResponse>(
+        'http://host.docker.internal:8000/predict_stress',
+        {
+          sleep_duration: Number(createDeviceDatumDto.sleep_duration),
+          heart_rate: Number(createDeviceDatumDto.heartrate),
+          daily_steps: Number(createDeviceDatumDto.steps),
+          physical_activity_level: Number(createDeviceDatumDto.activity_level),
+        },
+      ),
+    );
+
+    const predStress = response.data['predicted_stress'];
+
     const deviceData = this.dataRepo.create({
       sleep_duration: createDeviceDatumDto.sleep_duration,
       heartrate: createDeviceDatumDto.heartrate,
       steps: createDeviceDatumDto.steps,
       activity_level: createDeviceDatumDto.activity_level,
       phone_usage: createDeviceDatumDto.phone_usage || 360,
+      predicted_stress: predStress,
       user,
     });
 
