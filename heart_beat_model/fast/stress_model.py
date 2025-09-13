@@ -12,13 +12,13 @@ class StressInput(BaseModel):
     daily_steps: float
 
 mlflow.set_tracking_uri("http://localhost:5000")
-model = mlflow.pyfunc.load_model(modelPath)
+model = mlflow.pyfunc.load_model("models:/svm_ovo_best_model/1")
 
 @app.get("/")
 def root():
     return {"message": "Stress prediction API is running"}
 
-@app.get("/predict_stress")
+@app.post("/predict_stress")
 def predict_stress(data: StressInput):
     df = pd.DataFrame([{
         "Sleep Duration": data.sleep_duration,
