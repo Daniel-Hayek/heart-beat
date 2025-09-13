@@ -12,6 +12,8 @@ export class CreateSmartwatchDataTable1757767722257
             name: 'device_data_id',
             type: 'int',
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'user_id',

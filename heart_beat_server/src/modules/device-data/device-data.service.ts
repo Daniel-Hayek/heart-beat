@@ -30,6 +30,7 @@ export class DeviceDataService {
       steps: createDeviceDatumDto.steps,
       activity_level: createDeviceDatumDto.activity_level,
       phone_usage: createDeviceDatumDto.phone_usage || 360,
+      user,
     });
 
     return await this.dataRepo.save(deviceData);
