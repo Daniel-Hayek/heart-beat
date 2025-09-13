@@ -1,6 +1,7 @@
 import pandas as pd 
 import numpy as np
 import mlflow
+import mlflow.sklearn
 from mlflow.models.signature import infer_signature
 
 from sklearn.model_selection import train_test_split, cross_validate
