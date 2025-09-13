@@ -34,7 +34,7 @@ export class DeviceDataService {
 
     const response = await firstValueFrom(
       this.httpService.post<PredictionResponse>(
-        'http://host.docker.internal:8000/predict_stress',
+        `${process.env.FAST_URL}:${process.env.FAST_PORT}/predict_stress`,
         {
           sleep_duration: Number(createDeviceDatumDto.sleep_duration),
           heart_rate: Number(createDeviceDatumDto.heartrate),
