@@ -1,7 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsInt, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateDeviceDatumDto {
+  @ApiProperty({
+    description: 'The ID of the user',
+    example: 1,
+  })
+  @IsInt()
+  userId: number;
+
   @ApiProperty({
     description: 'Sleep duration in hours the previous night',
     example: 7,

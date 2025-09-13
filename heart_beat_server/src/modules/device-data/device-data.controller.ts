@@ -11,9 +11,9 @@ export class DeviceDataController {
     return this.deviceDataService.create(createDeviceDatumDto);
   }
 
-  @Get()
-  findAll() {
-    return this.deviceDataService.findAll();
+  @Get('/user/:id')
+  findAll(@Param('id') userId: string) {
+    return this.deviceDataService.findAll(+userId);
   }
 
   @Get(':id')
