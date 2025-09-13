@@ -23,6 +23,43 @@ services:
            npx typeorm-ts-node-commonjs migration:run -d data-source.ts && \
            npm run start:dev"
 
+
+  fastapi:
+    build:
+      context: ./heart_beat_model
+      dockerfile: fast/Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mlflow
+    volumes:
+      - ./heart_beat_model:/app
+      - mlflow_data:/app/mlflow
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+
+  mlflow:
+    build:
+      context: ./heart_beat_model
+      dockerfile: mlflow/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/app/mlflow
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
   postgres:
     image: pgvector/pgvector:pg17
     environment:
@@ -51,3 +88,4 @@ services:
 
 volumes:
   postgres_data:
+  mlflow_data:
