@@ -16,7 +16,7 @@ cont_features = [SLEEP_DURATION, PHYSICAL_ACTIVITY, HEART_RATE, DAILY_STEPS]
 df = pd.read_csv("../datasets/Sleep_health_and_lifestyle_dataset.csv")
 df = df[features]
 
-n_samples = 40000
+n_samples = 20000
 
 # --- Step 1: Convert features to uniform marginals using rank transformation ---
 uniform_df = df.copy()
@@ -132,6 +132,36 @@ extreme_samples = pd.DataFrame({
 extreme_samples[STRESS_LEVEL] = rf.predict(extreme_samples[cont_features]).round().astype(int)
 synthetic_df = pd.concat([synthetic_df, extreme_samples], ignore_index=True)
 
-# --- Step 14: Save final dataset ---
+# --- Step 14: Explicitly add more stress extremes (1–2 and 9–10) ---
+
+# Generate low-stress synthetic cases (1–2)
+n_low_stress = 2000   # increase from 2000 → stronger representation
+low_stress_df = pd.DataFrame({
+    SLEEP_DURATION: rng.uniform(8, 12, n_low_stress),        # healthy sleep
+    PHYSICAL_ACTIVITY: rng.uniform(120, 280, n_low_stress),  # decent activity
+    HEART_RATE: rng.uniform(50, 70, n_low_stress),           # normal-low HR
+    DAILY_STEPS: rng.uniform(10000, 18000, n_low_stress)     # solid daily steps
+})
+# Assign stress levels 1–2 directly
+low_stress_df[STRESS_LEVEL] = rng.choice([1, 2], size=n_low_stress, p=[0.5, 0.5])
+
+# Generate high-stress synthetic cases (9–10)
+n_high_stress = 2000  # increase from 2000
+high_stress_df = pd.DataFrame({
+    SLEEP_DURATION: rng.uniform(3, 5, n_high_stress),        # very little sleep
+    PHYSICAL_ACTIVITY: rng.uniform(0, 30, n_high_stress),    # very low activity
+    HEART_RATE: rng.uniform(110, 135, n_high_stress),        # very high HR
+    DAILY_STEPS: rng.uniform(0, 2000, n_high_stress)         # very low steps
+})
+# Assign stress levels 9–10 directly
+high_stress_df[STRESS_LEVEL] = rng.choice([9, 10], size=n_high_stress, p=[0.5, 0.5])
+
+# Concatenate with synthetic dataset
+synthetic_df = pd.concat([synthetic_df, low_stress_df, high_stress_df], ignore_index=True)
+
+# Final cleanup: clip and round stress
+synthetic_df[STRESS_LEVEL] = synthetic_df[STRESS_LEVEL].round().astype(int).clip(1, 10)
+
+# --- Step 15: Save final dataset ---
 synthetic_df.to_csv("../datasets/synthetic_sleep_stress_dataset_final.csv", index=False)
 print("Final synthetic dataset saved with shape:", synthetic_df.shape)
