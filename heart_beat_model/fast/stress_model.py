@@ -12,7 +12,7 @@ class StressInput(BaseModel):
     daily_steps: float
 
 mlflow.set_tracking_uri("http://localhost:5000")
-model = mlflow.pyfunc.load_model("models:/svm_ovo_best_model/1")
+model = mlflow.pyfunc.load_model("models:/svm_ovo_best_model/2")
 
 @app.get("/")
 def root():
@@ -26,6 +26,8 @@ def predict_stress(data: StressInput):
         "Heart Rate": data.heart_rate,
         "Daily Steps": data.daily_steps,
     }])
+
+
 
     prediction = model.predict(df)[0]
 

@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report, confusion_matrix, f1_score
+from sklearn.pipeline import Pipeline
 
 
 mlflow.set_tracking_uri("http://localhost:5000")
@@ -27,9 +28,6 @@ with mlflow.start_run(run_name="CVM_ovo_cv10fold") as run:
     print(X)
     print(y)
 
-    scaler = StandardScaler()
-    X = scaler.fit_transform(X)
-
     X_train, X_validation, y_train, y_validation = train_test_split(X, y, random_state = 42, test_size = 0.2)
 
     y_train = y_train.to_numpy()
@@ -38,12 +36,15 @@ with mlflow.start_run(run_name="CVM_ovo_cv10fold") as run:
 
     #================================ Classifiers ================================
 
-    svm_ovo_model = SVC(kernel='rbf', decision_function_shape='ovo', random_state=42, C=1.0, gamma='scale')
+    svm_pipeline = Pipeline([
+        ("scaler", StandardScaler()),
+        ("svm", SVC(kernel='rbf', decision_function_shape='ovo', random_state=42, C=1.0, gamma='scale'))
+    ])
 
     #================================ K-Cross Validation ================================
 
     cv_results = cross_validate(
-            svm_ovo_model, 
+            svm_pipeline, 
             X_train, 
             y_train,
             cv = 10,
