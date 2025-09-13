@@ -1,0 +1,9 @@
+digest: 3182d5a4
+name: dataset
+profile: '{"features_shape": [1600, 4], "features_size": 6400, "features_nbytes":
+  51200}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"float64\", \"shape\": [-1, 4]}}]", "targets": null}}'
+source: '{"tags": {"mlflow.user": "Danny", "mlflow.source.name": "stress_model.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "d394f63cbf96d1b6c6b0ae3ca23a3f2a8eefb50a"}}'
+source_type: code

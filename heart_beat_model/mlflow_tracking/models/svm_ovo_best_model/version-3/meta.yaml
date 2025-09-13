@@ -1,0 +1,18 @@
+aliases: []
+creation_timestamp: 1757685590319
+current_stage: None
+deployment_job_state: null
+description: ''
+last_updated_timestamp: 1757685590319
+metrics: null
+model_id: m-2fce512dcc0b4006ad32df59ddf9d556
+name: svm_ovo_best_model
+params: null
+run_id: 5a75bea46a2f4b8d86626738b38122bd
+run_link: ''
+source: models:/m-2fce512dcc0b4006ad32df59ddf9d556
+status: READY
+status_message: null
+storage_location: file:C:/Users/Danny/Desktop/Computer Science/FSE/Final Project/heart-beat/heart_beat_model/mlflow_tracking/artifacts/339102042405170477/models/m-2fce512dcc0b4006ad32df59ddf9d556/artifacts
+user_id: null
+version: 3

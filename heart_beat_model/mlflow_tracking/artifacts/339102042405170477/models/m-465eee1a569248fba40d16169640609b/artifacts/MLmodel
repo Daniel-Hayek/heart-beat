@@ -1,0 +1,22 @@
+artifact_path: file:C:/Users/Danny/Desktop/Computer Science/FSE/Final Project/heart-beat/heart_beat_model/mlflow_tracking/artifacts/339102042405170477/models/m-465eee1a569248fba40d16169640609b/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.9
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+mlflow_version: 3.3.2
+model_id: m-465eee1a569248fba40d16169640609b
+model_size_bytes: 442311
+model_uuid: m-465eee1a569248fba40d16169640609b
+prompts: null
+run_id: d37a8ff219b641068caf1157eb555631
+utc_time_created: '2025-09-12 13:40:07.323987'

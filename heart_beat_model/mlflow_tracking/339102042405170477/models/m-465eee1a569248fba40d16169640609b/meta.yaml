@@ -1,0 +1,10 @@
+artifact_location: file:C:/Users/Danny/Desktop/Computer Science/FSE/Final Project/heart-beat/heart_beat_model/mlflow_tracking/artifacts/339102042405170477/models/m-465eee1a569248fba40d16169640609b/artifacts
+creation_timestamp: 1757684406971
+experiment_id: '339102042405170477'
+last_updated_timestamp: 1757684416373
+model_id: m-465eee1a569248fba40d16169640609b
+model_type: ''
+name: svm_ovo_best_model
+source_run_id: d37a8ff219b641068caf1157eb555631
+status: 2
+status_message: null

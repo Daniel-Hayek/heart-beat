@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/Danny/Desktop/Computer Science/FSE/Final Project/heart-beat/heart_beat_model/mlflow_tracking/artifacts/339102042405170477/185d18b162f84c03aadec0f41aa72371/artifacts
+end_time: 1757683943386
+entry_point_name: ''
+experiment_id: '339102042405170477'
+lifecycle_stage: active
+run_id: 185d18b162f84c03aadec0f41aa72371
+run_name: CVM_ovo_cv10fold
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757683729455
+status: 3
+tags: []
+user_id: Danny
