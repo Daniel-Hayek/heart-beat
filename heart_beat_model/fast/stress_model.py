@@ -12,7 +12,7 @@ class StressInput(BaseModel):
     daily_steps: float
 
 mlflow.set_tracking_uri("http://localhost:5000")
-model = mlflow.pyfunc.load_model("models:/svm_ovo_best_model/2")
+model = mlflow.pyfunc.load_model("models:/svm_ovo_best_model/5")
 
 @app.get("/")
 def root():
