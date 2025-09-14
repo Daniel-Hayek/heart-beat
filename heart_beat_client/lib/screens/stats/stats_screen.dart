@@ -95,7 +95,7 @@ class _StatsScreenState extends State<StatsScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoutes.feedback);
                 },
-                label: "Improve Mood Tracking",
+                label: "Submit Vitals Manually",
               ),
               SizedBox(height: 20),
             ],

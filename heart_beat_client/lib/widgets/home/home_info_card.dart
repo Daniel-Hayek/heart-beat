@@ -56,6 +56,8 @@ class HomeInfoCard extends StatelessWidget {
             child: Image.asset(
               'assets/images/$image',
               fit: BoxFit.contain,
+              height: 140,
+              width: 140,
             ),
           ),
         ],

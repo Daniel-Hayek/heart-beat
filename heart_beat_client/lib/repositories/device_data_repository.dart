@@ -12,7 +12,6 @@ class DeviceDataRepository {
     required double activityLevel,
     required double steps,
     required double heartrate,
-    required int predictedStress,
     required String token,
   }) async {
     try {
