@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/device_data_provider.dart';
 import 'package:heart_beat_client/providers/journal_provider.dart';
@@ -13,6 +14,7 @@ import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/home/home_info_card.dart';
+import 'package:heart_beat_client/widgets/home/thermometer.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -65,8 +67,23 @@ class _HomeScreenState extends State<HomeScreen> {
     final userName = authProvider.userName;
 
     final data = dataProvider.userData.isNotEmpty
-        ? dataProvider.userData.last.predictedStress.toString()
-        : "No predicted stress";
+        ? dataProvider.userData.last.predictedStress
+        : 0;
+
+    String stressText =
+        "Your vitals indicate that you are feeling quite stressed. Maybe try taking a day off?";
+
+    if (data < 7) {
+      stressText =
+          "Your vitals indicate that you are feeling mildly stressed. Stay mindful of how you manage it.";
+      if (data < 4) {
+        stressText =
+            "Your vitals indicate that you are feeling pretty relaxed. That's great!";
+        if (data == 0) {
+          stressText = "No predicted stress data available";
+        }
+      }
+    }
 
     final mood = moodProvider.userMoods.isNotEmpty
         ? moodProvider.userMoods.last.mood
@@ -94,7 +111,47 @@ class _HomeScreenState extends State<HomeScreen> {
                       "Your last mood review indicates that you are feeling $mood.",
                   image: 'mood.png',
                 ),
-                // HomeInfoCard(title: 'Stress Level', content: data),
+                Container(
+                  padding: EdgeInsets.all(14),
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: AppColors.secondaryColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Stress Level",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'montserrat',
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              stressText,
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(width: 16),
+                      Expanded(flex: 2, child: Thermometer(value: data.toDouble())),
+                      SizedBox(width: 28),
+                    ],
+                  ),
+                ),
                 HomeInfoCard(
                   title: 'Recent Journal',
                   content: journal,
