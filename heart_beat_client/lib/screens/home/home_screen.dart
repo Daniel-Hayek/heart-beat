@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/device_data_provider.dart';
+import 'package:heart_beat_client/providers/journal_provider.dart';
 import 'package:heart_beat_client/providers/mood_tracking_provider.dart';
 import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/repositories/device_data_repository.dart';
@@ -30,11 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
       final playlistProvider = context.read<PlaylistProvider>();
       final moodProvider = context.read<MoodTrackingProvider>();
       final dataProvider = context.read<DeviceDataProvider>();
+      final journalProvider = context.read<JournalProvider>();
 
-      final journalRepo = JournalRepository();
       final playlistRepo = PlaylistRepository();
       final moodRepo = MoodTrackingRepository();
       final dataRepo = DeviceDataRepository();
+      final journalRepo = JournalRepository();
 
       String curToken = authProvider.token!;
       int curUserId = authProvider.userId!;
@@ -46,21 +48,21 @@ class _HomeScreenState extends State<HomeScreen> {
       moodProvider.setMoods(await moodRepo.getUserMoods(curToken, curUserId));
 
       dataProvider.setData(await dataRepo.fetchData(curToken, curUserId));
+
+      journalProvider.setJournals(
+        await journalRepo.getJournals(curToken, curUserId),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
-    final playlistProvider = context.watch<PlaylistProvider>();
     final moodProvider = context.watch<MoodTrackingProvider>();
     final dataProvider = context.watch<DeviceDataProvider>();
+    final journalProvider = context.watch<JournalProvider>();
 
     final userName = authProvider.userName;
-
-    final playlist = playlistProvider.playlists.isNotEmpty
-        ? playlistProvider.playlists.last.name
-        : "No Playlist Found";
 
     final data = dataProvider.userData.isNotEmpty
         ? dataProvider.userData.last.predictedStress.toString()
@@ -69,6 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final mood = moodProvider.userMoods.isNotEmpty
         ? moodProvider.userMoods.last.mood
         : "No moods detected";
+
+    final journal = journalProvider.userJournals.isNotEmpty
+        ? journalProvider.userJournals.last.content
+        : "No journal entries written";
 
     return Scaffold(
       appBar: CustomAppBar(title: "Home Screen"),
@@ -82,9 +88,18 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                HomeInfoCard(title: 'Recent Mood', content: mood),
-                HomeInfoCard(title: 'Recent Journal Entry', content: data),
-                HomeInfoCard(title: 'Recent Playlist', content: playlist),
+                HomeInfoCard(
+                  title: 'Mood',
+                  content:
+                      "Your last mood review indicates that you are feeling $mood.",
+                  image: 'mood.png',
+                ),
+                // HomeInfoCard(title: 'Stress Level', content: data),
+                HomeInfoCard(
+                  title: 'Recent Journal',
+                  content: journal,
+                  image: 'writing.png',
+                ),
               ],
             ),
           ),

@@ -30,8 +30,8 @@ class _ListJournalScreenState extends State<ListJournalScreen> {
 
       final journalRepo = JournalRepository();
       final fetchedJournals = await journalRepo.getJournals(
-        token: authProvider.token!,
-        id: authProvider.userId!,
+        authProvider.token!,
+        authProvider.userId!,
       );
       setState(() {
         journals = fetchedJournals;

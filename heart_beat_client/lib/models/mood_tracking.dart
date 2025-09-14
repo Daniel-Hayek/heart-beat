@@ -18,7 +18,7 @@ class MoodTracking {
       id: json['id'] as int,
       source: json['source'] as String,
       mood: json['mood'] as String,
-      score: json['score'] as double,
+      score: (json['score'] as num).toDouble(),
       timestamp: DateTime.parse(json['timestamp']),
     );
   }

@@ -82,7 +82,7 @@ class _StatsScreenState extends State<StatsScreen> {
                   StatCard(statType: "Playlists Created", statNum: playlists),
                   StatCard(
                     statType: "Phone Usage (Minutes per day)",
-                    statNum: 0,
+                    statNum: data.phoneUsage.toInt(),
                   ),
                   StatCard(
                     statType: "Average Heart Rate",

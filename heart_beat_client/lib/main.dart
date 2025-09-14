@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heart_beat_client/core/constants/app_theme.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/device_data_provider.dart';
+import 'package:heart_beat_client/providers/journal_provider.dart';
 import 'package:heart_beat_client/providers/mood_tracking_provider.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
 import 'package:heart_beat_client/providers/nav_provider.dart';
@@ -23,6 +24,7 @@ Future main() async {
         ChangeNotifierProvider(create: (context) => MusicPlayerProvider()),
         ChangeNotifierProvider(create: (context) => MoodTrackingProvider()),
         ChangeNotifierProvider(create: (context) => DeviceDataProvider()),
+        ChangeNotifierProvider(create: (context) => JournalProvider()),
         ChangeNotifierProvider(
           create: (context) => StatsProvider(context.read<AuthProvider>()),
         ),

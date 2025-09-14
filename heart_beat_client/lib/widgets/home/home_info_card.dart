@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
-import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
-import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 
 class HomeInfoCard extends StatelessWidget {
   final String title;
   final String content;
+  final String image;
 
-  const HomeInfoCard({super.key, required this.title, required this.content});
+  const HomeInfoCard({
+    super.key,
+    required this.title,
+    required this.content,
+    required this.image,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +23,40 @@ class HomeInfoCard extends StatelessWidget {
         color: AppColors.secondaryColor,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Column(
+      child: Row(
         children: [
-          TitleText(text: title, size: 20),
-          Row(
-            children: [
-              BodyText(text: content, size: 16, maxLines: null),
-              SizedBox(),
-            ],
+          Expanded(
+            flex: 6,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'montserrat',
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  content,
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+
+          SizedBox(width: 16),
+          Expanded(
+            flex: 4,
+            child: Image.asset(
+              'assets/images/$image',
+              fit: BoxFit.contain,
+            ),
           ),
         ],
       ),
