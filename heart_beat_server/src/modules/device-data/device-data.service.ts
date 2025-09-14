@@ -5,10 +5,9 @@ import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { DeviceDatum } from 'src/entities/device-datum.entity';
 import { HttpService } from '@nestjs/axios';
-import { firstValueFrom } from 'rxjs';
 
-interface PredictionResponse {
-  predicted_stress: number;
+interface FastAPIResponse {
+  predicted_stress: number; // or whatever type this should be
 }
 
 @Injectable()
@@ -32,19 +31,24 @@ export class DeviceDataService {
       throw new NotFoundException('No user with that ID');
     }
 
-    const response = await firstValueFrom(
-      this.httpService.post<PredictionResponse>(
-        `${process.env.FAST_URL}:${process.env.FAST_PORT}/predict_stress`,
-        {
-          sleep_duration: Number(createDeviceDatumDto.sleep_duration),
-          heart_rate: Number(createDeviceDatumDto.heartrate),
-          daily_steps: Number(createDeviceDatumDto.steps),
-          physical_activity_level: Number(createDeviceDatumDto.activity_level),
+    const response = await fetch(
+      `${process.env.FAST_URL}:${process.env.FAST_PORT}/predict_stress`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      ),
+        body: JSON.stringify({
+          sleep_duration: createDeviceDatumDto.sleep_duration,
+          physical_activity_level: createDeviceDatumDto.activity_level,
+          heart_rate: createDeviceDatumDto.heartrate,
+          daily_steps: createDeviceDatumDto.steps,
+        }),
+      },
     );
 
-    const predStress = response.data['predicted_stress'];
+    const result = (await response.json()) as FastAPIResponse;
+    console.log('FastAPI response data:', result.predicted_stress);
 
     const deviceData = this.dataRepo.create({
       sleep_duration: createDeviceDatumDto.sleep_duration,
@@ -52,7 +56,7 @@ export class DeviceDataService {
       steps: createDeviceDatumDto.steps,
       activity_level: createDeviceDatumDto.activity_level,
       phone_usage: createDeviceDatumDto.phone_usage || 360,
-      predicted_stress: predStress,
+      predicted_stress: result.predicted_stress,
       user,
     });
 
