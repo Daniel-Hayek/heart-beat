@@ -43,13 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
         await playlistRepo.getAllPlaylists(curToken, curUserId),
       );
 
-      moodProvider.setMoods(
-        await moodRepo.getUserMoods(token: curToken, userId: curUserId),
-      );
+      moodProvider.setMoods(await moodRepo.getUserMoods(curToken, curUserId));
 
-      dataProvider.setData(
-        await dataRepo.fetchData(userId: curUserId, token: curToken),
-      );
+      dataProvider.setData(await dataRepo.fetchData(curToken, curUserId));
     });
   }
 

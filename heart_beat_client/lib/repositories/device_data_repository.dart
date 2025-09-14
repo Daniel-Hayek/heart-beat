@@ -37,10 +37,7 @@ class DeviceDataRepository {
     }
   }
 
-  Future<List<DeviceData>> fetchData({
-    required int userId,
-    required String token,
-  }) async {
+  Future<List<DeviceData>> fetchData(String token, int userId) async {
     try {
       final response = await _apiService.client.get(
         '/device-data/user/$userId',
@@ -55,7 +52,7 @@ class DeviceDataRepository {
 
       return data.map((json) => DeviceData.fromJson(json)).toList();
     } catch (e) {
-      throw Exception("Could not get user device data");
+      throw Exception(e);
     }
   }
 }

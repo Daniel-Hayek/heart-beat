@@ -4,7 +4,7 @@ class DeviceData {
   final double activityLevel;
   final double steps;
   final double heartrate;
-  final int phoneUsage;
+  final double phoneUsage;
   final int predictedStress;
   final DateTime createdAt;
 
@@ -22,13 +22,13 @@ class DeviceData {
   factory DeviceData.fromJson(Map<String, dynamic> json) {
     return DeviceData(
       id: json['id'] as int,
-      sleepDuration: json['sleep_duration'] as double,
-      activityLevel: json['activity_level'] as double,
-      steps: json['steps'] as double,
-      heartrate: json['heartrate'] as double,
-      phoneUsage: json['phone_usage'] as int,
-      createdAt: DateTime.parse(json['created_at']),
-      predictedStress: json['predicted_stress'] as int,
+      sleepDuration: (json['sleep_duration'] as num).toDouble(),
+      activityLevel: (json['activity_level'] as num).toDouble(),
+      steps: (json['steps'] as num).toDouble(),
+      heartrate: (json['heartrate'] as num).toDouble(),
+      phoneUsage: (json['phone_usage'] as num).toDouble(),
+      predictedStress: (json['predicted_stress'] as num?)?.toInt() ?? 0,
+      createdAt: DateTime.parse(json['created_at'] as String),
     );
   }
 }
