@@ -10,6 +10,7 @@ import {
 import { Journal } from './journal.entity';
 import { Playlist } from './playlist.entity';
 import { MoodTracking } from './mood-tracking.entity';
+import { DeviceDatum } from './device-datum.entity';
 
 @Entity('users')
 export class User {
@@ -43,4 +44,7 @@ export class User {
 
   @OneToMany(() => MoodTracking, (moodTracking) => moodTracking.user)
   moodTrackings: MoodTracking[];
+
+  @OneToMany(() => DeviceDatum, (data) => data.user)
+  deviceData: DeviceDatum[];
 }

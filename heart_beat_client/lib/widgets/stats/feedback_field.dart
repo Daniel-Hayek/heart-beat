@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/widgets/common/fonts/body_text.dart';
 
@@ -17,19 +18,21 @@ class FeedbackField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BodyText(text: label, size: 16, maxLines: null),
+        BodyText(text: label, size: 16, maxLines: 3),
         SizedBox(height: 6),
         SizedBox(
-          height: 140,
+          height: 40,
           child: TextFormField(
             maxLines: null,
-            expands: true,
-            keyboardType: TextInputType.multiline,
-            textAlignVertical: TextAlignVertical.top,
+            keyboardType: TextInputType.number,
+            textAlignVertical: TextAlignVertical.center,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+            ],
             controller: controller,
             style: TextStyle(fontSize: 14, color: Colors.white),
             decoration: InputDecoration(
-              hint: Text("What are your thoughts..."),
+              hint: Text("Enter a number"),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(

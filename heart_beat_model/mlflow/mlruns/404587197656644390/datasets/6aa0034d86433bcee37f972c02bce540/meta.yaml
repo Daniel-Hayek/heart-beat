@@ -1,0 +1,10 @@
+digest: fd52b837
+name: dataset
+profile: '{"num_rows": 38592, "num_elements": 154368}'
+schema: '{"mlflow_colspec": [{"type": "double", "name": "Sleep Duration", "required":
+  true}, {"type": "double", "name": "Physical Activity Level", "required": true},
+  {"type": "double", "name": "Heart Rate", "required": true}, {"type": "double", "name":
+  "Daily Steps", "required": true}]}'
+source: '{"tags": {"mlflow.user": "Danny", "mlflow.source.name": "stress_model.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "91318ea84348e6f50faf9d27d43474ffaf56276a"}}'
+source_type: code

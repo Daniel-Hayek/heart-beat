@@ -31,10 +31,7 @@ class MoodTrackingRepository {
     }
   }
 
-  Future<List<MoodTracking>> getUserMoods({
-    required String token,
-    required int userId,
-  }) async {
+  Future<List<MoodTracking>> getUserMoods(String token, int userId) async {
     try {
       final response = await _apiService.client.get(
         '/mood-tracking/$userId',
