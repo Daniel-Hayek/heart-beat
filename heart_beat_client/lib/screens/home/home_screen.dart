@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/models/journal.dart';
-import 'package:heart_beat_client/models/mood_tracking.dart';
-import 'package:heart_beat_client/models/playlist.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
+import 'package:heart_beat_client/providers/device_data_provider.dart';
 import 'package:heart_beat_client/providers/mood_tracking_provider.dart';
 import 'package:heart_beat_client/providers/playlist_provider.dart';
+import 'package:heart_beat_client/repositories/device_data_repository.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
 import 'package:heart_beat_client/repositories/mood_tracking_repository.dart';
 import 'package:heart_beat_client/repositories/playlist_repository.dart';
@@ -23,23 +22,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Journal latest = Journal(
-    id: 0,
-    title: "",
-    moods: "",
-    content: "No Journal Entry Found",
-    createdAt: DateTime.now(),
-  );
-  MoodTracking recentMood = MoodTracking(
-    id: 0,
-    source: "",
-    mood: "No Mood Data Found",
-    score: 0,
-    timestamp: DateTime.now(),
-  );
-
-  Playlist recentPlaylist = Playlist(id: 0, name: "No Playlist Found", color:'');
-
   @override
   void initState() {
     super.initState();
@@ -47,54 +29,50 @@ class _HomeScreenState extends State<HomeScreen> {
       final authProvider = context.read<AuthProvider>();
       final playlistProvider = context.read<PlaylistProvider>();
       final moodProvider = context.read<MoodTrackingProvider>();
+      final dataProvider = context.read<DeviceDataProvider>();
 
       final journalRepo = JournalRepository();
       final playlistRepo = PlaylistRepository();
       final moodRepo = MoodTrackingRepository();
+      final dataRepo = DeviceDataRepository();
 
-      final recent = await journalRepo.getLatest(
-        token: authProvider.token!,
-        userId: authProvider.userId!,
+      String curToken = authProvider.token!;
+      int curUserId = authProvider.userId!;
+
+      playlistProvider.setPlaylists(
+        await playlistRepo.getAllPlaylists(curToken, curUserId),
       );
 
-      if (!mounted) {
-        return;
-      }
-
-      List<Playlist> temp = await playlistRepo.getAllPlaylists(
-        authProvider.token!,
-        authProvider.userId!,
+      moodProvider.setMoods(
+        await moodRepo.getUserMoods(token: curToken, userId: curUserId),
       );
 
-      debugPrint(temp[0].name);
-
-      playlistProvider.setPlaylists(temp);
-
-      recentPlaylist = temp[temp.length - 1];
-
-      List<MoodTracking> tempMoods = await moodRepo.getUserMoods(
-        token: authProvider.token!,
-        userId: authProvider.userId!,
+      dataProvider.setData(
+        await dataRepo.fetchData(userId: curUserId, token: curToken),
       );
-
-      moodProvider.setMoods(tempMoods);
-
-      recentMood = tempMoods[tempMoods.length - 1];
-
-      if (!mounted) {
-        return;
-      }
-
-      setState(() {
-        latest = recent;
-      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = context.read<AuthProvider>();
+    final authProvider = context.watch<AuthProvider>();
+    final playlistProvider = context.watch<PlaylistProvider>();
+    final moodProvider = context.watch<MoodTrackingProvider>();
+    final dataProvider = context.watch<DeviceDataProvider>();
+
     final userName = authProvider.userName;
+
+    final playlist = playlistProvider.playlists.isNotEmpty
+        ? playlistProvider.playlists.last.name
+        : "No Playlist Found";
+
+    final data = dataProvider.userData.isNotEmpty
+        ? dataProvider.userData.last.predictedStress.toString()
+        : "No predicted stress";
+
+    final mood = moodProvider.userMoods.isNotEmpty
+        ? moodProvider.userMoods.last.mood
+        : "No moods detected";
 
     return Scaffold(
       appBar: CustomAppBar(title: "Home Screen"),
@@ -108,30 +86,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                HomeInfoCard(title: 'Recent Mood', content: recentMood.mood),
-                HomeInfoCard(
-                  title: 'Recent Journal Entry',
-                  content: latest.content,
-                ),
-                HomeInfoCard(
-                  title: 'Recent Playlist',
-                  content: recentPlaylist.name,
-                ),
+                HomeInfoCard(title: 'Recent Mood', content: mood),
+                HomeInfoCard(title: 'Recent Journal Entry', content: data),
+                HomeInfoCard(title: 'Recent Playlist', content: playlist),
               ],
             ),
           ),
-          // ElevatedButton(
-          //   onPressed: () async {
-          //     final authProvider = context.read<AuthProvider>();
-          //     final token = await authProvider.loadToken();
-          //     final decodedToken = JwtDecoder.decode(token!);
-
-          //     ScaffoldMessenger.of(context).showSnackBar(
-          //       AuthSnackBar(content: Text(decodedToken.toString())),
-          //     );
-          //   },
-          //   child: const Text("Get token"),
-          // ),
         ],
       ),
       bottomNavigationBar: CustomBottomBar(),

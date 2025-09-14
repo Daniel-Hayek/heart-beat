@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:heart_beat_client/models/device_data.dart';
 
 class DeviceDataProvider extends ChangeNotifier {
@@ -6,14 +6,19 @@ class DeviceDataProvider extends ChangeNotifier {
 
   List<DeviceData> get userData => _userData;
 
-  void setMoods(List<DeviceData> data) {
+  void setData(List<DeviceData> data) {
     _userData = data;
 
     notifyListeners();
   }
 
-  DeviceData latestData() {
+  latestData() {
+    debugPrint("Hello from latest data");
+    debugPrint(userData.length.toString());
+
     DeviceData latest = _userData[_userData.length - 1];
+
+    // notifyListeners();
 
     return latest;
   }

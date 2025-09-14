@@ -4,6 +4,7 @@ class DeviceData {
   final double activityLevel;
   final double steps;
   final double heartrate;
+  final int phoneUsage;
   final int predictedStress;
   final DateTime createdAt;
 
@@ -13,6 +14,7 @@ class DeviceData {
     required this.activityLevel,
     required this.steps,
     required this.heartrate,
+    required this.phoneUsage,
     required this.predictedStress,
     required this.createdAt,
   });
@@ -24,6 +26,7 @@ class DeviceData {
       activityLevel: json['activity_level'] as double,
       steps: json['steps'] as double,
       heartrate: json['heartrate'] as double,
+      phoneUsage: json['phone_usage'] as int,
       createdAt: DateTime.parse(json['created_at']),
       predictedStress: json['predicted_stress'] as int,
     );
