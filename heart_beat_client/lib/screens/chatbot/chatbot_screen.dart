@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/services/api_service.dart';
+import 'package:heart_beat_client/services/n8n_service.dart';
+import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/chatbot/chat_bubble.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
@@ -15,6 +17,7 @@ class ChatbotScreen extends StatefulWidget {
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _messageController = TextEditingController();
+  final N8nService _n8n = N8nService();
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +65,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                       ),
                       suffixIcon: IconButton(
                         onPressed: () async {
-                          
+                          final response = await _n8n.client.post(
+                            '/webhook-test/heartbeat-chat',
+                            data: {"message": _messageController.text},
+                          );
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            AuthSnackBar(content: Text(response.data)),
+                          );
                         },
                         icon: Icon(
                           LucideIcons.send,
