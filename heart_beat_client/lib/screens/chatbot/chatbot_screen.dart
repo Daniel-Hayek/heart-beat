@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:heart_beat_client/models/message.dart';
 import 'package:heart_beat_client/providers/agent_provider.dart';
 import 'package:heart_beat_client/services/n8n_service.dart';
@@ -19,6 +20,8 @@ class ChatbotScreen extends StatefulWidget {
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _messageController = TextEditingController();
   final N8nService _n8n = N8nService();
+  final ScrollController _scrollController = ScrollController();
+  bool _isTyping = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
             Expanded(
               child: ListView.builder(
                 itemCount: messages.length,
+                controller: _scrollController,
                 itemBuilder: (context, index) {
                   final message = messages[index];
 
@@ -49,6 +53,17 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 },
               ),
             ),
+            if (_isTyping)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: const [
+                    SpinKitThreeBounce(color: Colors.blue, size: 20.0),
+                    SizedBox(width: 10),
+                    Text("Moody Blues is typing..."),
+                  ],
+                ),
+              ),
             Row(
               children: [
                 Expanded(
@@ -69,6 +84,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                       ),
                       suffixIcon: IconButton(
                         onPressed: () async {
+                          setState(() => _isTyping = true);
+
                           agentProvider.addMessage(
                             Message(
                               message: _messageController.text,
@@ -101,15 +118,21 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                               );
                             } else {
                               agentProvider.addMessage(
-                                Message(
-                                  message:
-                                      response.data,
-                                  isUser: false,
-                                ),
+                                Message(message: response.data, isUser: false),
                               );
                             }
+
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              _scrollController.animateTo(
+                                _scrollController.position.maxScrollExtent,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeOut,
+                              );
+                            });
                           } catch (e) {
                             throw Exception(e);
+                          } finally {
+                            setState(() => _isTyping = false);
                           }
                         },
                         icon: Icon(
