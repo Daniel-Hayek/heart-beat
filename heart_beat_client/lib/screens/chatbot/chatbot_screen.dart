@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/models/message.dart';
 import 'package:heart_beat_client/providers/agent_provider.dart';
+import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/services/n8n_service.dart';
 import 'package:heart_beat_client/widgets/chatbot/chat_bubble.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
@@ -19,13 +21,16 @@ class ChatbotScreen extends StatefulWidget {
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _messageController = TextEditingController();
-  final N8nService _n8n = N8nService();
   final ScrollController _scrollController = ScrollController();
+
+  final N8nService _n8n = N8nService();
+
   bool _isTyping = false;
 
   @override
   Widget build(BuildContext context) {
     final agentProvider = context.watch<AgentProvider>();
+    final _authProvider = context.read<AuthProvider>();
 
     final messages = agentProvider.messages;
 
@@ -58,7 +63,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: const [
-                    SpinKitThreeBounce(color: Colors.blue, size: 20.0),
+                    SpinKitThreeBounce(
+                      color: AppColors.primaryColor,
+                      size: 20.0,
+                    ),
                     SizedBox(width: 10),
                     Text("Moody Blues is typing..."),
                   ],
@@ -105,7 +113,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                           try {
                             final response = await _n8n.client.post(
                               '/webhook/heartbeat-chat',
-                              data: {"message": history},
+                              data: {
+                                "userId": _authProvider.userId,
+                                "message": history,
+                              },
                             );
 
                             if (response.data == null) {
