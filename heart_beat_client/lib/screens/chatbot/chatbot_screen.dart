@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/models/message.dart';
 import 'package:heart_beat_client/providers/agent_provider.dart';
 import 'package:heart_beat_client/services/n8n_service.dart';
 import 'package:heart_beat_client/widgets/chatbot/chat_bubble.dart';
@@ -41,7 +42,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 itemBuilder: (context, index) {
                   final message = messages[index];
 
-                  return ChatBubble(text: message, isUser: true);
+                  return ChatBubble(
+                    text: message.message,
+                    isUser: message.isUser,
+                  );
                 },
               ),
             ),
@@ -66,7 +70,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                       suffixIcon: IconButton(
                         onPressed: () async {
                           agentProvider.addMessage(
-                            _messageController.text.trim(),
+                            Message(
+                              message: _messageController.text,
+                              isUser: true,
+                            ),
                           );
                           _messageController.text = '';
 
@@ -75,7 +82,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                             data: {"message": _messageController.text},
                           );
 
-                          agentProvider.addMessage(response.data.toString());
+                          agentProvider.addMessage(
+                            Message(
+                              message: response.data.toString(),
+                              isUser: false,
+                            ),
+                          );
                         },
                         icon: Icon(
                           LucideIcons.send,

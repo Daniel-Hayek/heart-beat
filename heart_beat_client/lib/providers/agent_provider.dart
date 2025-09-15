@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/models/message.dart';
 
 class AgentProvider extends ChangeNotifier {
-  List<String> _messages = [];
+  List<Message> _messages = [];
 
-  List<String> get messages => _messages;
+  List<Message> get messages => _messages;
 
-  void addMessage(String message) {
+  void addMessage(Message message) {
     _messages.add(message);
 
     notifyListeners();
