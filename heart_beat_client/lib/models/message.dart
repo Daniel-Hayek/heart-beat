@@ -10,4 +10,18 @@ class Message {
       isUser: json['isUser'] as bool,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    "role": isUser ? "User" : "Assistant",
+    "content": message,
+  };
+
+  Map<String, dynamic> toGeminiJson() {
+    return {
+      "role": isUser ? "user" : "model",
+      "parts": [
+        {"text": message},
+      ],
+    };
+  }
 }

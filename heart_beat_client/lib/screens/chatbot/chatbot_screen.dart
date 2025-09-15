@@ -75,19 +75,33 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                               isUser: true,
                             ),
                           );
+
+                          final currentMessage = _messageController.text;  
+
                           _messageController.text = '';
 
-                          final response = await _n8n.client.post(
-                            '/webhook/heartbeat-chat',
-                            data: {"message": _messageController.text},
-                          );
+                          final history = messages
+                              .sublist(
+                                messages.length > 5 ? messages.length - 5 : 0,
+                              )
+                              .map((m) => m.toJson())
+                              .toList();
 
-                          agentProvider.addMessage(
-                            Message(
-                              message: response.data.toString(),
-                              isUser: false,
-                            ),
-                          );
+                          try {
+                            final response = await _n8n.client.post(
+                              '/webhook/heartbeat-chat',
+                              data: {"message": history},
+                            );
+
+                            agentProvider.addMessage(
+                              Message(
+                                message: response.data.toString(),
+                                isUser: false,
+                              ),
+                            );
+                          } catch (e) {
+                            throw Exception(e);
+                          }
                         },
                         icon: Icon(
                           LucideIcons.send,
