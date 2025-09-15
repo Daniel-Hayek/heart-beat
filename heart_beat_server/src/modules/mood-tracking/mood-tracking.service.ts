@@ -93,4 +93,13 @@ export class MoodTrackingService {
 
     return this.trackingRepo.save(moodTracking);
   }
+
+  async getLastMood(id: number) {
+    const mood = await this.trackingRepo.findOne({
+      where: { user: { id } },
+      order: { timestamp: 'DESC' },
+    });
+
+    return mood?.mood;
+  }
 }
