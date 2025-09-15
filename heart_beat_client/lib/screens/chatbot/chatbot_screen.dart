@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/providers/agent_provider.dart';
 import 'package:heart_beat_client/services/api_service.dart';
 import 'package:heart_beat_client/services/n8n_service.dart';
 import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
@@ -7,6 +8,7 @@ import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:provider/provider.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({super.key});
@@ -21,6 +23,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final agentProvider = context.watch<AgentProvider>();
+
+    final messages = agentProvider.messages;
+
     return Scaffold(
       appBar: CustomAppBar(title: "Moody Blues"),
       drawer: SideBar(),
@@ -32,18 +38,23 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         child: Column(
           children: [
             Expanded(
-              child: ListView(
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ChatBubble(text: "Hello", isUser: true),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: ChatBubble(text: "Beep boop", isUser: false),
-                  ),
-                ],
+              child: ListView.builder(
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  final message = messages[messages.length - index - 1];
+
+                  return ChatBubble(text: message, isUser: true);
+                },
               ),
+
+              // Align(
+              //   alignment: Alignment.centerRight,
+              //   child: ChatBubble(text: "Hello", isUser: true),
+              // ),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: ChatBubble(text: "Beep boop", isUser: false),
+              // ),
             ),
             Row(
               children: [
@@ -65,14 +76,19 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                       ),
                       suffixIcon: IconButton(
                         onPressed: () async {
+                          agentProvider.addMessage(_messageController.text.trim());
+                          _messageController.text = '';
+
                           final response = await _n8n.client.post(
-                            '/webhook-test/heartbeat-chat',
+                            '/webhook/heartbeat-chat',
                             data: {"message": _messageController.text},
                           );
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            AuthSnackBar(content: Text(response.data)),
-                          );
+                          agentProvider.addMessage(response.data.toString());
+
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   AuthSnackBar(content: Text(response.data)),
+                          // );
                         },
                         icon: Icon(
                           LucideIcons.send,

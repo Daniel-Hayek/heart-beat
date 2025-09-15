@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heart_beat_client/core/constants/app_theme.dart';
+import 'package:heart_beat_client/providers/agent_provider.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/device_data_provider.dart';
 import 'package:heart_beat_client/providers/journal_provider.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => MoodTrackingProvider()),
         ChangeNotifierProvider(create: (context) => DeviceDataProvider()),
         ChangeNotifierProvider(create: (context) => JournalProvider()),
+        ChangeNotifierProvider(create: (context) => AgentProvider()),
         ChangeNotifierProvider(
           create: (context) => StatsProvider(context.read<AuthProvider>()),
         ),
