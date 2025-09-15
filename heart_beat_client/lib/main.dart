@@ -15,8 +15,16 @@ import 'package:provider/provider.dart';
 Future main() async {
   await dotenv.load(fileName: ".env");
 
-  runApp(
-    MultiProvider(
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => NavProvider()),
@@ -29,23 +37,13 @@ Future main() async {
           create: (context) => StatsProvider(context.read<AuthProvider>()),
         ),
       ],
-      child: const MyApp(),
-    ),
-  );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Heart-Beat',
-      theme: AppTheme.darkTheme,
-      initialRoute: AppRoutes.landing,
-      routes: AppRoutes.routes,
-      onGenerateRoute: AppRoutes.onGenerateRoute,
+      child: MaterialApp(
+        title: 'Heart-Beat',
+        theme: AppTheme.darkTheme,
+        initialRoute: AppRoutes.landing,
+        routes: AppRoutes.routes,
+        onGenerateRoute: AppRoutes.onGenerateRoute,
+      ),
     );
   }
 }

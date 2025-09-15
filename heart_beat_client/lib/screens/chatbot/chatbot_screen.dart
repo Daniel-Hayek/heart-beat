@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/services/api_service.dart';
 import 'package:heart_beat_client/widgets/chatbot/chat_bubble.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-class ChatbotScreen extends StatelessWidget {
+class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({super.key});
+
+  @override
+  State<ChatbotScreen> createState() => _ChatbotScreenState();
+}
+
+class _ChatbotScreenState extends State<ChatbotScreen> {
+  final TextEditingController _messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +46,7 @@ class ChatbotScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: null,
+                    controller: _messageController,
                     textAlignVertical: TextAlignVertical.top,
                     maxLines: 1,
                     keyboardType: TextInputType.multiline,
@@ -53,14 +61,15 @@ class ChatbotScreen extends StatelessWidget {
                         vertical: MediaQuery.of(context).size.height * 0.02,
                       ),
                       suffixIcon: IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          
+                        },
                         icon: Icon(
                           LucideIcons.send,
                           color: Colors.white,
                           size: 24,
                         ),
                       ),
-                      
                     ),
                   ),
                 ),

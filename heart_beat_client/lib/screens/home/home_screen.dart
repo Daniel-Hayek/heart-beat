@@ -147,7 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
 
                       SizedBox(width: 16),
-                      Expanded(flex: 2, child: Thermometer(value: data.toDouble())),
+                      Expanded(
+                        flex: 2,
+                        child: Thermometer(value: data.toDouble()),
+                      ),
                       SizedBox(width: 28),
                     ],
                   ),

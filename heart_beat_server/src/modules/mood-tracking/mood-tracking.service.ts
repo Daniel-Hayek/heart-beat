@@ -47,6 +47,10 @@ export class MoodTrackingService {
       user,
     });
 
+    if (createMoodTrackingDto.source == 'AI Agent') {
+      this.eventEmitter.emit('mood.tracked', moodTracking);
+    }
+
     return this.trackingRepo.save(moodTracking);
   }
 
