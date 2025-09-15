@@ -76,8 +76,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                             ),
                           );
 
-                          final currentMessage = _messageController.text;  
-
                           _messageController.text = '';
 
                           final history = messages
@@ -93,12 +91,23 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                               data: {"message": history},
                             );
 
-                            agentProvider.addMessage(
-                              Message(
-                                message: response.data.toString(),
-                                isUser: false,
-                              ),
-                            );
+                            if (response.data == null) {
+                              agentProvider.addMessage(
+                                Message(
+                                  message:
+                                      "Moody Blues is currently vibing out! Maybe try again later?",
+                                  isUser: false,
+                                ),
+                              );
+                            } else {
+                              agentProvider.addMessage(
+                                Message(
+                                  message:
+                                      response.data,
+                                  isUser: false,
+                                ),
+                              );
+                            }
                           } catch (e) {
                             throw Exception(e);
                           }
