@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/providers/agent_provider.dart';
-import 'package:heart_beat_client/services/api_service.dart';
 import 'package:heart_beat_client/services/n8n_service.dart';
-import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/chatbot/chat_bubble.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
@@ -41,20 +39,11 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               child: ListView.builder(
                 itemCount: messages.length,
                 itemBuilder: (context, index) {
-                  final message = messages[messages.length - index - 1];
+                  final message = messages[index];
 
                   return ChatBubble(text: message, isUser: true);
                 },
               ),
-
-              // Align(
-              //   alignment: Alignment.centerRight,
-              //   child: ChatBubble(text: "Hello", isUser: true),
-              // ),
-              // Align(
-              //   alignment: Alignment.centerLeft,
-              //   child: ChatBubble(text: "Beep boop", isUser: false),
-              // ),
             ),
             Row(
               children: [
@@ -76,7 +65,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                       ),
                       suffixIcon: IconButton(
                         onPressed: () async {
-                          agentProvider.addMessage(_messageController.text.trim());
+                          agentProvider.addMessage(
+                            _messageController.text.trim(),
+                          );
                           _messageController.text = '';
 
                           final response = await _n8n.client.post(
@@ -85,10 +76,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                           );
 
                           agentProvider.addMessage(response.data.toString());
-
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   AuthSnackBar(content: Text(response.data)),
-                          // );
                         },
                         icon: Icon(
                           LucideIcons.send,
