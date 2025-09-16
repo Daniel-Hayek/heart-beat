@@ -71,20 +71,27 @@ export class PlaylistSongService {
   async addMoodSongs(mood_tracking: MoodTracking, playlist: Playlist) {
     const moods = mood_tracking.mood.split(',').map((m) => m.trim());
 
+    let tertiarySongs: Array<Song> = [];
+    let secondarySongs: Array<Song> = [];
+
     const primarySongs = await this.songRepo.find({
       where: { moods: { name: moods[0] } },
       take: 3,
     });
 
-    const secondarySongs = await this.songRepo.find({
-      where: { moods: { name: moods[1] } },
-      take: 2,
-    });
+    if (moods.length == 2) {
+      secondarySongs = await this.songRepo.find({
+        where: { moods: { name: moods[1] } },
+        take: 2,
+      });
+    }
 
-    const tertiarySongs = await this.songRepo.find({
-      where: { moods: { name: moods[2] } },
-      take: 1,
-    });
+    if (moods.length == 3) {
+      tertiarySongs = await this.songRepo.find({
+        where: { moods: { name: moods[2] } },
+        take: 1,
+      });
+    }
 
     const allSongs = [...primarySongs, ...secondarySongs, ...tertiarySongs];
 

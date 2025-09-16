@@ -12,7 +12,7 @@ class N8nService {
       BaseOptions(
         baseUrl: '$baseURL:$port',
         connectTimeout: const Duration(seconds: 5),
-        receiveTimeout: const Duration(seconds: 5),
+        receiveTimeout: const Duration(seconds: 20),
       ),
     );
   }

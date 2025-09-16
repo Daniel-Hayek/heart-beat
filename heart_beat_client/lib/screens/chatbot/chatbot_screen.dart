@@ -26,6 +26,16 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   final N8nService _n8n = N8nService();
 
+  Map<String, dynamic> conversationState = {
+    "lastMood": null,
+    "lastStressScore": null,
+    "conversationSummary": null,
+    "waitingForConfirmation": false,
+    "pendingMoods": null,
+    "pendingScore": null,
+    "pendingMoodsString": null,
+  };
+
   bool _isTyping = false;
 
   @override
@@ -112,7 +122,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                               isUser: true,
                             ),
                           );
-
+                          String lastMessage = _messageController.text;
                           _messageController.text = '';
 
                           final history = messages
@@ -127,11 +137,29 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                               '/webhook-test/heartbeat-chat',
                               data: {
                                 "userId": authProvider.userId,
-                                "message": history,
+                                "message": lastMessage,
+                                "body": {
+                                  "message": history,
+                                  "userMessage": _messageController.text,
+                                },
+                                "data": conversationState["lastMood"],
+                                "predicted_stress":
+                                    conversationState["lastStressScore"],
+                                "conversationSummary":
+                                    conversationState["conversationSummary"],
+                                "waitingForConfirmation":
+                                    conversationState["waitingForConfirmation"],
+                                "pendingMoods":
+                                    conversationState["pendingMoods"],
+                                "pendingScore":
+                                    conversationState["pendingScore"],
+                                "pendingMoodsString":
+                                    conversationState["pendingMoodsString"],
                               },
                             );
 
                             debugPrint(response.statusCode.toString());
+                            debugPrint(response.data[0]['message']);
 
                             if (response.data == null ||
                                 response.statusCode == 408) {
@@ -144,8 +172,34 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                               );
                             } else {
                               agentProvider.addMessage(
-                                Message(message: response.data, isUser: false),
+                                Message(
+                                  message: response.data[0]['message'],
+                                  isUser: false,
+                                ),
                               );
+                              setState(() {
+                                conversationState["waitingForConfirmation"] =
+                                    response
+                                        .data[0]['waitingForConfirmation'] ??
+                                    false;
+                                conversationState["pendingMoods"] =
+                                    response.data[0]['pendingMoods'];
+                                conversationState["pendingScore"] =
+                                    response.data[0]['pendingScore'];
+                                conversationState["pendingMoodsString"] =
+                                    response.data[0]['pendingMoodsString'];
+
+                                if (response.data[0]['moodLogged'] == true) {
+                                  conversationState["lastMood"] =
+                                      response.data[0]['loggedMoodsString'];
+                                  conversationState["waitingForConfirmation"] =
+                                      false;
+                                  conversationState["pendingMoods"] = null;
+                                  conversationState["pendingScore"] = null;
+                                  conversationState["pendingMoodsString"] =
+                                      null;
+                                }
+                              });
                             }
 
                             WidgetsBinding.instance.addPostFrameCallback((_) {

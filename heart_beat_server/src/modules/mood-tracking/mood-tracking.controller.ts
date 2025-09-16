@@ -54,4 +54,16 @@ export class MoodTrackingController {
   getLastMood(@Param('id') id: string) {
     return this.moodTrackingService.getLastMood(+id);
   }
+
+  @ApiOperation({
+    summary: 'Create a new mood entry for a user (AI Agent Endpoint)',
+  })
+  @ApiResponse({ status: 201, description: 'Mood tracked successfully' })
+  @ApiResponse({ status: 400, description: 'Score must be between 0 and 10' })
+  @ApiResponse({ status: 404, description: 'No user with that ID' })
+  @ApiBody({ type: CreateMoodTrackingDto })
+  @Post('/log')
+  logMood(@Body() createMoodTrackingDto: CreateMoodTrackingDto) {
+    return this.moodTrackingService.logMood(createMoodTrackingDto);
+  }
 }

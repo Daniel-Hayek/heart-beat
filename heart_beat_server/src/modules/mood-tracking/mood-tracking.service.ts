@@ -47,10 +47,6 @@ export class MoodTrackingService {
       user,
     });
 
-    if (createMoodTrackingDto.source == 'AI Agent') {
-      this.eventEmitter.emit('mood.tracked', moodTracking);
-    }
-
     return this.trackingRepo.save(moodTracking);
   }
 
@@ -101,5 +97,30 @@ export class MoodTrackingService {
     });
 
     return mood?.mood;
+  }
+
+  async logMood(createMoodTrackingDto: CreateMoodTrackingDto) {
+    const user = await this.userRepo.findOne({
+      where: { id: createMoodTrackingDto.userId },
+    });
+
+    if (user == null) {
+      throw new NotFoundException('No user with such an ID');
+    }
+
+    if (createMoodTrackingDto.score > 10 || createMoodTrackingDto.score < 0) {
+      throw new BadRequestException('Score can only be between 0 and 10');
+    }
+
+    const moodTracking = this.trackingRepo.create({
+      source: 'AI Agent',
+      mood: createMoodTrackingDto.mood,
+      score: createMoodTrackingDto.score,
+      user,
+    });
+
+    this.eventEmitter.emit('mood.tracked', moodTracking);
+
+    return this.trackingRepo.save(moodTracking);
   }
 }

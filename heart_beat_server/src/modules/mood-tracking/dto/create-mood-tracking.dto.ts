@@ -4,7 +4,7 @@ import { IsInt, IsString, Max, Min } from 'class-validator';
 export class CreateMoodTrackingDto {
   @ApiProperty({
     description: 'The ID of the user who for whom this mood was tracked',
-    example: 21,
+    example: 1,
   })
   @IsInt()
   userId: number;
@@ -18,7 +18,7 @@ export class CreateMoodTrackingDto {
 
   @ApiProperty({
     description: 'Words that describe the mood',
-    example: 'Melancholic and Peaceful',
+    example: 'Sad, Tired, Calm',
   })
   @IsString()
   mood: string;
