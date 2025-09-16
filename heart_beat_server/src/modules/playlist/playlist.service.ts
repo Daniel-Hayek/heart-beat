@@ -44,7 +44,7 @@ export class PlaylistService {
   }
 
   findAll() {
-    return this.playlistRepo.find();
+    return this.playlistRepo.find({ take: 5 });
   }
 
   async findPlaylistsByUserId(userId: number) {

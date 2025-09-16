@@ -133,13 +133,19 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                               .toList();
 
                           try {
+                            debugPrint(
+                              "Sending conversation state: $conversationState",
+                            );
+
                             final response = await _n8n.client.post(
                               '/webhook-test/heartbeat-chat',
                               data: {
-                                "userMessage" : lastMessage,
+                                "userMessage": lastMessage,
                                 "userId": authProvider.userId,
-                                "message": history,
-                                "data": conversationState["lastMood"],
+                                "conversationHistory": history,
+                                "lastMood": conversationState["lastMood"],
+                                "lastStressScore":
+                                    conversationState["lastStressScore"],
                                 "conversationSummary":
                                     conversationState["conversationSummary"],
                                 "waitingForConfirmation":
@@ -165,34 +171,46 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                 ),
                               );
                             } else {
+                              final responseData = response.data[0];
+
                               agentProvider.addMessage(
                                 Message(
-                                  message: response.data[0]['message'],
+                                  message:
+                                      responseData['message'] ??
+                                      'No response received',
                                   isUser: false,
                                 ),
                               );
                               setState(() {
                                 conversationState["waitingForConfirmation"] =
-                                    response
-                                        .data[0]['waitingForConfirmation'] ??
+                                    responseData['waitingForConfirmation'] ??
                                     false;
                                 conversationState["pendingMoods"] =
-                                    response.data[0]['pendingMoods'];
+                                    responseData['pendingMoods'];
                                 conversationState["pendingScore"] =
-                                    response.data[0]['pendingScore'];
+                                    responseData['pendingScore'];
                                 conversationState["pendingMoodsString"] =
-                                    response.data[0]['pendingMoodsString'];
+                                    responseData['pendingMoodsString'];
 
-                                // if (response.data[0]['moodLogged'] == true) {
-                                //   conversationState["lastMood"] =
-                                //       response.data[0]['loggedMoodsString'];
-                                //   conversationState["waitingForConfirmation"] =
-                                //       false;
-                                //   conversationState["pendingMoods"] = null;
-                                //   conversationState["pendingScore"] = null;
-                                //   conversationState["pendingMoodsString"] =
-                                //       null;
-                                // }
+                                // FIXED: Handle mood logging properly
+                                if (responseData['moodLogged'] == true) {
+                                  conversationState["lastMood"] =
+                                      responseData['loggedMoodsString'] ??
+                                      responseData['pendingMoodsString'];
+
+                                  // Clear pending confirmation data
+                                  conversationState["waitingForConfirmation"] =
+                                      true;
+                                  conversationState["pendingMoods"] = null;
+                                  conversationState["pendingScore"] = null;
+                                  conversationState["pendingMoodsString"] =
+                                      null;
+
+                                  // Optional: Save mood to your database here
+                                  debugPrint(
+                                    "Mood logged: ${conversationState["lastMood"]}",
+                                  );
+                                }
                               });
                             }
 
