@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Query } from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import {
   ApiBearerAuth,
   ApiBody,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -61,9 +62,11 @@ export class PlaylistController {
     description: 'Unauthorized',
   })
   @ApiResponse({ status: 404, description: 'No user with that ID' })
-  @Get(':id')
-  findOneByUser(@Param('id') userId: string) {
-    return this.playlistService.findPlaylistsByUserId(+userId);
+  @ApiQuery({ name: 'id', required: true, type: Number, example: 1 })
+  @ApiQuery({ name: 'page', required: true, type: Number, example: 1 })
+  @Get('/user-playlists/')
+  findOneByUser(@Query('id') id, @Query('page') page) {
+    return this.playlistService.findPlaylistsByUserId(+id, +page);
   }
 
   // @Patch(':id')
