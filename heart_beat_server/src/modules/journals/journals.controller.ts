@@ -89,27 +89,6 @@ export class JournalsController {
   }
 
   @ApiOperation({
-    summary: 'Get a user`s most recent journal',
-  })
-  @ApiResponse({
-    status: 200,
-    description:
-      'Retrieved the most recent journal, or empty if the user has not written any journals',
-  })
-  @ApiResponse({
-    status: 401,
-    description: 'Unauthorized',
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'No user with that ID',
-  })
-  @Get('latest/:id')
-  getLatest(@Param('id') userId: string) {
-    return this.journalsService.getLatest(+userId);
-  }
-
-  @ApiOperation({
     summary: 'Return the total number of journals written by this user',
   })
   @ApiResponse({

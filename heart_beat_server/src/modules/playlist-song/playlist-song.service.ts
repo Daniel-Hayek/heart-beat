@@ -79,17 +79,19 @@ export class PlaylistSongService {
       take: 3,
     });
 
-    if (moods.length == 2) {
+    if (moods.length > 1) {
       secondarySongs = await this.songRepo.find({
         where: { moods: { name: moods[1] } },
         take: 2,
+        order: { title: 'ASC' },
       });
     }
 
-    if (moods.length == 3) {
+    if (moods.length > 2) {
       tertiarySongs = await this.songRepo.find({
         where: { moods: { name: moods[2] } },
         take: 1,
+        order: { title: 'DESC' },
       });
     }
 

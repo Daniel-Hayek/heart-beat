@@ -136,15 +136,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                             final response = await _n8n.client.post(
                               '/webhook-test/heartbeat-chat',
                               data: {
+                                "userMessage" : lastMessage,
                                 "userId": authProvider.userId,
-                                "message": lastMessage,
-                                "body": {
-                                  "message": history,
-                                  "userMessage": _messageController.text,
-                                },
+                                "message": history,
                                 "data": conversationState["lastMood"],
-                                "predicted_stress":
-                                    conversationState["lastStressScore"],
                                 "conversationSummary":
                                     conversationState["conversationSummary"],
                                 "waitingForConfirmation":
@@ -159,7 +154,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                             );
 
                             debugPrint(response.statusCode.toString());
-                            debugPrint(response.data[0]['message']);
 
                             if (response.data == null ||
                                 response.statusCode == 408) {
@@ -189,16 +183,16 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                 conversationState["pendingMoodsString"] =
                                     response.data[0]['pendingMoodsString'];
 
-                                if (response.data[0]['moodLogged'] == true) {
-                                  conversationState["lastMood"] =
-                                      response.data[0]['loggedMoodsString'];
-                                  conversationState["waitingForConfirmation"] =
-                                      false;
-                                  conversationState["pendingMoods"] = null;
-                                  conversationState["pendingScore"] = null;
-                                  conversationState["pendingMoodsString"] =
-                                      null;
-                                }
+                                // if (response.data[0]['moodLogged'] == true) {
+                                //   conversationState["lastMood"] =
+                                //       response.data[0]['loggedMoodsString'];
+                                //   conversationState["waitingForConfirmation"] =
+                                //       false;
+                                //   conversationState["pendingMoods"] = null;
+                                //   conversationState["pendingScore"] = null;
+                                //   conversationState["pendingMoodsString"] =
+                                //       null;
+                                // }
                               });
                             }
 

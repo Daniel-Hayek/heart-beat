@@ -120,7 +120,8 @@ export class MoodTrackingService {
     });
 
     this.eventEmitter.emit('mood.tracked', moodTracking);
+    await this.trackingRepo.save(moodTracking);
 
-    return this.trackingRepo.save(moodTracking);
+    return 'Mood logged successfully!';
   }
 }
