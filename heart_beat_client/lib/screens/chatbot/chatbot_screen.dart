@@ -5,6 +5,7 @@ import 'package:heart_beat_client/models/message.dart';
 import 'package:heart_beat_client/providers/agent_provider.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/services/n8n_service.dart';
+import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/chatbot/chat_bubble.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
@@ -30,7 +31,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   @override
   Widget build(BuildContext context) {
     final agentProvider = context.watch<AgentProvider>();
-    final _authProvider = context.read<AuthProvider>();
+    final authProvider = context.read<AuthProvider>();
 
     final messages = agentProvider.messages;
 
@@ -92,6 +93,17 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                       ),
                       suffixIcon: IconButton(
                         onPressed: () async {
+                          if (_messageController.text.trim().isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              AuthSnackBar(
+                                content: Text(
+                                  "Type something to send to Moody Blues!",
+                                ),
+                              ),
+                            );
+                            return;
+                          }
+
                           setState(() => _isTyping = true);
 
                           agentProvider.addMessage(
@@ -112,14 +124,17 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
                           try {
                             final response = await _n8n.client.post(
-                              '/webhook/heartbeat-chat',
+                              '/webhook-test/heartbeat-chat',
                               data: {
-                                "userId": _authProvider.userId,
+                                "userId": authProvider.userId,
                                 "message": history,
                               },
                             );
 
-                            if (response.data == null) {
+                            debugPrint(response.statusCode.toString());
+
+                            if (response.data == null ||
+                                response.statusCode == 408) {
                               agentProvider.addMessage(
                                 Message(
                                   message:

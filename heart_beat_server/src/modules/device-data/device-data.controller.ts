@@ -51,4 +51,16 @@ export class DeviceDataController {
   findOne(@Param('id') id: string) {
     return this.deviceDataService.findOne(+id);
   }
+
+  @ApiOperation({
+    summary: 'Return a user`s last recorded stress level',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Stress level',
+  })
+  @Get('/last/:id')
+  getLastStress(@Param('id') id: string) {
+    return this.deviceDataService.getLastStress(+id);
+  }
 }
