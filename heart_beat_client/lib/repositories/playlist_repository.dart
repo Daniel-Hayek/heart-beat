@@ -6,10 +6,15 @@ import 'package:heart_beat_client/services/api_service.dart';
 class PlaylistRepository {
   final _apiService = ApiService();
 
-  Future<List<Playlist>> getAllPlaylists(String token, int userId) async {
+  Future<List<Playlist>> getFivePlaylists(
+    String token,
+    int userId,
+    int page,
+  ) async {
     try {
       final response = await _apiService.client.get(
-        '/playlist/$userId',
+        '/playlist/user-playlists',
+        queryParameters: {'page': page, 'id': userId},
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 

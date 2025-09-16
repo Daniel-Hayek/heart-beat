@@ -4,11 +4,9 @@ import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/device_data_provider.dart';
 import 'package:heart_beat_client/providers/journal_provider.dart';
 import 'package:heart_beat_client/providers/mood_tracking_provider.dart';
-import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/repositories/device_data_repository.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
 import 'package:heart_beat_client/repositories/mood_tracking_repository.dart';
-import 'package:heart_beat_client/repositories/playlist_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
@@ -30,22 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final authProvider = context.read<AuthProvider>();
-      final playlistProvider = context.read<PlaylistProvider>();
       final moodProvider = context.read<MoodTrackingProvider>();
       final dataProvider = context.read<DeviceDataProvider>();
       final journalProvider = context.read<JournalProvider>();
 
-      final playlistRepo = PlaylistRepository();
       final moodRepo = MoodTrackingRepository();
       final dataRepo = DeviceDataRepository();
       final journalRepo = JournalRepository();
 
       String curToken = authProvider.token!;
       int curUserId = authProvider.userId!;
-
-      playlistProvider.setPlaylists(
-        await playlistRepo.getAllPlaylists(curToken, curUserId),
-      );
 
       moodProvider.setMoods(await moodRepo.getUserMoods(curToken, curUserId));
 
