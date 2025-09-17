@@ -139,7 +139,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                             );
 
                             final response = await _n8n.client.post(
-                              '/webhook-test/heartbeat-chat',
+                              '/webhook/heartbeat-chat',
                               data: {
                                 "userMessage": lastMessage,
                                 "userId": authProvider.userId,
