@@ -74,4 +74,13 @@ export class DeviceDataService {
 
     return datum;
   }
+
+  async getLastStress(id: number) {
+    const datum = await this.dataRepo.findOne({
+      where: { user: { id } },
+      order: { created_at: 'DESC' },
+    });
+
+    return datum;
+  }
 }

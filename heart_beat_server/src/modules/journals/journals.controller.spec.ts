@@ -13,7 +13,6 @@ describe('JournalsController', () => {
       findAll: jest.fn().mockResolvedValue([]),
       findJournalsByUserId: jest.fn().mockResolvedValue([]),
       remove: jest.fn().mockResolvedValue({}),
-      getLatest: jest.fn().mockResolvedValue({}),
       getNumber: jest.fn().mockResolvedValue(0),
     };
 
@@ -55,12 +54,6 @@ describe('JournalsController', () => {
     const id = '1';
     await controller.remove(id);
     expect(mockJournalsService.remove).toHaveBeenCalledWith(1);
-  });
-
-  it('getLatest should call service.getLatest', async () => {
-    const userId = '1';
-    await controller.getLatest(userId);
-    expect(mockJournalsService.getLatest).toHaveBeenCalledWith(1);
   });
 
   it('getNumber should call service.getNumber', async () => {

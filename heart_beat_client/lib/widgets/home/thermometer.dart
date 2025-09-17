@@ -12,7 +12,7 @@ class Thermometer extends StatelessWidget {
       width: 15,
       height: 180,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 2),
+        border: Border.all(color: AppColors.primaryColor, width: 1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Align(

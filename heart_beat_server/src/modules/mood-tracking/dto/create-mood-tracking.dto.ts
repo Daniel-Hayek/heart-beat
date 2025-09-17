@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsString, Max, Min } from 'class-validator';
+import { IsInt, IsNumber, IsString, Max, Min } from 'class-validator';
 
 export class CreateMoodTrackingDto {
   @ApiProperty({
     description: 'The ID of the user who for whom this mood was tracked',
-    example: 21,
+    example: 1,
   })
   @IsInt()
   userId: number;
@@ -18,7 +18,7 @@ export class CreateMoodTrackingDto {
 
   @ApiProperty({
     description: 'Words that describe the mood',
-    example: 'Melancholic and Peaceful',
+    example: 'Sad, Tired, Calm',
   })
   @IsString()
   mood: string;
@@ -28,7 +28,7 @@ export class CreateMoodTrackingDto {
       'A score between 0 and 10 which describes the mood (0 lowest - 10 highest)',
     example: '4',
   })
-  @IsInt()
+  @IsNumber()
   @Min(0)
   @Max(10)
   score: number;

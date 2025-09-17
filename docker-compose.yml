@@ -23,7 +23,6 @@ services:
            npx typeorm-ts-node-commonjs migration:run -d data-source.ts && \
            npm run start:dev"
 
-
   fastapi:
     build:
       context: ./heart_beat_model
@@ -43,7 +42,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-
 
   mlflow:
     build:
@@ -67,9 +65,10 @@ services:
       - POSTGRES_PASSWORD=12345
       - POSTGRES_DB=heartbeat_db
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./heart_beat_workflows/postgres-init:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -86,6 +85,47 @@ services:
       timeout: 5s
       retries: 5
 
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=password
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://localhost:5678
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n_db
+      - DB_POSTGRESDB_USER=postgres
+      - DB_POSTGRESDB_PASSWORD=12345
+      - N8N_PAYLOAD_SIZE_MAX=16
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./heart_beat_workflows/n8n_workflows:/home/node/.n8n/workflows
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:5678/healthz",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
 volumes:
   postgres_data:
   mlflow_data:
+  n8n_data:

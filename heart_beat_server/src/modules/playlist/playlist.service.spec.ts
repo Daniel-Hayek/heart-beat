@@ -111,19 +111,24 @@ describe('PlaylistService', () => {
       (userRepo.findOne as jest.Mock).mockResolvedValue(mockUser);
       (playlistRepo.find as jest.Mock).mockResolvedValue(mockPlaylists);
 
-      const result = await service.findPlaylistsByUserId(1);
+      const result = await service.findPlaylistsByUserId(1, 1);
 
       expect(userRepo.findOne).toHaveBeenCalledWith({ where: { id: 1 } });
-      expect(playlistRepo.find).toHaveBeenCalledWith({
-        where: { user: { id: 1 } },
-      });
+      expect(playlistRepo.find).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { user: { id: 1 } },
+          take: 5,
+          skip: 0,
+          order: { created_at: 'DESC' },
+        }),
+      );
       expect(result).toEqual(mockPlaylists);
     });
 
     it('should throw NotFoundException if user does not exist', async () => {
       (userRepo.findOne as jest.Mock).mockResolvedValue(null);
 
-      await expect(service.findPlaylistsByUserId(1)).rejects.toThrow(
+      await expect(service.findPlaylistsByUserId(1, 1)).rejects.toThrow(
         NotFoundException,
       );
     });

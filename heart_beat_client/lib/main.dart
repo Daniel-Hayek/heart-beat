@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:heart_beat_client/core/constants/app_theme.dart';
+import 'package:heart_beat_client/providers/agent_provider.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/device_data_provider.dart';
 import 'package:heart_beat_client/providers/journal_provider.dart';
@@ -11,12 +12,26 @@ import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/providers/stats_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+
 
 Future main() async {
   await dotenv.load(fileName: ".env");
 
-  runApp(
-    MultiProvider(
+  await Firebase.initializeApp();
+
+  runApp(const MyApp());
+}
+
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => NavProvider()),
@@ -25,27 +40,18 @@ Future main() async {
         ChangeNotifierProvider(create: (context) => MoodTrackingProvider()),
         ChangeNotifierProvider(create: (context) => DeviceDataProvider()),
         ChangeNotifierProvider(create: (context) => JournalProvider()),
+        ChangeNotifierProvider(create: (context) => AgentProvider()),
         ChangeNotifierProvider(
           create: (context) => StatsProvider(context.read<AuthProvider>()),
         ),
       ],
-      child: const MyApp(),
-    ),
-  );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Heart-Beat',
-      theme: AppTheme.darkTheme,
-      initialRoute: AppRoutes.landing,
-      routes: AppRoutes.routes,
-      onGenerateRoute: AppRoutes.onGenerateRoute,
+      child: MaterialApp(
+        title: 'Heart-Beat',
+        theme: AppTheme.darkTheme,
+        initialRoute: AppRoutes.landing,
+        routes: AppRoutes.routes,
+        onGenerateRoute: AppRoutes.onGenerateRoute,
+      ),
     );
   }
 }

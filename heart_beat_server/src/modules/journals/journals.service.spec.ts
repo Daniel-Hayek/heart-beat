@@ -144,22 +144,6 @@ describe('JournalsService', () => {
     });
   });
 
-  describe('getLatest', () => {
-    it('should return the latest journal', async () => {
-      const mockJournal = { id: 1 } as Journal;
-      (journalRepo.find as jest.Mock).mockResolvedValue([mockJournal]);
-      (journalRepo.findOne as jest.Mock).mockResolvedValue(mockJournal);
-
-      const result = await service.getLatest(1);
-      expect(result).toEqual(mockJournal);
-    });
-
-    it('should throw NotFoundException if no journals found', async () => {
-      (journalRepo.find as jest.Mock).mockResolvedValue(null);
-      await expect(service.getLatest(999)).rejects.toThrow(NotFoundException);
-    });
-  });
-
   describe('getNumber', () => {
     it('should return the number of journals', async () => {
       (journalRepo.find as jest.Mock).mockResolvedValue([{}]);

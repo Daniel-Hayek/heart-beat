@@ -24,12 +24,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: const TextStyle(color: Colors.white, fontFamily: 'montserrat'),
       ),
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(CupertinoIcons.bell, color: Colors.white),
-        ),
-      ],
       centerTitle: true,
     );
   }

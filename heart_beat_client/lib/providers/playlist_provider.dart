@@ -11,7 +11,7 @@ class PlaylistProvider extends ChangeNotifier {
   String get activePlaylistName => _activePlaylistName;
 
   void setPlaylists(List<Playlist> list) {
-    _playlists = list;
+    _playlists += list;
 
     notifyListeners();
   }
@@ -21,5 +21,9 @@ class PlaylistProvider extends ChangeNotifier {
     _activePlaylistName = activeName;
 
     notifyListeners();
+  }
+
+  void clearPlaylists() {
+    _playlists = [];
   }
 }

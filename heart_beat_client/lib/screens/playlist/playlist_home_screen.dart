@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/models/playlist.dart';
+import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/playlist_provider.dart';
+import 'package:heart_beat_client/repositories/playlist_repository.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
@@ -10,10 +12,52 @@ import 'package:heart_beat_client/widgets/common/fonts/title_text.dart';
 import 'package:heart_beat_client/widgets/playlist/playlist_card.dart';
 import 'package:provider/provider.dart';
 
-class PlaylistHomeScreen extends StatelessWidget {
-  final double overlap = 220;
-
+class PlaylistHomeScreen extends StatefulWidget {
   const PlaylistHomeScreen({super.key});
+
+  @override
+  State<PlaylistHomeScreen> createState() => _PlaylistHomeScreenState();
+}
+
+class _PlaylistHomeScreenState extends State<PlaylistHomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final playlistProvider = context.read<PlaylistProvider>();
+      playlistProvider.clearPlaylists();
+
+      _loadMore();
+    });
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          page++;
+          _loadMore();
+        });
+      }
+    });
+  }
+
+  void _loadMore() async {
+    final authProvider = context.read<AuthProvider>();
+    final playlistProvider = context.read<PlaylistProvider>();
+
+    final playlistRepo = PlaylistRepository();
+
+    String curToken = authProvider.token!;
+    int curUserId = authProvider.userId!;
+
+    playlistProvider.setPlaylists(
+      await playlistRepo.getFivePlaylists(curToken, curUserId, page),
+    );
+  }
+
+  final ScrollController _scrollController = ScrollController();
+  final double overlap = 220;
+  int page = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +83,7 @@ class PlaylistHomeScreen extends StatelessWidget {
           ),
           Expanded(
             child: SingleChildScrollView(
+              controller: _scrollController,
               child: SizedBox(
                 height: playlists.isEmpty ? 200 : stackHeight,
                 child: playlists.isEmpty
@@ -59,11 +104,11 @@ class PlaylistHomeScreen extends StatelessWidget {
                             right: 0,
                             child: PlaylistCard(
                               playlistName:
-                                  playlists[playlists.length - index - 1].name,
+                                  playlists[index].name,
                               playlistId:
-                                  playlists[playlists.length - index - 1].id,
+                                  playlists[index].id,
                               playlistColor:
-                                  playlists[playlists.length - index - 1].color,
+                                  playlists[index].color,
                             ),
                           );
                         }),
@@ -82,5 +127,10 @@ class PlaylistHomeScreen extends StatelessWidget {
       bottomNavigationBar: CustomBottomBar(),
     );
   }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 }
-// Hero widget

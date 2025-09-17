@@ -47,7 +47,7 @@ export class PlaylistService {
     return this.playlistRepo.find();
   }
 
-  async findPlaylistsByUserId(userId: number) {
+  async findPlaylistsByUserId(userId: number, page: number) {
     const user = await this.userRepo.findOne({ where: { id: userId } });
 
     if (user == null) {
@@ -56,6 +56,11 @@ export class PlaylistService {
 
     const playlists = await this.playlistRepo.find({
       where: { user: { id: userId } },
+      take: 5,
+      skip: (page - 1) * 5,
+      order: {
+        created_at: 'DESC',
+      },
     });
 
     return playlists;

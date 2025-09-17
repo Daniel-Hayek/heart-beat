@@ -1,0 +1,912 @@
+{
+  "name": "Heart-Beat Mood Chat",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "heartbeat-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -784,
+        -416
+      ],
+      "id": "75dacf3b-2f32-41a2-a0a7-08d934e65876",
+      "name": "Webhook",
+      "webhookId": "fe7b6316-161d-4825-9a5f-12d17dd9d05e"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        3408,
+        -224
+      ],
+      "id": "baae765e-34d8-4c72-ba5b-ad9369f20c72",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDvesA0qgSBLnIArstRvFO3wMhEjofeye0",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        944,
+        176
+      ],
+      "id": "df688fdf-8b23-4047-8d65-2cd7c5be7c4b",
+      "name": "Gemini 1.5",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=AIzaSyDvesA0qgSBLnIArstRvFO3wMhEjofeye0",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1360,
+        192
+      ],
+      "id": "5a3c7474-3bfb-44e4-81da-7729c99b66d5",
+      "name": "Gemini 2.0",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "=http://localhost:4000/mood-tracking/last/ {{ $json.body.userId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -432,
+        -96
+      ],
+      "id": "39b2c869-7d77-4958-ad74-19d227224331",
+      "name": "Fetch User Moods"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -176,
+        -272
+      ],
+      "id": "90dccedd-fe00-4171-9bd3-28d9107610df",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "url": "=http://localhost:4000/device-data/last/ {{ $json.body.userId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -432,
+        64
+      ],
+      "id": "0a7a74a6-0e21-4ae0-9f7d-4b062c4aa783",
+      "name": "Fetch User Stress"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=AIzaSyDvesA0qgSBLnIArstRvFO3wMhEjofeye0",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        176
+      ],
+      "id": "c1d18cd7-f063-4960-9cb8-06f0d25fd6b9",
+      "name": "Gemini 2.5"
+    },
+    {
+      "parameters": {
+        "jsCode": "const userMessage = $input.first().json.body.userMessage || \"\";\nconst wasWaitingForConfirmation = $input.first().json.body.waitingForConfirmation;\n\n\n// Check if user is responding to mood confirmation\nif (wasWaitingForConfirmation) {\n  const userResponse = userMessage.toLowerCase().trim();\n\n  const words = userResponse.split(/\\s+/);\n  const isYes = words.includes('yes') || words.includes('y') || words.includes('sure') || words.includes('yeah') || words.includes('yep');\n  const isNo = words.includes('no') || words.includes('nope') || words.includes('nah');\n  \n  if (isYes) {\n    // User confirmed - we'll log the mood\n    const pendingMoods = $input.first().json.body.pendingMoods || [];\n  const pendingScore = $input.first().json.body.pendingScore || 5;\n  const pendingMoodsString = $input.first().json.body.pendingMoodsString || \"\";\n    \n    return {\n      json: {\n        message: `Great! I've logged that you're feeling ${pendingMoodsString.toLowerCase()}. Thanks for sharing! 💙 Would you like to follow up on that, perhaps talk some more? Or maybe consider checking out the playlist that was created for you in the application.`,\n        moodLogged: true,\n        detectedMoods: pendingMoods,\n        averageScore: pendingScore,\n        moodsString: pendingMoodsString,\n        waitingForConfirmation: false,\n        skipGemini: true,\n        shouldSaveToDatabase: true,\n        userId: $input.first().json.userId\n      }\n    };\n  } else if (isNo) {\n    console.log(\"DECLINED - Not logging mood\");\n    return {\n      json: {\n        message: \"No problem! I won't log that just yet. Would you prefer if we kept talking about how you're feeling instead?\",\n        moodLogged: false,\n        waitingForConfirmation: false,\n        skipGemini: true,\n      }\n    };\n  } else {\n    console.log(\"UNCLEAR RESPONSE - Treating as normal conversation\");\n    // Don't return early - let it continue to normal conversation processing\n  }\n}\n\n\n// Continue with normal conversation processing\nconst messages = $input.first().json.body.conversationHistory || [];\nconst lastMood = $input.all()[1].json.data || null\nconst lastStress = $input.all()[2].json.predicted_stress || null;\nconst lastJournal = $input.all()[3].json.content;\nconst conversationSummary = $input.first().json.body.conversationSummary || null;\nconst sessionLength = messages.length;\n\n// Build conversation context\nlet conversation = \"\";\nif (conversationSummary) {\n  conversation += `Previous conversation summary: ${conversationSummary}\\n\\n`;\n}\n\nconst recentMessages = messages.slice(-5);\nfor (const msg of recentMessages) {\n  const role = msg.role === \"User\" ? \"User\" : \"Assistant\";\n  conversation += `${role}: \"${msg.content}\"\\n`;\n}\n\nconsole.log(\"Final conversation context:\", conversation);\nconsole.log(\"==================\");\n\nconst sessionContext = sessionLength > 4 ? \n  \"This is an ongoing conversation - you have good rapport established. You should start asking about creating a journal\" :\n  \"This is early in the conversation - focus on building connection.\";\n\nconst promptText = \n`You are Moody Blues, a compassionate mental health companion for a mood and music app called Heart-Beat.\n\nContext:\n- User's last mood: ${lastMood || 'None logged recently'}\n- Last stress score: ${lastStress || 'Unknown'}/10\n- Last journal user wrote: ${lastJournal}\n- Session info: ${sessionContext}\n- Conversation history: \n${conversation}\n\nYour conversation goals:\n1. Be naturally supportive and engaging\n2. Through thoughtful conversation, understand their current emotional state\n3. ONLY suggest mood logging when you're very confident and haven't asked recently\n4. IF the conversation goes on for a few messages, suggest creating a jounal for them with the summary that you created. \n5. IF you ask about creating a journal and the user agrees to you doing that for them then in your next output make SURE that you mention the line \"As such, I'm gonna save your journal as this: \" and you give a few lines as a summary of the conversation. This is VERY IMPORTANT.\n\nAvailable moods: Happy (10), Excited (9), Energetic (8), Hopeful (7), Calm (6), Focus (5), Tired (5), Anxious (4), Angry (3), Frustrated (3), Lonely (2), Sad (1)\n\nGuidelines:\n- DON'T ask about mood logging in every response\n- Only suggest mood logging if the user is clearly expressing strong emotions AND you haven't asked recently\n- Focus on having a natural conversation first\n- Be empathetic and validate their feelings\n- Ask follow-up questions about what they share\n- If you do log the user's moods, mention that a playlist has been created for them.\n\nIMPORTANT: Respond with only ONE natural, conversational response. Do not provide multiple options or reasoning.`;\n\nreturn {\n  json: { \n    contents: [{ parts: [{ text: promptText }] }],\n    sessionLength: sessionLength,\n    shouldSummarize: sessionLength > 15,\n    skipGemini: false,\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        -592
+      ],
+      "id": "4ec2a197-42be-4b05-a5b9-9e1d9bc014be",
+      "name": "Create Prompt Code"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = { ...$json };\ndelete data.error;\nreturn [{ json: data }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        448
+      ],
+      "id": "e214267b-76ab-4640-8b74-b6d06c58d977",
+      "name": "Strip Away Error Message"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = { ...$json };\ndelete data.error;\nreturn [{ json: data }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1552,
+        448
+      ],
+      "id": "2d1dbff7-d49d-45bb-b1d1-7d87dcd99134",
+      "name": "Strip Away Error Message1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check if we should create a summary\nconst shouldSummarize = $input.first().json.shouldSummarize;\nconst sessionLength = $input.first().json.sessionLength;\n\nif (shouldSummarize && sessionLength % 10 === 0) { // Every 10 messages\n  // Create summary prompt\n  const messages = $('Webhook').first().json.body.message || [];\n  const recentConversation = messages.slice(-10).map(msg => \n    `${msg.role}: \"${msg.content}\"`\n  ).join('\\n');\n  \n  const summaryPrompt = `Summarize this mental health conversation in 2-3 sentences, focusing on:\n- User's emotional state and any changes\n- Key topics or concerns discussed\n- Current rapport level with the assistant\n\nConversation:\n${recentConversation}\n\nSummary:`;\n  \n  return [\n    {\n      json: { \n        createSummary: true,\n        summaryPrompt: summaryPrompt,\n        originalResponse: $input.first().json\n      }\n    }\n  ];\n} else {\n  // No summary needed, just pass through\n  return [\n    {\n      json: { \n        createSummary: false,\n        originalResponse: $input.first().json\n      }\n    }\n  ];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -432
+      ],
+      "id": "349d7067-aab4-4997-8792-236694b98a66",
+      "name": "Check for Summary"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $input.first().json;\n\n// Check if we need to create a summary or just send the normal response\nif (inputData.createSummary) {\n  // This is for creating a summary - send the summary prompt\n  return {\n    json: {\n      contents: [{ parts: [{ text: inputData.summaryPrompt }] }]\n    }\n  };\n} else {\n  // This is the normal conversation - send the original response\n  return {\n    json: {\n      contents: inputData.originalResponse.contents\n    }\n  };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        -432
+      ],
+      "id": "517ecbf2-46e5-4aeb-9528-7c2faa6a8b4e",
+      "name": "Clean Up Input"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the AI's response\nconst aiResponse = $input.first().json.candidates[0].content.parts[0].text;\n\nconst userMessage = $('Webhook').first().json.body.userMessage || \"\";\nconst conversationHistory = $('Webhook').first().json.body.conversationHistory || [];\n\n// Check if we recently asked about mood logging (last 3 messages)\nconst recentlyAskedAboutMood = conversationHistory.slice(-3).some(msg => \n  msg.content && (\n    msg.content.includes('Would you like me to log') || \n    msg.content.includes('log this mood') ||\n    msg.content.includes('log your mood')\n  )\n);\n\n// Only detect strong emotional expressions from the USER\nconst hasStrongEmotion = (text) => {\n  const lowerText = text.toLowerCase();\n  const strongEmotions = [\n    'really stressed', 'so tired', 'extremely', 'overwhelmed', \n    'exhausted', 'desperately', 'furious', 'devastated',\n    'really happy', 'so excited', 'amazing', 'terrible'\n  ];\n  \n  return strongEmotions.some(emotion => lowerText.includes(emotion));\n};\n\n// Decision: Only suggest mood logging if:\n// 1. User expressed strong emotion\n// 2. Haven't asked recently  \n// 3. Have some conversation context\nconst shouldLogMood = \n  hasStrongEmotion(userMessage) && \n  !recentlyAskedAboutMood && \n  conversationHistory.length > 2;\n\nconsole.log('Should log mood:', shouldLogMood);\nconsole.log('Recently asked:', recentlyAskedAboutMood);\nconsole.log('Strong emotion:', hasStrongEmotion(userMessage));\n\nreturn {\n  json: {\n    aiResponse: aiResponse,\n    shouldLogMood: shouldLogMood,\n    userMessage: userMessage,\n    conversationLength: conversationHistory.length\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2032,
+        -240
+      ],
+      "id": "146d1b7b-b865-48b8-b64a-62d2c0283b36",
+      "name": "Check for Mood Inference"
+    },
+    {
+      "parameters": {
+        "jsCode": "const shouldLog = $input.first().json.shouldLogMood;\nconst aiResponse = $input.first().json.aiResponse;\nconst userMessage = $input.first().json.userMessage;\n\nif (!shouldLog) {\n  // No mood logging needed, just return the response\n  return {\n    json: {\n      message: aiResponse,\n      waitingForConfirmation: false,\n      moodLogged: false\n    }\n  };\n}\n\n// Mood detection logic (same as before)\nconst detectMoods = (text) => {\n  const lowerText = text.toLowerCase();\n  const detectedMoods = [];\n  \n  const moodPatterns = {\n    'Happy': ['great', 'awesome', 'wonderful', 'amazing', 'good', 'fantastic'],\n    'Sad': ['down', 'low', 'blue', 'depressed', 'upset', 'sad'],\n    'Anxious': ['worried', 'nervous', 'stressed', 'anxious', 'overwhelmed'],\n    'Angry': ['mad', 'furious', 'irritated', 'angry', 'frustrated'],\n    'Tired': ['exhausted', 'drained', 'sleepy', 'tired', 'worn out'],\n    'Excited': ['thrilled', 'pumped', 'excited', 'can\\'t wait'],\n    'Calm': ['peaceful', 'relaxed', 'calm', 'tranquil', 'centered'],\n    'Lonely': ['isolated', 'alone', 'lonely', 'disconnected'],\n    'Hopeful': ['optimistic', 'positive', 'hopeful', 'looking forward'],\n    'Energetic': ['energetic', 'active', 'pumped up', 'motivated']\n  };\n  \n  Object.keys(moodPatterns).forEach(mood => {\n    const hasIndicator = moodPatterns[mood].some(pattern => \n      lowerText.includes(pattern)\n    );\n    if (hasIndicator) {\n      detectedMoods.push(mood);\n    }\n  });\n  \n  if (detectedMoods.length === 0) {\n    if (lowerText.includes('work') || lowerText.includes('busy')) {\n      detectedMoods.push('Focus');\n    } else if (lowerText.includes('okay') || lowerText.includes('fine')) {\n      detectedMoods.push('Calm');\n    }\n  }\n  \n  return detectedMoods.slice(0, 3);\n};\n\nconst detectedMoods = detectMoods(userMessage + ' ' + aiResponse);\n\nif (detectedMoods.length > 0) {\n  // Calculate average score\n  const moodScores = {\n    'Happy': 10, 'Excited': 9, 'Energetic': 8, 'Hopeful': 7,\n    'Calm': 6, 'Focus': 5, 'Tired': 5,\n    'Anxious': 4, 'Angry': 3, 'Frustrated': 3,\n    'Lonely': 2, 'Sad': 1\n  };\n  \n  const scores = detectedMoods.map(mood => moodScores[mood] || 5);\n  const averageScore = scores.reduce((sum, score) => sum + score, 0) / scores.length;\n  \n  // ASK for confirmation instead of auto-logging\n  const moodList = detectedMoods.join(', ');\n  const confirmationMessage = aiResponse + `\\n\\n💙 It sounds like you might be feeling ${moodList.toLowerCase()} today. Would you like me to log this mood for you? (Just say \"yes\" or \"no\")`;\n  \n  return {\n    json: {\n      message: confirmationMessage,\n      waitingForConfirmation: true,\n      pendingMoods: detectedMoods,\n      pendingScore: averageScore,\n      pendingMoodsString: moodList,\n      moodLogged: false\n    }\n  };\n} else {\n  return {\n    json: {\n      message: aiResponse,\n      waitingForConfirmation: false,\n      moodLogged: false\n    }\n  };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2240,
+        -240
+      ],
+      "id": "781757b9-3d4b-4c4d-b81f-39f5c8371185",
+      "name": "Mood Logging"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://localhost:4000/mood-tracking/log",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "userId",
+              "value": "={{ $('Webhook').item.json.body.userId }}"
+            },
+            {
+              "name": "source",
+              "value": "\"AI Agent\""
+            },
+            {
+              "name": "mood",
+              "value": "={{ $json.moodsString }}"
+            },
+            {
+              "name": "score",
+              "value": "={{ $json.averageScore }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        512,
+        -1264
+      ],
+      "id": "5c515db5-8cfb-42cb-bcf7-0be8871b669e",
+      "name": "Mood Logging1",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect data from all possible paths through the workflow\nconst input = $input.first().json;\n\n\nconst message = input.message || \"\";\n\n\nconst moodLogged = input.moodLogged || false;\nconst waitingForConfirmation = input.waitingForConfirmation || false;\n\n// Prepare the response object\nconst response = {\n  message: message,\n  moodLogged: moodLogged,\n  waitingForConfirmation: waitingForConfirmation || false,\n  \n  // Always include pending data (will be null if not waiting)\n  pendingMoods: input.pendingMoods || null,\n  pendingScore: input.pendingScore || null,\n  pendingMoodsString: input.pendingMoodsString || null,\n  \n  // Include logged data if mood was logged\n  loggedMoodsString: input.moodsString || input.pendingMoodsString || null,\n  loggedScore: input.averageScore || input.pendingScore || null,\n  \n  // Optional metadata\n  conversationLength: input.conversationLength || 0,\n  timestamp: new Date().toISOString()\n};\n\nreturn { json: response };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3136,
+        -224
+      ],
+      "id": "016dbb0d-3a08-4dc8-be0a-7d23426bd8da",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f2666258-0cdd-4f52-aa26-be2428e0e89e",
+              "leftValue": "={{ $json.skipGemini }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1056,
+        -992
+      ],
+      "id": "800e5a05-a2cb-4acf-9e93-92cee16cfdd3",
+      "name": "Skip Gemini1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "62236284-1652-4c3f-8e3f-1bc8b1ba79cd",
+              "leftValue": "={{ $json.shouldSaveToDatabase }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        -880
+      ],
+      "id": "50af967d-8679-4137-94d5-d8f9725d1907",
+      "name": "If1",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "useDataOfInput": 2
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        768,
+        -1216
+      ],
+      "id": "ca29a3ac-9b5e-43a4-8c2e-232326f2c108",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "url": "=http://localhost:4000/journals/last/ {{ $json.body.userId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -432,
+        208
+      ],
+      "id": "234176ea-396a-46de-9004-9488527affab",
+      "name": "Fetch User Journal"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the AI's response\nconst aiResponse = $input.first().json.message;\n\nconst journalSave = `As such, I'm gonna save your journal as this:\\n\\n`;\n\nif (aiResponse.includes(journalSave)) {\n  const parts = aiResponse.split(journalSave);\n  const final = parts[1].slice(1, -1);\n  return {\n  json: {\n    journalSave: true,\n    journal: final,\n  }\n};\n}\n\nreturn { json: \n{\n  journalSave: false\n}\n       }\n\n// const userMessage = $('Webhook').first().json.body.userMessage || \"\";\n// const conversationHistory = $('Webhook').first().json.body.conversationHistory || [];\n\n// // Check if we recently asked about mood logging (last 3 messages)\n// const recentlyAskedAboutMood = conversationHistory.slice(-3).some(msg => \n//   msg.content && (\n//     msg.content.includes('Would you like me to log') || \n//     msg.content.includes('log this mood') ||\n//     msg.content.includes('log your mood')\n//   )\n// );\n\n// // Only detect strong emotional expressions from the USER\n// const hasStrongEmotion = (text) => {\n//   const lowerText = text.toLowerCase();\n//   const strongEmotions = [\n//     'really stressed', 'so tired', 'extremely', 'overwhelmed', \n//     'exhausted', 'desperately', 'furious', 'devastated',\n//     'really happy', 'so excited', 'amazing', 'terrible'\n//   ];\n  \n//   return strongEmotions.some(emotion => lowerText.includes(emotion));\n// };\n\n// // Decision: Only suggest mood logging if:\n// // 1. User expressed strong emotion\n// // 2. Haven't asked recently  \n// // 3. Have some conversation context\n// const shouldLogMood = \n//   hasStrongEmotion(userMessage) && \n//   !recentlyAskedAboutMood && \n//   conversationHistory.length > 2;\n\n// console.log('Should log mood:', shouldLogMood);\n// console.log('Recently asked:', recentlyAskedAboutMood);\n// console.log('Strong emotion:', hasStrongEmotion(userMessage));\n\n// return {\n//   json: {\n//     aiResponse: aiResponse,\n//     shouldLogMood: shouldLogMood,\n//     userMessage: userMessage,\n//     conversationLength: conversationHistory.length\n//   }\n// };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2480,
+        208
+      ],
+      "id": "51b57d12-e8cf-4046-bfe6-38923488ec40",
+      "name": "Check for Saving Journal"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "77d2028d-50f4-41d6-a7f6-9e44d0eb3fc5",
+              "leftValue": "={{ $json.journalSave }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2752,
+        208
+      ],
+      "id": "74604110-b0de-4f1a-96dc-b9a4c89ae561",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:4000/journals",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "userId",
+              "value": "={{$input.all()[1].json.body.userId}}"
+            },
+            {
+              "name": "title",
+              "value": "Generated Jounal Entry"
+            },
+            {
+              "name": "content",
+              "value": "={{ String($json.journal) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2400,
+        1136
+      ],
+      "id": "726802a0-3ab3-4aa9-85e2-827904a54d54",
+      "name": "HTTP Request",
+      "executeOnce": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2128,
+        1040
+      ],
+      "id": "0148a427-b871-4184-a13d-73e435a15656",
+      "name": "Merge2"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8,
+              "triggerAtMinute": 45
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -352,
+        1088
+      ],
+      "id": "f3ffd103-01d4-441a-8298-162f9442c1f5",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1IixQjFD1s1JtMBcSB6qhgbh8U-ItuCrDg_V6aLNySjg/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 860530859,
+          "mode": "list",
+          "cachedResultName": "synthetic_lifestyle_data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IixQjFD1s1JtMBcSB6qhgbh8U-ItuCrDg_V6aLNySjg/edit#gid=860530859"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -112,
+        1088
+      ],
+      "id": "8b10daa8-7406-4d97-9234-8e5f627df908",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "wIUOC9ngb5RjcdXs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all items (rows from sheet)\nconst rows = items;\n// Pick a random index\nconst randomIndex = Math.floor(Math.random() * rows.length);\n// Return just that row\nreturn [rows[randomIndex]];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        1088
+      ],
+      "id": "2f5f804e-ee59-4eeb-b073-6f036bdbecc5",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:4000/device-data",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"userId\": 2,\n  \"sleep_duration\": {{ $json.sleep_duration }},\n  \"heartrate\": {{ $json.heartrate }},\n  \"activity_level\": {{ $json.activity_level }},\n  \"steps\": {{ $json.steps }},\n  \"phone_usage\": {{ $json.phone_usage }}\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        1088
+      ],
+      "id": "2a0cacca-f6a1-4366-aaa5-860db0f6e86f",
+      "name": "HTTP Request1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch User Moods",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch User Stress",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch User Journal",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Gemini 1.5": {
+      "main": [
+        [
+          {
+            "node": "Check for Mood Inference",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Strip Away Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini 2.0": {
+      "main": [
+        [
+          {
+            "node": "Check for Mood Inference",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Strip Away Error Message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch User Moods": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Create Prompt Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch User Stress": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Gemini 2.5": {
+      "main": [
+        [
+          {
+            "node": "Check for Mood Inference",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Prompt Code": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Strip Away Error Message": {
+      "main": [
+        [
+          {
+            "node": "Gemini 2.0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Strip Away Error Message1": {
+      "main": [
+        [
+          {
+            "node": "Gemini 2.5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for Summary": {
+      "main": [
+        [
+          {
+            "node": "Clean Up Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean Up Input": {
+      "main": [
+        [
+          {
+            "node": "Gemini 1.5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Check for Mood Inference": {
+      "main": [
+        [
+          {
+            "node": "Mood Logging",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mood Logging": {
+      "main": [
+        [
+          {
+            "node": "Check for Saving Journal",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mood Logging1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skip Gemini1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check for Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Mood Logging1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Skip Gemini1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Skip Gemini1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch User Journal": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Check for Saving Journal": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        []
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9aa0d2f0-4fb8-4f86-8c29-1737d5870f99",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "721b272cfb3a2188790f84463409fc2c3a41085b150d040b1262ccb66b972914"
+  },
+  "id": "YGy5agkx9iEENPGz",
+  "tags": []
+}
