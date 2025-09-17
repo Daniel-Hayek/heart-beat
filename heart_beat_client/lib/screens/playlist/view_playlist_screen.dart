@@ -65,17 +65,23 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    TitleText(
-                      text: context.read<PlaylistProvider>().activePlaylistName,
-                      size: 29,
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 250),
+                      child: TitleText(
+                        text: context
+                            .read<PlaylistProvider>()
+                            .activePlaylistName,
+                        size: 26,
+                        align: TextAlign.left,
+                      ),
                     ),
                     SizedBox(height: 5),
-                    TitleText(text: "${songs.length} songs", size: 24),
+                    TitleText(text: "${songs.length} songs", size: 22),
                     SizedBox(height: 5),
                     TitleText(
                       text:
                           "${TimeConverter.convertTime(totalDuration)} minutes",
-                      size: 20,
+                      size: 18,
                     ),
                   ],
                 ),
