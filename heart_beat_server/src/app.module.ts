@@ -8,6 +8,11 @@ import { SongsModule } from './modules/songs/songs.module';
 import { PlaylistModule } from './modules/playlist/playlist.module';
 import { PlaylistSongModule } from './modules/playlist-song/playlist-song.module';
 import { MoodTrackingModule } from './modules/mood-tracking/mood-tracking.module';
+import { MoodsModule } from './modules/moods/moods.module';
+import { SongMoodsModule } from './modules/song-moods/song-moods.module';
+import { ReferenceJournalsModule } from './modules/reference-journals/reference-journals.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { DeviceDataModule } from './modules/device-data/device-data.module';
 
 @Module({
   imports: [
@@ -22,6 +27,7 @@ import { MoodTrackingModule } from './modules/mood-tracking/mood-tracking.module
       autoLoadEntities: true,
       synchronize: false,
     }),
+    EventEmitterModule.forRoot(),
     AuthModule,
     UsersModule,
     JournalsModule,
@@ -29,6 +35,11 @@ import { MoodTrackingModule } from './modules/mood-tracking/mood-tracking.module
     PlaylistModule,
     PlaylistSongModule,
     MoodTrackingModule,
+    MoodsModule,
+    SongMoodsModule,
+    MoodsModule,
+    ReferenceJournalsModule,
+    DeviceDataModule,
   ],
   controllers: [],
   providers: [],

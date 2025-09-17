@@ -3,11 +3,13 @@ import 'dotenv/config';
 import { User } from './src/entities/user.entity';
 import { Journal } from './src/entities/journal.entity';
 import { Song } from './src/entities/song.entity';
-import { Mood } from './src/entities/moods.entity';
-import { SongMood } from './src/entities/song-moods.entity';
 import { Playlist } from './src/entities/playlist.entity';
 import { PlaylistSong } from './src/entities/playlist-song.entity';
 import { MoodTracking } from './src/entities/mood-tracking.entity';
+import { JournalChunk } from './src/entities/journal-chunk.entity';
+import { Mood } from './src/entities/moods.entity';
+import { ReferenceJournal } from './src/entities/reference-journal.entity';
+import { DeviceDatum } from './src/entities/device-datum.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -20,11 +22,13 @@ export const AppDataSource = new DataSource({
     User,
     Journal,
     Song,
-    Mood,
-    SongMood,
     Playlist,
     PlaylistSong,
     MoodTracking,
+    JournalChunk,
+    Mood,
+    ReferenceJournal,
+    DeviceDatum,
   ],
   migrations: ['src/database/migrations/*.ts'],
 });

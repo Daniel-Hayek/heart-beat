@@ -1,0 +1,38 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
+import pandas as pd
+import mlflow.pyfunc
+
+app = FastAPI()
+
+class StressInput(BaseModel):
+    sleep_duration: float
+    physical_activity_level: float
+    heart_rate: float
+    daily_steps: float
+
+mlflow.set_tracking_uri("http://mlflow:5000")
+model = mlflow.pyfunc.load_model("models:/svm_ovo_best_model/6")
+
+@app.get("/")
+def root():
+    return {"message": "Stress prediction API is running"}
+
+@app.post("/predict_stress")
+def predict_stress(data: StressInput):
+    df = pd.DataFrame([{
+        "Sleep Duration": data.sleep_duration,
+        "Physical Activity Level": data.physical_activity_level,
+        "Heart Rate": data.heart_rate,
+        "Daily Steps": data.daily_steps,
+    }])
+
+
+
+    prediction = model.predict(df)[0]
+
+    return {"predicted_stress" : int(prediction)}
+
+@app.get("/health")
+def health():
+    return {"status": "healthy"}

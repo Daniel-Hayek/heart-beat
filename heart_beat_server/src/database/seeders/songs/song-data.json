@@ -3,132 +3,154 @@
     "title": "Old Times pell",
     "artist": "AirFlow",
     "duration": 224,
-    "song_url": "OldTimesPell.flac"
+    "song_url": "OldTimesPell.flac",
+    "moods": ["Sad", "Calm", "Lonely"]
   },
   {
     "title": "Shasha",
     "artist": "Albert Beger",
     "duration": 255,
-    "song_url": "Shasha.mp3"
+    "song_url": "Shasha.mp3",
+    "moods": ["Calm", "Happy", "Excited"]
   },
   {
     "title": "Bittersweet",
     "artist": "Kevin MacLeod",
     "duration": 202,
-    "song_url": "Bittersweet.mp3"
+    "song_url": "Bittersweet.mp3",
+    "moods": ["Focus", "Calm", "Tired"]
   },
   {
     "title": "Despair and Triumph",
     "artist": "Kevin MacLeod",
     "duration": 285,
-    "song_url": "Despair%20and%20Triumph.mp3"
+    "song_url": "Despair%20and%20Triumph.mp3",
+    "moods": ["Sad", "Focus", "Anxious"]
   },
   {
     "title": "Chi Go Getters",
     "artist": "Dollar Boyz",
     "duration": 277,
-    "song_url": "Chi%20Go%20Getters.mp3"
+    "song_url": "Chi%20Go%20Getters.mp3",
+    "moods": ["Energetic", "Happy", "Angry"]
   },
   {
     "title": "Down the Rabbit Hole",
     "artist": "The Gray Room",
     "duration": 184,
-    "song_url": "Down%20the%20Rabbit%20Hole"
+    "song_url": "Down%20the%20Rabbit%20Hole",
+    "moods": ["Focus", "Happy", "Tired"]
   },
   {
     "title": "Missed the Free Throw",
     "artist": "E-Prosounds",
     "duration": 206,
-    "song_url": "Missed%20The%20Free%20Throw.mp3"
+    "song_url": "Missed%20The%20Free%20Throw.mp3",
+    "moods": ["Energetic", "Happy", "Frustrated"]
   },
   {
     "title": "Water World",
     "artist": "E-Prosounds",
     "duration": 168,
-    "song_url": "Water%20World.mp3"
+    "song_url": "Water%20World.mp3",
+    "moods": ["Focus", "Energetic", "Anxious"]
   },
   {
     "title": "Floating Cities",
     "artist": "Kevin MacLeod",
     "duration": 184,
-    "song_url": "Floating%20Cities.mp3"
+    "song_url": "Floating%20Cities.mp3",
+    "moods": ["Sad", "Focus", "Frustrated"]
   },
   {
     "title": "Heart of Nowhere",
     "artist": "Kevin MacLeod",
     "duration": 172,
-    "song_url": "Heart%20of%20Nowhere.mp3"
+    "song_url": "Heart%20of%20Nowhere.mp3",
+    "moods": ["Sad", "Calm", "Hopeful"]
   },
   {
     "title": "Heartbreaking",
     "artist": "Kevin MacLeod",
     "duration": 96,
-    "song_url": "Heartbreaking.mp3"
+    "song_url": "Heartbreaking.mp3",
+    "moods": ["Sad", "Calm", "Tired"]
   },
   {
     "title": "Boulevard St. Germain",
     "artist": "Jahzzar",
     "duration": 279,
-    "song_url": "Boulevard%20St%20Germain.mp3"
+    "song_url": "Boulevard%20St%20Germain.mp3",
+    "moods": ["Happy", "Calm", "Hopeful"]
   },
   {
     "title": "Blooming Poison",
     "artist": "Join C Beat",
     "duration": 160,
-    "song_url": "Blooming%20Poison.mp3"
+    "song_url": "Blooming%20Poison.mp3",
+    "moods": ["Energetic", "Focus", "Tired"]
   },
   {
     "title": "Late Night Radio",
     "artist": "Kevin MacLeod",
     "duration": 263,
-    "song_url": "Late%20Night%20Radio.mp3"
+    "song_url": "Late%20Night%20Radio.mp3",
+    "moods": ["Calm", "Focus", "Frustrated"]
   },
   {
     "title": "Man Down",
     "artist": "Kevin MacLeod",
     "duration": 198,
-    "song_url": "Man%20Down.mp3"
+    "song_url": "Man%20Down.mp3",
+    "moods": ["Sad", "Focus", "Angry"]
   },
   {
     "title": "Private Reflection",
     "artist": "Kevin MacLeod",
     "duration": 90,
-    "song_url": "Private%20Reflection.mp3"
+    "song_url": "Private%20Reflection.mp3",
+    "moods": ["Sad", "Calm", "Anxious"]
   },
   {
     "title": "Rains Will Fall",
     "artist": "Kevin MacLeod",
     "duration": 222,
-    "song_url": "Rains%20Will%20Fall.mp3"
+    "song_url": "Rains%20Will%20Fall.mp3",
+    "moods": ["Sad", "Focus", "Frustrated"]
   },
   {
     "title": "Rumination",
     "artist": "Kevin MacLeod",
     "duration": 172,
-    "song_url": "Rumination.mp3"
+    "song_url": "Rumination.mp3",
+    "moods": ["Focus", "Calm", "Lonely"]
   },
   {
     "title": "SCP-x5x",
     "artist": "Kevin MacLeod",
     "duration": 216,
-    "song_url": "SCP-x5x.mp3"
+    "song_url": "SCP-x5x.mp3",
+    "moods": ["Focus", "Calm", "Sad"]
   },
   {
     "title": "Vibing Over Venus",
     "artist": "Kevin MacLeod",
     "duration": 411,
-    "song_url": "Vibing%20Over%20Venus.mp3"
+    "song_url": "Vibing%20Over%20Venus.mp3",
+    "moods": ["Happy", "Calm", "Angry"]
   },
   {
     "title": "Uplifting Ukelele",
     "artist": "Waveloom",
     "duration": 142,
-    "song_url": "Uplifting%20Ukulele.mp3"
+    "song_url": "Uplifting%20Ukulele.mp3",
+    "moods": ["Energetic", "Happy", "Hopeful"]
   },
   {
     "title": "Dark Ambience",
     "artist": "YuraSloop",
     "duration": 168,
-    "song_url": "Dark%20Ambient.mp3"
+    "song_url": "Dark%20Ambient.mp3",
+    "moods": ["Focus", "Calm", "Anxious"]
   }
 ]

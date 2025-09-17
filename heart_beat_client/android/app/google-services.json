@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "588809895322",
+    "project_id": "heart-beat-d4054",
+    "storage_bucket": "heart-beat-d4054.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588809895322:android:4603c3929c5576baa48e23",
+        "android_client_info": {
+          "package_name": "com.example.heart_beat_client"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtXov7dXRnsgh2f4gH1Jmbloj13-ALd4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

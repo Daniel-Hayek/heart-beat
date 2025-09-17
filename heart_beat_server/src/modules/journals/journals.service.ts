@@ -4,6 +4,9 @@ import { Journal } from 'src/entities/journal.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
+import { ReferenceJournal } from 'src/entities/reference-journal.entity';
+import { InjectQueue } from '@nestjs/bull';
+import type { Queue } from 'bull';
 
 @Injectable()
 export class JournalsService {
@@ -13,6 +16,11 @@ export class JournalsService {
 
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
+
+    @InjectRepository(ReferenceJournal)
+    private readonly refJournalRepo: Repository<ReferenceJournal>,
+
+    @InjectQueue('journal-processing') private readonly journalQueue: Queue,
   ) {}
 
   async create(createJournalDto: CreateJournalDto) {
@@ -30,7 +38,18 @@ export class JournalsService {
       user,
     });
 
-    return this.journalRepo.save(journal);
+    await this.journalRepo.save(journal);
+
+    await this.journalQueue.add({ journalId: journal.id });
+
+    return journal;
+  }
+
+  async find(id: number) {
+    return await this.journalRepo.findOne({
+      where: { id },
+      relations: ['user'],
+    });
   }
 
   async findAll() {
@@ -61,21 +80,6 @@ export class JournalsService {
     return `Journal ${id} deleted`;
   }
 
-  async getLatest(userId: number) {
-    const user = await this.journalRepo.find({ where: { id: userId } });
-
-    if (user == null) {
-      throw new NotFoundException('No user with that ID');
-    }
-
-    const result = await this.journalRepo.findOne({
-      where: { user: { id: userId } },
-      order: { created_at: 'DESC' },
-    });
-
-    return result;
-  }
-
   async getNumber(userId: number) {
     const user = await this.journalRepo.find({ where: { id: userId } });
 
@@ -88,5 +92,22 @@ export class JournalsService {
     });
 
     return result;
+  }
+
+  async getRefernceJournals() {
+    return await this.refJournalRepo.find({
+      relations: ['moods'],
+    });
+  }
+
+  async assignMoods(journal: Journal) {
+    return await this.journalRepo.save(journal);
+  }
+
+  async getLast(id: number) {
+    return await this.journalRepo.findOne({
+      where: { user: { id } },
+      order: { created_at: 'DESC' },
+    });
   }
 }

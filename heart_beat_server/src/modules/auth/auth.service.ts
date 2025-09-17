@@ -22,7 +22,6 @@ export class AuthService {
     if (user) {
       const validPass = await bcrypt.compare(password, user.password);
       if (validPass) {
-        console.log(email, password);
         return user;
       }
     }
@@ -44,7 +43,6 @@ export class AuthService {
 
   login(user: Omit<User, 'password'>) {
     const payload = { sub: user.id, name: user.name, email: user.email };
-    console.log('jwt', process.env.JWT_SECRET);
     return { accessToken: this.jwtService.sign(payload) };
   }
 

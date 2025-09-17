@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/models/device_data.dart';
+import 'package:heart_beat_client/providers/device_data_provider.dart';
 import 'package:heart_beat_client/providers/mood_tracking_provider.dart';
 import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/providers/stats_provider.dart';
@@ -29,6 +31,8 @@ class _StatsScreenState extends State<StatsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       playlists = context.read<PlaylistProvider>().playlists.length;
 
+      final dataProvider = context.read<DeviceDataProvider>();
+      dataProvider.latestData();
       context.read<StatsProvider>().loadStats();
     });
   }
@@ -37,6 +41,9 @@ class _StatsScreenState extends State<StatsScreen> {
   Widget build(BuildContext context) {
     final stats = context.watch<StatsProvider>();
     final moodTracker = context.watch<MoodTrackingProvider>();
+
+    final dataProvider = context.read<DeviceDataProvider>();
+    DeviceData data = dataProvider.latestData();
 
     return Scaffold(
       appBar: CustomAppBar(title: "Mood Tracking Stats"),
@@ -73,8 +80,14 @@ class _StatsScreenState extends State<StatsScreen> {
                     statNum: stats.journals!,
                   ),
                   StatCard(statType: "Playlists Created", statNum: playlists),
-                  StatCard(statType: "Phone Usage (Hours/7 days)", statNum: 0),
-                  StatCard(statType: "Average Heart Rate", statNum: 0),
+                  StatCard(
+                    statType: "Phone Usage (Minutes per day)",
+                    statNum: data.phoneUsage.toInt(),
+                  ),
+                  StatCard(
+                    statType: "Average Heart Rate",
+                    statNum: data.heartrate.toInt(),
+                  ),
                 ],
               ),
               SizedBox(height: 20),
@@ -82,7 +95,7 @@ class _StatsScreenState extends State<StatsScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoutes.feedback);
                 },
-                label: "Improve Mood Tracking",
+                label: "Submit Vitals Manually",
               ),
               SizedBox(height: 20),
             ],

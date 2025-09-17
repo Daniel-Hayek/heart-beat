@@ -5,6 +5,8 @@ import { Playlist } from 'src/entities/playlist.entity';
 import { Repository } from 'typeorm';
 import { Song } from 'src/entities/song.entity';
 import { PlaylistSong } from 'src/entities/playlist-song.entity';
+import { MoodTracking } from 'src/entities/mood-tracking.entity';
+import { OnEvent } from '@nestjs/event-emitter';
 
 @Injectable()
 export class PlaylistSongService {
@@ -65,15 +67,49 @@ export class PlaylistSongService {
     return songs;
   }
 
-  // findAll() {
-  //   return `This action returns all playlistSong`;
-  // }
+  @OnEvent('playlist.generated')
+  async addMoodSongs(mood_tracking: MoodTracking, playlist: Playlist) {
+    const moods = mood_tracking.mood.split(',').map((m) => m.trim());
 
-  // update(id: number, updatePlaylistSongDto: UpdatePlaylistSongDto) {
-  //   return `This action updates a #${id} playlistSong`;
-  // }
+    let tertiarySongs: Array<Song> = [];
+    let secondarySongs: Array<Song> = [];
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} playlistSong`;
-  // }
+    const primarySongs = await this.songRepo.find({
+      where: { moods: { name: moods[0] } },
+      take: 3,
+    });
+
+    if (moods.length > 1) {
+      secondarySongs = await this.songRepo.find({
+        where: { moods: { name: moods[1] } },
+        take: 2,
+        order: { title: 'ASC' },
+      });
+    }
+
+    if (moods.length > 2) {
+      tertiarySongs = await this.songRepo.find({
+        where: { moods: { name: moods[2] } },
+        take: 1,
+        order: { title: 'DESC' },
+      });
+    }
+
+    const allSongs = [...primarySongs, ...secondarySongs, ...tertiarySongs];
+
+    let i = 0;
+    for (const song of allSongs) {
+      console.log('Adding song ', song.title);
+      i++;
+      const cur = this.playlistSongRepo.create({
+        playlist,
+        song,
+        orderIndex: i,
+      });
+
+      await this.playlistSongRepo.save(cur);
+    }
+
+    console.log('New playlist created and populated!');
+  }
 }

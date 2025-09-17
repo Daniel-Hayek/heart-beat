@@ -16,6 +16,8 @@ class TitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      maxLines: 2,
+      softWrap: true,
       textAlign: align,
       style: TextStyle(
         fontFamily: 'montserrat',

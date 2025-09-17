@@ -42,7 +42,7 @@ class SideBar extends StatelessWidget {
                   align: TextAlign.left,
                 ),
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, AppRoutes.quiz);
+                  Navigator.pushNamed(context, AppRoutes.quiz);
                 },
               ),
               ListTile(

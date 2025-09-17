@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/404587197656644390/1dbc330efacc4902b317b641851c2536/artifacts
+end_time: 1757750450067
+entry_point_name: ''
+experiment_id: '404587197656644390'
+lifecycle_stage: active
+run_id: 1dbc330efacc4902b317b641851c2536
+run_name: CVM_ovo_cv10fold
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757749955294
+status: 3
+tags: []
+user_id: Danny

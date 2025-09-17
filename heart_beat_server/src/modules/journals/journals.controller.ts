@@ -19,8 +19,6 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('Journal Endpoints')
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
 @Controller('journals')
 export class JournalsController {
   constructor(private readonly journalsService: JournalsService) {}
@@ -38,6 +36,8 @@ export class JournalsController {
     return this.journalsService.create(createJournalDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Return a list of all journals without their users',
   })
@@ -54,6 +54,8 @@ export class JournalsController {
     return this.journalsService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Return a journal entries by a user`s ID',
   })
@@ -71,6 +73,8 @@ export class JournalsController {
     return this.journalsService.findJournalsByUserId(+userId);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Delete a journal by its ID',
   })
@@ -88,27 +92,8 @@ export class JournalsController {
     return this.journalsService.remove(+id);
   }
 
-  @ApiOperation({
-    summary: 'Get a user`s most recent journal',
-  })
-  @ApiResponse({
-    status: 200,
-    description:
-      'Retrieved the most recent journal, or empty if the user has not written any journals',
-  })
-  @ApiResponse({
-    status: 401,
-    description: 'Unauthorized',
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'No user with that ID',
-  })
-  @Get('latest/:id')
-  getLatest(@Param('id') userId: string) {
-    return this.journalsService.getLatest(+userId);
-  }
-
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Return the total number of journals written by this user',
   })
@@ -127,5 +112,21 @@ export class JournalsController {
   @Get('number/:id')
   getNumber(@Param('id') userId: string) {
     return this.journalsService.getNumber(+userId);
+  }
+
+  @ApiOperation({
+    summary: 'Return the last journal written by the user (AI Agent)',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved the total number of journals',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No user with that ID',
+  })
+  @Get('last/:id')
+  getLast(@Param('id') userId: string) {
+    return this.journalsService.getLast(+userId);
   }
 }

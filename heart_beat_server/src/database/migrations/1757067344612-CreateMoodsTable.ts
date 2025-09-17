@@ -18,6 +18,10 @@ export class CreateMoodsTable1757067344612 implements MigrationInterface {
             type: 'varchar',
             isUnique: true,
           },
+          {
+            name: 'score',
+            type: 'int',
+          },
         ],
       }),
       true,

@@ -1,4 +1,4 @@
-import { IsInt, IsString, Max, Min } from 'class-validator';
+import { IsNumber, IsString, Max, Min } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -21,8 +21,8 @@ export class MoodTracking {
   @Column()
   mood: string;
 
-  @IsInt()
-  @Column()
+  @IsNumber()
+  @Column({ type: 'real' })
   @Min(0)
   @Max(10)
   score: number;

@@ -13,12 +13,14 @@ class JournalListCard extends StatefulWidget {
   final String title;
   final String date;
   final String content;
+  final String moods;
   final VoidCallback onDelete;
 
   const JournalListCard({
     super.key,
     required this.id,
     required this.title,
+    required this.moods,
     required this.content,
     required this.date,
     required this.onDelete,
@@ -103,8 +105,8 @@ class _JournalListCardState extends State<JournalListCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TitleText(text: "Mood", size: 13),
-                TitleText(text: widget.date.toString(), size: 13),
+                TitleText(text: widget.moods, size: 13),
+                TitleText(text: widget.date.toString(), size: 12),
               ],
             ),
             SizedBox(height: 10),

@@ -11,12 +11,12 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('User Mood Tracking Endpoints')
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
 @Controller('mood-tracking')
 export class MoodTrackingController {
   constructor(private readonly moodTrackingService: MoodTrackingService) {}
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a new mood entry for a user' })
   @ApiResponse({ status: 201, description: 'Mood tracked successfully' })
   @ApiResponse({ status: 400, description: 'Score must be between 0 and 10' })
@@ -31,6 +31,8 @@ export class MoodTrackingController {
     return this.moodTrackingService.create(createMoodTrackingDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Fetch all tracked moods for a user' })
   @ApiResponse({ status: 200, description: 'List of user`s moods' })
   @ApiResponse({
@@ -41,5 +43,27 @@ export class MoodTrackingController {
   @Get(':id')
   getMoodsByUserId(@Param('id') id: string) {
     return this.moodTrackingService.getMoodsByUserId(+id);
+  }
+
+  @ApiOperation({
+    summary: 'Return the latest mood of a user (AI Agent Endpoint)',
+  })
+  @ApiResponse({ status: 200, description: 'Latest user mood' })
+  @ApiResponse({ status: 404, description: 'No user with that ID' })
+  @Get('/last/:id')
+  getLastMood(@Param('id') id: string) {
+    return this.moodTrackingService.getLastMood(+id);
+  }
+
+  @ApiOperation({
+    summary: 'Create a new mood entry for a user (AI Agent Endpoint)',
+  })
+  @ApiResponse({ status: 201, description: 'Mood tracked successfully' })
+  @ApiResponse({ status: 400, description: 'Score must be between 0 and 10' })
+  @ApiResponse({ status: 404, description: 'No user with that ID' })
+  @ApiBody({ type: CreateMoodTrackingDto })
+  @Post('/log')
+  logMood(@Body() createMoodTrackingDto: CreateMoodTrackingDto) {
+    return this.moodTrackingService.logMood(createMoodTrackingDto);
   }
 }
