@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/helpers/time_converter.dart';
 import 'package:heart_beat_client/models/song.dart';
@@ -50,7 +49,9 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: SimpleAppBar(title: "Playlist Name"),
+      appBar: SimpleAppBar(
+        title: context.read<PlaylistProvider>().activePlaylistName,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
         child: Column(
