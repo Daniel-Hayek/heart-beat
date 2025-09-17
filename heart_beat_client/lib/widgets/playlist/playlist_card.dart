@@ -29,7 +29,7 @@ class PlaylistCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 250,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(40),
       decoration: BoxDecoration(
         color: Color(int.parse("FF$playlistColor", radix: 16)),
         borderRadius: BorderRadius.circular(8),
@@ -41,35 +41,28 @@ class PlaylistCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleText(text: playlistName, size: 30),
+              TitleText(text: playlistName, size: 34),
               // TitleText(text: "Artists, Artist, Art", size: 20),
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              IconButton(
-                onPressed: () {
-                  context.read<PlaylistProvider>().setActivePlaylist(
-                    playlistId,
-                    playlistName,
-                  );
-
-                  Navigator.pushNamed(context, AppRoutes.viewPlaylist);
-                },
-                icon: Icon(
-                  CupertinoIcons.play_circle,
-                  color: Colors.white,
-                  size: 40,
-                ),
-              ),
               SizedBox(
-                height: 100,
-                width: 100,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(100),
+                child: IconButton(
+                  onPressed: () {
+                    context.read<PlaylistProvider>().setActivePlaylist(
+                      playlistId,
+                      playlistName,
+                    );
+
+                    Navigator.pushNamed(context, AppRoutes.viewPlaylist);
+                  },
+                  icon: Icon(
+                    CupertinoIcons.play_circle,
+                    color: Colors.white,
+                    size: 80,
                   ),
                 ),
               ),

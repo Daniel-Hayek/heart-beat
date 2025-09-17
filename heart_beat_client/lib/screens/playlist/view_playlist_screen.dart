@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/helpers/time_converter.dart';
 import 'package:heart_beat_client/models/song.dart';
@@ -50,7 +49,9 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: SimpleAppBar(title: "Playlist Name"),
+      appBar: SimpleAppBar(
+        title: context.read<PlaylistProvider>().activePlaylistName,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
         child: Column(
@@ -59,37 +60,35 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Image.asset('assets/images/album-cover.png', scale: 2),
+                SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    TitleText(
-                      text: context.read<PlaylistProvider>().activePlaylistName,
-                      size: 29,
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 250),
+                      child: TitleText(
+                        text: context
+                            .read<PlaylistProvider>()
+                            .activePlaylistName,
+                        size: 26,
+                        align: TextAlign.left,
+                      ),
                     ),
-                    TitleText(text: "${songs.length} songs", size: 24),
+                    SizedBox(height: 5),
+                    TitleText(text: "${songs.length} songs", size: 22),
+                    SizedBox(height: 5),
                     TitleText(
                       text:
                           "${TimeConverter.convertTime(totalDuration)} minutes",
-                      size: 20,
+                      size: 18,
                     ),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    context.read<MusicPlayerProvider>().playSong();
-                  },
-                  icon: Icon(
-                    CupertinoIcons.play_circle,
-                    size: 80,
-                    color: Colors.white,
-                  ),
-                  splashColor: Colors.white.withValues(alpha: 0.3),
-                  highlightColor: Colors.white.withValues(alpha: 0.1),
-                ),
               ],
             ),
-            SizedBox(height: 150),
+            SizedBox(height: 80),
             Expanded(
               child: songs.isEmpty
                   ? const Center(
