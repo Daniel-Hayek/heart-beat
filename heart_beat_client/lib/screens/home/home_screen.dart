@@ -10,6 +10,7 @@ import 'package:heart_beat_client/repositories/device_data_repository.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
 import 'package:heart_beat_client/repositories/mood_tracking_repository.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
+import 'package:heart_beat_client/widgets/auth/auth_snack_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        AuthSnackBar(
           content: Text(
             "${message.notification?.title ?? 'Notification'}: ${message.notification?.body ?? ''}",
           ),

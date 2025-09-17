@@ -103,4 +103,11 @@ export class JournalsService {
   async assignMoods(journal: Journal) {
     return await this.journalRepo.save(journal);
   }
+
+  async getLast(id: number) {
+    return await this.journalRepo.findOne({
+      where: { user: { id } },
+      order: { created_at: 'DESC' },
+    });
+  }
 }
