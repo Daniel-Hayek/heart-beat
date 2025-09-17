@@ -56,7 +56,7 @@ class _PlaylistHomeScreenState extends State<PlaylistHomeScreen> {
   }
 
   final ScrollController _scrollController = ScrollController();
-  final double overlap = 220;
+  final double overlap = 235;
   int page = 1;
 
   @override
