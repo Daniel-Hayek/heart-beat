@@ -24,7 +24,12 @@ tasks.register<Delete>("clean") {
 }
 
 buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
     dependencies {
-        classpath 'com.google.gms:google-services:4.4.0'  // Add this
+        classpath("com.android.tools.build:gradle:8.2.1") // example
+        classpath("com.google.gms:google-services:4.4.0")  // correct Kotlin DSL syntax
     }
 }

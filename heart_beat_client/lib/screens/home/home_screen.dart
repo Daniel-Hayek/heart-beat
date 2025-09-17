@@ -1,12 +1,15 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/device_data_provider.dart';
 import 'package:heart_beat_client/providers/journal_provider.dart';
 import 'package:heart_beat_client/providers/mood_tracking_provider.dart';
+import 'package:heart_beat_client/providers/nav_provider.dart';
 import 'package:heart_beat_client/repositories/device_data_repository.dart';
 import 'package:heart_beat_client/repositories/journal_repository.dart';
 import 'package:heart_beat_client/repositories/mood_tracking_repository.dart';
+import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_app_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/custom_bottom_bar.dart';
 import 'package:heart_beat_client/widgets/common/bars/side_bar.dart';
@@ -46,6 +49,56 @@ class _HomeScreenState extends State<HomeScreen> {
       journalProvider.setJournals(
         await journalRepo.getJournals(curToken, curUserId),
       );
+
+      await setupNotifications();
+    });
+  }
+
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  bool _permissionRequest = false;
+
+  Future<void> setupNotifications() async {
+    if (_permissionRequest) return;
+    _permissionRequest = true;
+
+    await messaging.requestPermission(alert: true, badge: true, sound: true);
+
+    debugPrint("Permissions granted");
+
+    FirebaseMessaging.instance.getToken();
+
+    String? firebaseToken = await messaging.getToken();
+
+    debugPrint("FCM Token: $firebaseToken");
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      debugPrint("Foreground message received!");
+      debugPrint("Title: ${message.notification?.title}");
+      debugPrint("Body: ${message.notification?.body}");
+
+      if (!mounted) {
+        return;
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "${message.notification?.title ?? 'Notification'}: ${message.notification?.body ?? ''}",
+          ),
+        ),
+      );
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      debugPrint("Notification clicked!");
+      debugPrint("Data: ${message.data}");
+
+      if (!mounted) {
+        return;
+      }
+
+      context.read<NavProvider>().setIndex(1);
+      Navigator.pushReplacementNamed(context, AppRoutes.writeJournal);
     });
   }
 

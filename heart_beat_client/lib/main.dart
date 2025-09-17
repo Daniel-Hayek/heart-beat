@@ -12,12 +12,18 @@ import 'package:heart_beat_client/providers/playlist_provider.dart';
 import 'package:heart_beat_client/providers/stats_provider.dart';
 import 'package:heart_beat_client/routes/app_routes.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+
 
 Future main() async {
   await dotenv.load(fileName: ".env");
 
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
