@@ -59,6 +59,7 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Image.asset('assets/images/album-cover.png'),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -67,7 +68,9 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                       text: context.read<PlaylistProvider>().activePlaylistName,
                       size: 29,
                     ),
+                    SizedBox(height: 5),
                     TitleText(text: "${songs.length} songs", size: 24),
+                    SizedBox(height: 5),
                     TitleText(
                       text:
                           "${TimeConverter.convertTime(totalDuration)} minutes",
@@ -75,21 +78,9 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
                     ),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    context.read<MusicPlayerProvider>().playSong();
-                  },
-                  icon: Icon(
-                    CupertinoIcons.play_circle,
-                    size: 80,
-                    color: Colors.white,
-                  ),
-                  splashColor: Colors.white.withValues(alpha: 0.3),
-                  highlightColor: Colors.white.withValues(alpha: 0.1),
-                ),
               ],
             ),
-            SizedBox(height: 150),
+            SizedBox(height: 80),
             Expanded(
               child: songs.isEmpty
                   ? const Center(

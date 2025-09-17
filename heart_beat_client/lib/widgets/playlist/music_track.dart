@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/core/helpers/time_converter.dart';
 import 'package:heart_beat_client/models/song.dart';
 import 'package:heart_beat_client/providers/music_player_provider.dart';
@@ -23,19 +24,26 @@ class MusicTrack extends StatelessWidget {
       },
       child: Padding(
         padding: EdgeInsetsGeometry.symmetric(vertical: 6, horizontal: 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TitleText(text: song.title, size: 20),
-            Text(
-              TimeConverter.convertTime(song.duration),
-              style: TextStyle(
-                fontFamily: 'montserrat',
-                fontWeight: FontWeight.w200,
-                color: Colors.white,
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColors.secondaryColor,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: EdgeInsets.all(4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TitleText(text: song.title, size: 20),
+              Text(
+                TimeConverter.convertTime(song.duration),
+                style: TextStyle(
+                  fontFamily: 'montserrat',
+                  fontWeight: FontWeight.w200,
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
