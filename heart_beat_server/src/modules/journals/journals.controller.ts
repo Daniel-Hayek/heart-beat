@@ -23,8 +23,6 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class JournalsController {
   constructor(private readonly journalsService: JournalsService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a new journal entry for a user' })
   @ApiResponse({ status: 201, description: 'New journal created successfully' })
   @ApiResponse({

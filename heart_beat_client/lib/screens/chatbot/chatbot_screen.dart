@@ -34,6 +34,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     "pendingMoods": null,
     "pendingScore": null,
     "pendingMoodsString": null,
+    "createJournal": null,
   };
 
   bool _isTyping = false;
@@ -156,6 +157,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                     conversationState["pendingScore"],
                                 "pendingMoodsString":
                                     conversationState["pendingMoodsString"],
+                                "createJournal":
+                                    conversationState["createJournal"],
                               },
                             );
 
@@ -192,13 +195,17 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                 conversationState["pendingMoodsString"] =
                                     responseData['pendingMoodsString'];
 
-                                // FIXED: Handle mood logging properly
+                                conversationState["pendingMoodsString"] =
+                                    responseData['pendingMoodsString'];
+
+                                conversationState["createJournal"] =
+                                    responseData['createJournal'];
+
                                 if (responseData['moodLogged'] == true) {
                                   conversationState["lastMood"] =
                                       responseData['loggedMoodsString'] ??
                                       responseData['pendingMoodsString'];
 
-                                  // Clear pending confirmation data
                                   conversationState["waitingForConfirmation"] =
                                       true;
                                   conversationState["pendingMoods"] = null;
@@ -206,7 +213,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                   conversationState["pendingMoodsString"] =
                                       null;
 
-                                  // Optional: Save mood to your database here
                                   debugPrint(
                                     "Mood logged: ${conversationState["lastMood"]}",
                                   );
