@@ -76,9 +76,9 @@ describe('PlaylistController', () => {
         mockPlaylists,
       );
 
-      const result = await controller.findOneByUser('1');
+      const result = await controller.findOneByUser('1', 1);
 
-      expect(service.findPlaylistsByUserId).toHaveBeenCalledWith(1);
+      expect(service.findPlaylistsByUserId).toHaveBeenCalledWith(1, 1);
       expect(result).toEqual(mockPlaylists);
     });
 
@@ -87,7 +87,7 @@ describe('PlaylistController', () => {
         new NotFoundException(),
       );
 
-      await expect(controller.findOneByUser('1')).rejects.toThrow(
+      await expect(controller.findOneByUser('1', 1)).rejects.toThrow(
         NotFoundException,
       );
     });
