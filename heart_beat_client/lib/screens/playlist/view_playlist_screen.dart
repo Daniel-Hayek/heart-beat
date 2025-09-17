@@ -59,7 +59,8 @@ class _ViewPlaylistScreenState extends State<ViewPlaylistScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset('assets/images/album-cover.png'),
+                Image.asset('assets/images/album-cover.png', scale: 2),
+                SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

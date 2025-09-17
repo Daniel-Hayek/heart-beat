@@ -5,7 +5,7 @@
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
     <application
-        android:label="heart_beat_client"
+        android:label="Heart-Beat"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

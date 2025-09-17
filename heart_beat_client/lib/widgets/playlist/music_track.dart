@@ -29,7 +29,7 @@ class MusicTrack extends StatelessWidget {
             color: AppColors.secondaryColor,
             borderRadius: BorderRadius.circular(8),
           ),
-          padding: EdgeInsets.all(4),
+          padding: EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
