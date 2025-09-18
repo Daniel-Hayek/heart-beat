@@ -17,7 +17,7 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          key: ${{ secrets.EC2_KEY }}
           script: |
             cd /home/ec2-user/heart-beat || (mkdir -p /home/ec2-user/heart-beat && cd /home/ec2-user/heart-beat)
 
