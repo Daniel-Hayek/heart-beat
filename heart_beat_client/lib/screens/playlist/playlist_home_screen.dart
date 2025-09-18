@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:heart_beat_client/core/constants/app_colors.dart';
 import 'package:heart_beat_client/models/playlist.dart';
 import 'package:heart_beat_client/providers/auth_provider.dart';
 import 'package:heart_beat_client/providers/playlist_provider.dart';
@@ -118,12 +116,7 @@ class _PlaylistHomeScreenState extends State<PlaylistHomeScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: AppColors.primaryColor,
-        shape: CircleBorder(),
-        child: Icon(CupertinoIcons.add),
-      ),
+
       bottomNavigationBar: CustomBottomBar(),
     );
   }

@@ -17,7 +17,7 @@ class JournalHomeCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14),
       margin: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-      height: 400,
+      height: 360,
       width: 160,
       decoration: BoxDecoration(
         color: AppColors.secondaryColor,
@@ -28,7 +28,7 @@ class JournalHomeCard extends StatelessWidget {
           TitleText(text: "Journal Prompt", size: 15),
           SizedBox(height: 8),
           SizedBox(height: 15),
-          BodyText(text: prompt, size: 16, maxLines: 10),
+          BodyText(text: prompt, size: 13, maxLines: 10),
         ],
       ),
     );

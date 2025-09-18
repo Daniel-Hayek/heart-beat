@@ -104,6 +104,7 @@ services:
       - DB_POSTGRESDB_USER=postgres
       - DB_POSTGRESDB_PASSWORD=12345
       - N8N_PAYLOAD_SIZE_MAX=16
+      - N8N_SECURE_COOKIE=false
     volumes:
       - n8n_data:/home/node/.n8n
       - ./heart_beat_workflows/n8n_workflows:/home/node/.n8n/workflows
