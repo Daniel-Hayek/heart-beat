@@ -16,10 +16,22 @@ class DeviceDataProvider extends ChangeNotifier {
     debugPrint("Hello from latest data");
     debugPrint(userData.length.toString());
 
-    DeviceData latest = _userData[_userData.length - 1];
+    if (_userData.isNotEmpty) {
+      DeviceData latest = _userData[_userData.length - 1];
+      return latest;
+    }
 
     // notifyListeners();
 
-    return latest;
+    return DeviceData(
+      id: 0,
+      sleepDuration: 0,
+      activityLevel: 0,
+      steps: 0,
+      heartrate: 0,
+      phoneUsage: 0,
+      predictedStress: 0,
+      createdAt: DateTime.now(),
+    );
   }
 }
