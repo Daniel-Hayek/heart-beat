@@ -22,11 +22,17 @@ class BaseJournalScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: "Journal"),
       drawer: const SideBar(),
-      body: Column(
+      body: ListView(
         children: [
           SizedBox(height: 40),
           TitleText(text: "What's on your mind today, $userName?", size: 20),
-          SizedBox(height: 60),
+          SizedBox(height: 20),
+          SecondaryButton(
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.listJournal);
+            },
+            label: "View Your Journals",
+          ),
           SizedBox(
             height: 530,
             child: GridView.count(
@@ -51,12 +57,6 @@ class BaseJournalScreen extends StatelessWidget {
                 JournalHomeCard(),
               ],
             ),
-          ),
-          SecondaryButton(
-            onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.listJournal);
-            },
-            label: "View All",
           ),
         ],
       ),
