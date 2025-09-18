@@ -1,0 +1,45 @@
+name: Heart-Beat CD
+
+on:
+  push:
+    branches: [ 'main' ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu/latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            cd /home/ec2-user/heart-beat || (mkdir -p /home/ec2-user/heart-beat && cd /home/ec2-user/heart-beat)
+
+            mkdir -p ~/.ssh
+            echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+            chmod 600 ~/.ssh/deploy_key
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+            export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes"
+
+            if [ -d ".git" ]; then
+            git pull origin main
+            
+            rm -rf heart_beat_client/
+            else
+              git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git .
+              
+              rm -rf heart_beat_client/
+            fi
+
+            docker-compose down
+            docker-compose up --build -d
+            docker image prune -f
+
+        
