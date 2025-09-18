@@ -3,6 +3,8 @@ services:
     build: ./heart_beat_server
     ports:
       - "4000:3000"
+    env_file:
+      - ./heart_beat_server/.env
     depends_on:
       postgres:
         condition: service_healthy
