@@ -5,6 +5,10 @@ async function seedMoods() {
   await AppDataSource.initialize();
   const moodRepo = AppDataSource.getRepository(Mood);
 
+  if ((await moodRepo.find()).length !== 0) {
+    return 'Moods already seeded!';
+  }
+
   const moods = [
     { name: 'Happy', score: 10 },
     { name: 'Sad', score: 1 },

@@ -162,6 +162,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   ),
                 ],
               ),
+              SizedBox(height: 30),
               PrimaryButton(
                 onPressed: () {
                   validate(authProvider.token!, authProvider.userId!);
