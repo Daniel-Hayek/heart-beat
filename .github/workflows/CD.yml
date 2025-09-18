@@ -42,9 +42,11 @@ jobs:
 
             docker-compose down
 
-            rm -rf ./heart_beat_server/node_modules
-            docker container prune -f
-            docker image prune -f
+            rm -rf heart_beat_server/node_modules
+            rm -rf heart_beat_server/dist
+            
+            docker system prune -af --volumes
             
             docker-compose up --build -d
-            docker image prune -f
+
+            docker exec -it heart-beat_backend_1 npm run seed
