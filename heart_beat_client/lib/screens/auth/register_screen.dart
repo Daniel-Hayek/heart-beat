@@ -116,8 +116,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             MediumLogo(),
             Column(
