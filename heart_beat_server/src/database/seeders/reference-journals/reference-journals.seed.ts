@@ -30,6 +30,10 @@ async function seedReferenceJournals() {
   const refJournalRepo = AppDataSource.getRepository(ReferenceJournal);
   const moodRepo = AppDataSource.getRepository(Mood);
 
+  if ((await refJournalRepo.find()).length !== 0) {
+    return 'Reference journals already seeded!';
+  }
+
   for (const [moodLabel, entries] of Object.entries(referenceEntries)) {
     const mood = await moodRepo.findOne({ where: { name: moodLabel } });
     if (!mood) continue;
