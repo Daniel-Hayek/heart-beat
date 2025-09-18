@@ -14,7 +14,7 @@ RUN pip install --upgrade pip setuptools wheel
 WORKDIR /app
 
 # Copy requirements from parent directory
-COPY ../requirements_minimal.txt .
+COPY requirements_minimal.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements_minimal.txt
