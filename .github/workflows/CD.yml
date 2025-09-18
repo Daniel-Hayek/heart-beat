@@ -41,5 +41,10 @@ jobs:
             rm -rf heart_beat_client/
 
             docker-compose down
-            docker-compose up --build -d
+
+            rm -rf heart_beat_server/node_modules
+            docker container prune -f
+            docker image prune -f
+            
+            docker-compose up --build -d --no-cache
             docker image prune -f
