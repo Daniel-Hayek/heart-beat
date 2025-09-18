@@ -49,4 +49,4 @@ jobs:
             
             docker-compose up --build -d
 
-            docker exec -it heart-beat_backend_1 npm run seed
+            docker exec heart-beat_backend_1 npm run seed
