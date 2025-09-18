@@ -42,7 +42,7 @@ jobs:
 
             docker-compose down
 
-            rm -rf heart_beat_server/node_modules
+            rm -rf ./heart_beat_server/node_modules
             docker container prune -f
             docker image prune -f
             
