@@ -48,5 +48,3 @@ jobs:
             docker system prune -af --volumes
             
             docker-compose up --build -d
-
-            docker exec heart-beat_backend_1 npm run seed
