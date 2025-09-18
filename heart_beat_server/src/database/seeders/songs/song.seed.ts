@@ -18,6 +18,10 @@ async function main() {
   const songRepo = AppDataSource.getRepository(Song);
   const moodRepo = AppDataSource.getRepository(Mood);
 
+  if ((await songRepo.find()).length !== 0) {
+    return 'Reference journals already seeded!';
+  }
+
   const jsonPath = path.join(__dirname, 'song-data.json');
   const songsData = JSON.parse(
     fs.readFileSync(jsonPath, 'utf-8'),

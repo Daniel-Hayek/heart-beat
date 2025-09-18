@@ -20,7 +20,10 @@ COPY requirements_minimal.txt .
 RUN pip install --no-cache-dir -r requirements_minimal.txt
 
 # Copy the entire heart_beat_model directory for access to models/data
-COPY .. .
+COPY fast ./fast
+COPY scripts ./scripts
+COPY mlflow ./mlflow
+COPY datasets ./datasets
 
 # Set working directory to fast folder
 WORKDIR /app/fast

@@ -3,6 +3,8 @@ services:
     build: ./heart_beat_server
     ports:
       - "4000:3000"
+    env_file:
+      - ./heart_beat_server/.env
     depends_on:
       postgres:
         condition: service_healthy
@@ -19,9 +21,7 @@ services:
       - ./heart_beat_server:/app
       - /app/node_modules
     command: >
-      sh -c "./wait-for-it.sh postgres:5432 --timeout=30 --strict -- \
-           npx typeorm-ts-node-commonjs migration:run -d data-source.ts && \
-           npm run start:dev"
+      sh -c "npx typeorm-ts-node-commonjs migration:run -d data-source.ts && npm run start:dev"
 
   fastapi:
     build:
@@ -93,7 +93,7 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
       - N8N_BASIC_AUTH_PASSWORD=password
-      - N8N_HOST=localhost
+      - N8N_HOST=0.0.0.0
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - WEBHOOK_URL=http://localhost:5678
@@ -104,6 +104,7 @@ services:
       - DB_POSTGRESDB_USER=postgres
       - DB_POSTGRESDB_PASSWORD=12345
       - N8N_PAYLOAD_SIZE_MAX=16
+      - N8N_SECURE_COOKIE=false
     volumes:
       - n8n_data:/home/node/.n8n
       - ./heart_beat_workflows/n8n_workflows:/home/node/.n8n/workflows

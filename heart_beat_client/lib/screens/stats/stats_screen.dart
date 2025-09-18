@@ -32,6 +32,8 @@ class _StatsScreenState extends State<StatsScreen> {
       playlists = context.read<PlaylistProvider>().playlists.length;
 
       final dataProvider = context.read<DeviceDataProvider>();
+
+      
       dataProvider.latestData();
       context.read<StatsProvider>().loadStats();
     });

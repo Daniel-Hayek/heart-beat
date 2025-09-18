@@ -126,48 +126,51 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         padding: EdgeInsetsGeometry.all(
           MediaQuery.of(context).size.width * 0.06,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                FeedbackField(
-                  label:
-                      "What is your average heartrate over the last few hours?",
-                  controller: _heartrateController,
-                ),
-                SizedBox(height: 40),
-                FeedbackField(
-                  label: "How many hours did you sleep last night?",
-                  controller: _sleepController,
-                ),
-                SizedBox(height: 40),
-                FeedbackField(
-                  label: "How many steps did you take in the last 24 hours?",
-                  controller: _stepsController,
-                ),
-                SizedBox(height: 40),
-                FeedbackField(
-                  label:
-                      "How many minutes of physical activity have you done in the last 24 hours?",
-                  controller: _activityController,
-                ),
-                SizedBox(height: 40),
-                FeedbackField(
-                  label:
-                      "How many hours of phone usage do you have in the last 24 hours?",
-                  controller: _usageController,
-                ),
-              ],
-            ),
-            PrimaryButton(
-              onPressed: () {
-                validate(authProvider.token!, authProvider.userId!);
-              },
-              label: "Submit Data",
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  FeedbackField(
+                    label:
+                        "What is your average heartrate over the last few hours?",
+                    controller: _heartrateController,
+                  ),
+                  SizedBox(height: 40),
+                  FeedbackField(
+                    label: "How many hours did you sleep last night?",
+                    controller: _sleepController,
+                  ),
+                  SizedBox(height: 40),
+                  FeedbackField(
+                    label: "How many steps did you take in the last 24 hours?",
+                    controller: _stepsController,
+                  ),
+                  SizedBox(height: 40),
+                  FeedbackField(
+                    label:
+                        "How many minutes of physical activity have you done in the last 24 hours?",
+                    controller: _activityController,
+                  ),
+                  SizedBox(height: 40),
+                  FeedbackField(
+                    label:
+                        "How many hours of phone usage do you have in the last 24 hours?",
+                    controller: _usageController,
+                  ),
+                ],
+              ),
+              SizedBox(height: 30),
+              PrimaryButton(
+                onPressed: () {
+                  validate(authProvider.token!, authProvider.userId!);
+                },
+                label: "Submit Data",
+              ),
+            ],
+          ),
         ),
       ),
     );
