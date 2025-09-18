@@ -19,7 +19,10 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd /home/ec2-user/heart-beat || (mkdir -p /home/ec2-user/heart-beat && cd /home/ec2-user/heart-beat)
+            # -----------------------------
+            APP_DIR=/home/ubuntu/heart-beat
+            mkdir -p $APP_DIR
+            cd $APP_DIR
 
             mkdir -p ~/.ssh
             echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
@@ -29,12 +32,13 @@ jobs:
             export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes"
 
             if [ -d ".git" ]; then
+              git reset --hard
               git pull origin main
-              rm -rf heart_beat_client/
             else
               git clone git@github.com:Daniel-Hayek/heart-beat.git .
-              rm -rf heart_beat_client/
             fi
+
+            rm -rf heart_beat_client/
 
             docker-compose down
             docker-compose up --build -d
