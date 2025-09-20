@@ -5,9 +5,9 @@
 <!-- project overview -->
 <img src="./readme/title2.svg"/>
 
-> Description here.
->
-> Description here.
+> Heart-Beat is an application that is your companion for all things mood and music.
+> The main goal of Heart-Beat is to aid in you figuring out how you feel through various means,
+> and then provide you with an appropriate playlist to listen to.
 
 <br><br>
 
@@ -23,9 +23,11 @@
 <!-- Project Highlights -->
 <img src="./readme/title4.svg"/>
 
-### Add Title Here
+### Interesting Features
 
-- List the sexy features.
+- Journalling based mood detection: Analyzes your journals through chunking, embedding and comparing to existing vectors to assign the closest similar set of moods.
+- Stress Prediction: Includes a machine learning model that is trained on smartwatch data like heartrate, sleep duration and physical activity, then based on these factors the app predicts your stress level on a scale of 1-10.
+- Moody Blues (AI Agent): An AI agent who you can speak and interact with, and who can help log your mood or summarize your thoughts into a journal.
 
 <br><br>
 
