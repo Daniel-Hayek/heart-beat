@@ -34,7 +34,8 @@ jobs:
             else
               echo "Docker is already installed"
             fi
-
+            
+            # Install Docker Compose (standalone) if not available
             if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
               echo "Installing Docker Compose..."
               sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -43,6 +44,9 @@ jobs:
             else
               echo "Docker Compose is already available"
             fi
+            
+            # Refresh group membership for docker commands
+            newgrp docker
             
 
             APP_DIR=/home/ubuntu/heart-beat
@@ -86,10 +90,10 @@ jobs:
 
             rm -rf heart_beat_client/
 
-            docker-compose down --timeout 30
+            sudo docker-compose down --timeout 30
             
-            docker image prune -f
+            sudo docker image prune -f
             
-            docker-compose up --build -d
+            sudo docker-compose up --build -d
 
-            docker-compose logs backend | tail -10
+            sudo docker-compose logs backend | tail -10
