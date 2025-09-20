@@ -28,7 +28,7 @@ class PlaylistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 250,
+      height: 270,
       padding: EdgeInsets.all(40),
       decoration: BoxDecoration(
         color: Color(int.parse("FF$playlistColor", radix: 16)),
@@ -41,7 +41,7 @@ class PlaylistCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleText(text: playlistName, size: 34),
+              TitleText(text: playlistName, size: 32, align: TextAlign.left),
               // TitleText(text: "Artists, Artist, Art", size: 20),
             ],
           ),

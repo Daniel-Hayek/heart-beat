@@ -44,7 +44,7 @@ class HomeInfoCard extends StatelessWidget {
                   content,
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 15),
                 ),
               ],
             ),

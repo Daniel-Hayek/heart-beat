@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               stressText,
                               maxLines: 4,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 15),
                             ),
                           ],
                         ),

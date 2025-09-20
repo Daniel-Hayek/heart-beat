@@ -21,7 +21,9 @@ services:
       - ./heart_beat_server:/app
       - /app/node_modules
     command: >
-      sh -c "npx typeorm-ts-node-commonjs migration:run -d data-source.ts && npm run start:dev"
+      sh -c "npx typeorm-ts-node-commonjs migration:run -d data-source.ts && 
+           npm run seed && 
+           npm run start:dev"
 
   fastapi:
     build:
