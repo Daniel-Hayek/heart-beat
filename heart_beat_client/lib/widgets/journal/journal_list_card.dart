@@ -74,7 +74,7 @@ class _JournalListCardState extends State<JournalListCard> {
         padding: EdgeInsets.all(14),
         margin: EdgeInsets.symmetric(vertical: 8, horizontal: 14),
         width: double.infinity,
-        height: 160,
+        height: 170,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -105,8 +105,8 @@ class _JournalListCardState extends State<JournalListCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TitleText(text: widget.moods, size: 13),
-                TitleText(text: widget.date.toString(), size: 12),
+                TitleText(text: widget.moods, size: 12),
+                TitleText(text: widget.date.toString(), size: 9),
               ],
             ),
             SizedBox(height: 10),
