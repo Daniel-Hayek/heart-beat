@@ -38,28 +38,34 @@ jobs:
             # Install Docker Compose (standalone) if not available
             if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
               echo "Installing Docker Compose..."
-              sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
               sudo chmod +x /usr/local/bin/docker-compose
               echo "Docker Compose installed successfully"
             else
               echo "Docker Compose is already available"
             fi
             
-            # Refresh group membership for docker commands
-            newgrp docker
+            # Check which docker compose command works
+            if command -v docker-compose &> /dev/null; then
+              DOCKER_COMPOSE_CMD="docker-compose"
+            elif docker compose version &> /dev/null; then
+              DOCKER_COMPOSE_CMD="docker compose"
+            else
+              echo "Error: No Docker Compose command available"
+              exit 1
+            fi
+            echo "Using Docker Compose command: $DOCKER_COMPOSE_CMD"
             
-
+            # -----------------------------
             APP_DIR=/home/ubuntu/heart-beat
             mkdir -p $APP_DIR
             cd $APP_DIR
-
             mkdir -p ~/.ssh
             echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
             chmod 600 ~/.ssh/deploy_key
             ssh-keyscan github.com >> ~/.ssh/known_hosts
-
             export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes"
-
+            
             if [ -d ".git" ]; then
               git reset --hard
               git pull origin main
@@ -90,10 +96,10 @@ jobs:
 
             rm -rf heart_beat_client/
 
-            sudo docker-compose down --timeout 30
+            sudo $DOCKER_COMPOSE_CMD down --timeout 30
             
             sudo docker image prune -f
             
-            sudo docker-compose up --build -d
+            sudo $DOCKER_COMPOSE_CMD up --build -d
 
-            sudo docker-compose logs backend | tail -10
+            sudo $DOCKER_COMPOSE_CMD logs backend | tail -10
