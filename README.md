@@ -20,6 +20,9 @@
 ### ERD
 <img src="./readme/heart-beat-erd.png"/>
 
+### n8n
+<img src="./readme/n8n.png"/>
+
 
 <br><br>
 
