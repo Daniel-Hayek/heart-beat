@@ -34,18 +34,23 @@
 <!-- Demo -->
 <img src="./readme/title5.svg"/>
 
-### User Screens (Mobile)
+### User Screens
 
-| Login screen                            | Register screen                       | Register screen                       |
+| Landing | Login | Register |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| ![Landing](./readme/demo/landing.png) | ![Login](./readme/demo/login.png) | ![Register](./readme/demo/register.gif) |
 
+| Home Page (Empty) | Home Page (Full) | Device Data |
+| --------------------------------------- | ------------------------------------- | ------------------------------------- |
+| ![Home Page Empty](./readme/demo/home-page-empty.png) | ![Home Page Full](./readme/demo/home-page-full.png) | ![Device Data](./readme/demo/device-data.gif) |
 
-### Admin Screens (Web)
+| Journal Prompts | Write Journal | Journal Entries |
+| --------------------------------------- | ------------------------------------- | ------------------------------------- |
+| ![Journal Prompts](./readme/demo/journal-prompts.png) | ![Write Journal](./readme/demo/write-journal.gif) | ![Journal Entries](./readme/demo/journal-entries.png) |
 
-| Login screen                            | Register screen                       |
-| --------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| Playlist | Music | Moody Blues |
+| --------------------------------------- | ------------------------------------- | ------------------------------------- |
+| ![Playlist](./readme/demo/playlist.gif) | ![Music](./readme/demo/music.gif) | ![Moody Blues](./readme/demo/moody-blues.gif) |
 
 
 <br><br>
@@ -63,6 +68,18 @@
 
 <br><br>
 
+<!-- Machine Learning Docs -->
+<img src="./readme/title6.svg"/>
+
+### Machine Learning Docs (MLFlow)
+
+
+| Model Details                            | Model Results                       |
+| --------------------------------------- | ------------------------------------- |
+| ![Details](./readme/ml/model_details_1.png) | ![Results](./readme/ml/model_details_2.png) |
+
+<br><br>
+
 <!-- Deployment -->
 <img src="./readme/title7.svg"/>
 
@@ -74,5 +91,46 @@
 | Postman API 1                            | Postman API 2                       | Postman API 3                        |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
 | ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+
+
+# Music Attribution
+
+This project uses the following Creative Commons licensed music tracks:
+
+| Track Title | Artist | Source | License |
+|-------------|---------|---------|---------|
+| Vibing Over Venus | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| SCP-x5x (Outer Thoughts) | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Man Down | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Heart of Nowhere | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Rains Will Fall | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Heartbreaking | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Rumination | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Late Night Radio | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Bittersweet | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Floating Cities | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Despair and Triumph | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Private Reflection | Kevin MacLeod | [incompetech.com](https://incompetech.com) | [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/) |
+| Dark Ambient | YuraSoop | [freemusicarchive.org](https://freemusicarchive.org) | [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) |
+| Uplifting Ukulele | Waveloom | [freemusicarchive.org](https://freemusicarchive.org) | [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/) |
+| Blooming Poison | Joint C Beat Laboratory | [freemusicarchive.org](https://freemusicarchive.org) | [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) |
+| Water World | E-Prosounds | [freemusicarchive.org](https://freemusicarchive.org) | [CC BY-NC-ND 3.0 US](https://creativecommons.org/licenses/by-nc-nd/3.0/us/) |
+| Chi Go Getters | Dollar Boyz | [freemusicarchive.org](https://freemusicarchive.org) | [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/) |
+| Missed The Free Throw | E-Prosounds | [freemusicarchive.org](https://freemusicarchive.org) | [CC BY-NC-ND 3.0 US](https://creativecommons.org/licenses/by-nc-nd/3.0/us/) |
+| Boulevard St Germain | Jahzzar | [freemusicarchive.org](https://freemusicarchive.org) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
+| Shasha | Albert Beger | [freemusicarchive.org](https://freemusicarchive.org) | [CC BY-NC-ND 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/) |
+| Old Times pell | AirFlow | [ccmixter.org](https://ccmixter.org) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+
+## License Information
+
+- **CC BY**: Attribution required
+- **CC BY-NC**: Attribution required, Non-commercial use only
+- **CC BY-SA**: Attribution required, Share-alike (derivative works must use same license)
+- **CC BY-ND**: Attribution required, No derivatives allowed
+- **CC BY-NC-SA**: Attribution required, Non-commercial use only, Share-alike
+- **CC BY-NC-ND**: Attribution required, Non-commercial use only, No derivatives allowed
+
+All tracks are used in accordance with their respective Creative Commons licenses.
+
 
 <br><br>
