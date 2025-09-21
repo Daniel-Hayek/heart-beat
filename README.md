@@ -72,7 +72,7 @@
 <br><br>
 
 <!-- Machine Learning Docs -->
-<img src="./readme/title6.svg"/>
+<img src="./readme/title9.svg"/>
 
 ### Machine Learning Docs (MLFlow)
 
@@ -95,6 +95,24 @@
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
 | ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
 
+
+<!-- Extras -->
+<img src="./readme/title10.svg"/>
+
+### Linear and Swagger
+
+- Utilized Linear for task and branch management.
+- Utilized Swagger for API documentation.
+
+
+| Linear                            | Swagger                       |
+| --------------------------------------- | ------------------------------------- |
+| ![Landing](./readme/linear.png) | ![fsdaf](./readme/swagger.png) |
+
+
+
+<!-- Music Attribution -->
+<img src="./readme/title8.svg"/>
 
 # Music Attribution
 
