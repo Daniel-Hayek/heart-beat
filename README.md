@@ -14,9 +14,12 @@
 <!-- System Design -->
 <img src="./readme/title3.svg"/>
 
-### Add Title Here
+### System Design
+<img src="./readme/heart-beat-system-design.png"/>
 
-- To be decided on later on.
+### ERD
+<img src="./readme/heart-beat-erd.png"/>
+
 
 <br><br>
 
