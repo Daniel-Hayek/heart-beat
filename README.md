@@ -64,9 +64,9 @@
 ### Add Title Here
 
 
-| Services                            | Validation                       | Testing                        |
-| --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| CI/CD                             | Testing                        |
+| ---------------------------------------  | ------------------------------------- |
+| ![Landing](./readme/CI-CD.png) | ![NestJS](./readme/nest-tests.png) |
 
 
 <br><br>
