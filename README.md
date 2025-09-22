@@ -82,7 +82,7 @@
 
 ### Machine Learning Docs (MLFlow)
 
-- Trained on a dataset using 10-fold cross validation.
+- Trained on a dataset using 10-fold cross validation to predict user stress level (1-10) as a result of their general vitals from their smartwatch (BPM, sleep, physical activity, steps).
 
 
 | Model Details                            | Model Results                       | Model Graphs                       |
@@ -97,10 +97,6 @@
 
 <img src="./readme/agent/moody_blues_bpmn.svg"/>
 
-
-| Model Details                            | Model Results                       | Model Graphs                       |
-| --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Details](./readme/ml/model_details_1.png) | ![Results](./readme/ml/model_details_2.png) | ![Graphs](./readme/ml/model_details_3.png) |
 
 <br><br>
 
