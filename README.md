@@ -1,9 +1,9 @@
-<img src="./readme/title1.svg"/>
+<img src="./readme/card-titles/title1.svg"/>
 
 <br><br>
 
 <!-- project overview -->
-<img src="./readme/title2.svg"/>
+<img src="./readme/card-titles/title2.svg"/>
 
 > Heart-Beat is an application that is your companion for all things mood and music.
 > The main goal of Heart-Beat is to aid in you figuring out how you feel through various means,
@@ -12,22 +12,25 @@
 <br><br>
 
 <!-- System Design -->
-<img src="./readme/title3.svg"/>
+<img src="./readme/card-titles/title3.svg"/>
 
 ### System Design
-<img src="./readme/heart-beat-system-design.png"/>
+<img src="./readme/system-design/heart-beat-system-design.png"/>
 
 ### ERD
-<img src="./readme/heart-beat-erd.png"/>
+
+[Eraser](https://app.eraser.io/workspace/Z7MSIsjeVhHEcbNv8LMv)
+
+<img src="./readme/system-design/heart-beat-erd.png"/>
 
 ### n8n
-<img src="./readme/n8n.png"/>
+<img src="./readme/system-design/n8n.png"/>
 
 
 <br><br>
 
 <!-- Project Highlights -->
-<img src="./readme/title4.svg"/>
+<img src="./readme/card-titles/title4.svg"/>
 
 ### Interesting Features
 
@@ -38,7 +41,7 @@
 <br><br>
 
 <!-- Demo -->
-<img src="./readme/title5.svg"/>
+<img src="./readme/card-titles/title5.svg"/>
 
 ### User Screens
 
@@ -62,64 +65,40 @@
 <br><br>
 
 <!-- Development & Testing -->
-<img src="./readme/title6.svg"/>
+<img src="./readme/card-titles/title6.svg"/>
 
-### Add Title Here
+### Tests
 
 
 | CI/CD                             | Testing                        |
 | ---------------------------------------  | ------------------------------------- |
-| ![Landing](./readme/CI-CD.png) | ![NestJS](./readme/nest-tests.png) |
+| ![CICD](./readme/CI-CD.png) | ![Testing](./readme/nest-tests.png) |
+
+- Frontend tests: flutter test
+- Backend tests: npm run test
 
 
 <br><br>
-
-<!-- Machine Learning Docs -->
-<img src="./readme/title9.svg"/>
 
 ### Machine Learning Docs (MLFlow)
 
-
-| Model Details                            | Model Results                       |
-| --------------------------------------- | ------------------------------------- |
-| ![Details](./readme/ml/model_details_1.png) | ![Results](./readme/ml/model_details_2.png) |
-
-<br><br>
-
-<!-- Deployment -->
-<img src="./readme/title7.svg"/>
-
-### Add Title Here
-
-- Description here.
+- Trained on a dataset using 10-fold cross validation to predict user stress level (1-10) as a result of their general vitals from their smartwatch (BPM, sleep, physical activity, steps).
 
 
-| Postman API 1                            | Postman API 2                       | Postman API 3                        |
+| Model Details                            | Model Results                       | Model Graphs                       |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
-
-
-<br><br>
-
-<!-- Extras -->
-<img src="./readme/title10.svg"/>
-
-### Linear and Swagger
-
-- Utilized Linear for task and branch management.
-- Utilized Swagger for API documentation.
-
-
-| Linear                            | Swagger                       |
-| --------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/linear.png) | ![fsdaf](./readme/swagger.png) |
-
-
+| ![Details](./readme/ml/model_details_1.png) | ![Results](./readme/ml/model_details_2.png) | ![Graphs](./readme/ml/model_details_3.png) |
 
 <br><br>
 
-<!-- Music Attribution -->
-<img src="./readme/title8.svg"/>
+### AI Agent (Moody Blues)
+
+- The Moody Blues AI agent begins each conversation by gathering the user's recent emotional data (mood, journal entries, stress levels) to provide personalized support. After engaging in natural conversation for several exchanges, the AI analyzes the discussion and intelligently suggests one of two helpful actions: either summarizing the conversation into a saved journal entry or logging any emotions it detected during the chat. The user can accept or decline these suggestions, and if accepted, the information is automatically saved to help track their emotional wellbeing over time.
+
+<img src="./readme/agent/moody_blues_bpmn.svg"/>
+
+
+<br><br>
 
 # Music Attribution
 
@@ -162,3 +141,39 @@ All tracks are used in accordance with their respective Creative Commons license
 
 
 <br><br>
+
+<!-- Extras -->
+
+### Extras
+
+- Linear for task and branch management.
+- Swagger for API documentation.
+- Supabase for bucket song storage
+
+
+| Linear                            | Swagger                       | Supabase                       |
+| --------------------------------------- | ------------------------------------- | ------------------------------------- |
+| ![Linear](./readme/testing-dev/linear.png) | ![Swagger](./readme/testing-dev/swagger.png) | ![Supabase](./readme/testing-dev/supabase-bucket.png) |
+
+<br><br>
+
+<!-- Deployment -->
+<img src="./readme/card-titles/title7.svg"/>
+
+### Swagger APIs
+
+- Found at [URL]:4000/docs
+
+
+| Register                           | User Journals                       | Music Metadata                        |
+| --------------------------------------- | ------------------------------------- | ------------------------------------- |
+| ![Register API](./readme/swagger/swagger-1.png) | ![User Journals API](./readme/swagger/swagger-2.png) | ![Music API](./readme/swagger/swagger-3.png) |
+
+
+<br><br>
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
