@@ -2,6 +2,14 @@
 
 <br><br>
 
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+<br><br>
+
 <!-- project overview -->
 <img src="./readme/card-titles/title2.svg"/>
 
@@ -72,7 +80,7 @@
 
 | CI/CD                             | Testing                        |
 | ---------------------------------------  | ------------------------------------- |
-| ![CICD](./readme/CI-CD.png) | ![Testing](./readme/nest-tests.png) |
+| ![CICD](./readme/testing-dev/CI-CD.png) | ![Testing](./readme/testing-dev/nest-tests.png) |
 
 - Frontend tests: flutter test
 - Backend tests: npm run test
@@ -171,9 +179,3 @@ All tracks are used in accordance with their respective Creative Commons license
 
 
 <br><br>
-
-## License
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
