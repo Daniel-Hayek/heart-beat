@@ -170,7 +170,10 @@ All tracks are used in accordance with their respective Creative Commons license
 | ![Register API](./readme/swagger/swagger-1.png) | ![User Journals API](./readme/swagger/swagger-2.png) | ![Music API](./readme/swagger/swagger-3.png) |
 
 
-
-
 <br><br>
 
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
