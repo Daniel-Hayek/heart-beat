@@ -1,0 +1,179 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Title -->
+  <text x="600" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">Moody Blues AI Agent Process Flow</text>
+  
+  <!-- Start Event -->
+  <circle cx="80" cy="100" r="20" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="80" y="135" text-anchor="middle" font-size="12" fill="#333">User starts</text>
+  <text x="80" y="150" text-anchor="middle" font-size="12" fill="#333">conversation</text>
+  
+  <!-- Task 1: Fetch User Data -->
+  <rect x="150" y="70" width="120" height="60" rx="10" fill="#e8f4fd" stroke="#1976d2" stroke-width="2"/>
+  <text x="210" y="95" text-anchor="middle" font-size="11" fill="#333">Fetch User Data</text>
+  <text x="210" y="110" text-anchor="middle" font-size="10" fill="#666">(Last mood, journal,</text>
+  <text x="210" y="122" text-anchor="middle" font-size="10" fill="#666">stress score)</text>
+  
+  <!-- Gateway: Data Available? -->
+  <polygon points="320,100 350,70 380,100 350,130" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+  <text x="350" y="105" text-anchor="middle" font-size="10" fill="#333">Data</text>
+  <text x="350" y="117" text-anchor="middle" font-size="10" fill="#333">available?</text>
+  
+  <!-- Task 2a: Use existing context -->
+  <rect x="420" y="40" width="120" height="50" rx="10" fill="#e8f4fd" stroke="#1976d2" stroke-width="2"/>
+  <text x="480" y="60" text-anchor="middle" font-size="11" fill="#333">Initialize with</text>
+  <text x="480" y="75" text-anchor="middle" font-size="11" fill="#333">existing context</text>
+  
+  <!-- Task 2b: Start fresh -->
+  <rect x="420" y="120" width="120" height="50" rx="10" fill="#e8f4fd" stroke="#1976d2" stroke-width="2"/>
+  <text x="480" y="140" text-anchor="middle" font-size="11" fill="#333">Start conversation</text>
+  <text x="480" y="155" text-anchor="middle" font-size="11" fill="#333">from scratch</text>
+  
+  <!-- Merge Gateway -->
+  <polygon points="590,100 620,70 650,100 620,130" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+  
+  <!-- Task 3: AI Conversation -->
+  <rect x="690" y="70" width="120" height="60" rx="10" fill="#e8f4fd" stroke="#1976d2" stroke-width="2"/>
+  <text x="750" y="95" text-anchor="middle" font-size="11" fill="#333">AI engages in</text>
+  <text x="750" y="110" text-anchor="middle" font-size="11" fill="#333">conversation</text>
+  <text x="750" y="125" text-anchor="middle" font-size="10" fill="#666">(few messages)</text>
+  
+  <!-- Gateway: Suggest Action? -->
+  <polygon points="860,100 890,70 920,100 890,130" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+  <text x="890" y="95" text-anchor="middle" font-size="10" fill="#333">Ready to</text>
+  <text x="890" y="107" text-anchor="middle" font-size="10" fill="#333">suggest</text>
+  <text x="890" y="119" text-anchor="middle" font-size="10" fill="#333">action?</text>
+  
+  <!-- Gateway: What to suggest? -->
+  <polygon points="990,100 1020,70 1050,100 1020,130" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+  <text x="1020" y="95" text-anchor="middle" font-size="9" fill="#333">What to</text>
+  <text x="1020" y="107" text-anchor="middle" font-size="9" fill="#333">suggest?</text>
+  
+  <!-- Task 4a: Suggest Journal Summary -->
+  <rect x="1080" y="30" width="100" height="60" rx="10" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+  <text x="1130" y="50" text-anchor="middle" font-size="10" fill="#333">Suggest</text>
+  <text x="1130" y="62" text-anchor="middle" font-size="10" fill="#333">summarizing</text>
+  <text x="1130" y="74" text-anchor="middle" font-size="10" fill="#333">to journal</text>
+  
+  <!-- Task 4b: Suggest Mood Logging -->
+  <rect x="1080" y="120" width="100" height="60" rx="10" fill="#fff2cc" stroke="#d6b656" stroke-width="2"/>
+  <text x="1130" y="140" text-anchor="middle" font-size="10" fill="#333">Suggest</text>
+  <text x="1130" y="152" text-anchor="middle" font-size="10" fill="#333">logging</text>
+  <text x="1130" y="164" text-anchor="middle" font-size="10" fill="#333">detected moods</text>
+  
+  <!-- User Decision Gateway -->
+  <polygon points="990,250 1020,220 1050,250 1020,280" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+  <text x="1020" y="245" text-anchor="middle" font-size="10" fill="#333">User</text>
+  <text x="1020" y="257" text-anchor="middle" font-size="10" fill="#333">confirms?</text>
+  
+  <!-- Task 5a: Save Journal -->
+  <rect x="1080" y="300" width="100" height="50" rx="10" fill="#e8f5e8" stroke="#4caf50" stroke-width="2"/>
+  <text x="1130" y="320" text-anchor="middle" font-size="11" fill="#333">Save journal</text>
+  <text x="1130" y="335" text-anchor="middle" font-size="11" fill="#333">entry</text>
+  
+  <!-- Task 5b: Log Moods -->
+  <rect x="1080" y="370" width="100" height="50" rx="10" fill="#e8f5e8" stroke="#4caf50" stroke-width="2"/>
+  <text x="1130" y="390" text-anchor="middle" font-size="11" fill="#333">Log detected</text>
+  <text x="1130" y="405" text-anchor="middle" font-size="11" fill="#333">moods</text>
+  
+  <!-- Background Process -->
+  <rect x="200" y="500" width="800" height="60" rx="10" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="600" y="520" text-anchor="middle" font-size="12" fill="#333" font-style="italic">Background Process (Separate from AI Agent)</text>
+  <text x="600" y="540" text-anchor="middle" font-size="14" fill="#333" font-weight="bold">Playlist Generation</text>
+  
+  <!-- End Events -->
+  <circle cx="1130" cy="450" r="20" fill="none" stroke="#333" stroke-width="3"/>
+  <text x="1130" y="485" text-anchor="middle" font-size="12" fill="#333">Process</text>
+  <text x="1130" y="500" text-anchor="middle" font-size="12" fill="#333">Complete</text>
+  
+  <!-- Continue conversation -->
+  <circle cx="800" cy="200" r="20" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="800" y="235" text-anchor="middle" font-size="12" fill="#333">Continue</text>
+  <text x="800" y="250" text-anchor="middle" font-size="12" fill="#333">conversation</text>
+  
+  <!-- Reject action -->
+  <circle cx="920" cy="320" r="20" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="920" y="355" text-anchor="middle" font-size="12" fill="#333">Continue</text>
+  <text x="920" y="370" text-anchor="middle" font-size="12" fill="#333">without action</text>
+  
+  <!-- Arrows -->
+  <!-- Start to Fetch Data -->
+  <path d="M 100 100 L 150 100" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Fetch Data to Gateway -->
+  <path d="M 270 100 L 320 100" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Gateway to existing context -->
+  <path d="M 365 85 L 420 65" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="390" y="70" font-size="10" fill="#333">Yes</text>
+  
+  <!-- Gateway to fresh start -->
+  <path d="M 365 115 L 420 145" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="390" y="135" font-size="10" fill="#333">No</text>
+  
+  <!-- Both paths to merge -->
+  <path d="M 540 65 Q 580 65 605 85" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 540 145 Q 580 145 605 115" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Merge to Conversation -->
+  <path d="M 650 100 L 690 100" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Conversation to Suggest Gateway -->
+  <path d="M 810 100 L 860 100" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Continue conversation loop -->
+  <path d="M 875 115 Q 850 150 800 150 Q 750 150 750 130" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="810" y="145" font-size="10" fill="#333">No</text>
+  
+  <!-- Suggest to What Gateway -->
+  <path d="M 920 100 L 990 100" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="955" y="95" font-size="10" fill="#333">Yes</text>
+  
+  <!-- What gateway to suggestions -->
+  <path d="M 1035 85 L 1080 60" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="1055" y="70" font-size="10" fill="#333">Journal</text>
+  
+  <path d="M 1035 115 L 1080 150" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="1055" y="135" font-size="10" fill="#333">Mood</text>
+  
+  <!-- Suggestions to User Decision -->
+  <path d="M 1130 90 Q 1130 180 1035 235" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 1130 180 Q 1130 210 1035 235" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- User Decision to Actions -->
+  <path d="M 1035 265 L 1080 325" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="1055" y="290" font-size="10" fill="#333">Yes (Journal)</text>
+  
+  <path d="M 1035 265 L 1080 395" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="1055" y="330" font-size="10" fill="#333">Yes (Mood)</text>
+  
+  <!-- User rejects -->
+  <path d="M 1005 265 L 940 320" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="965" y="290" font-size="10" fill="#333">No</text>
+  
+  <!-- Actions to End -->
+  <path d="M 1130 350 L 1130 430" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 1130 420 L 1130 430" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+  
+  <!-- Legend -->
+  <rect x="50" y="600" width="300" height="150" fill="none" stroke="#666" stroke-width="1"/>
+  <text x="200" y="620" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">BPMN Legend</text>
+  
+  <circle cx="80" cy="640" r="10" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="100" y="645" font-size="12" fill="#333">Start/End Event</text>
+  
+  <rect x="70" y="660" width="30" height="20" rx="5" fill="#e8f4fd" stroke="#1976d2" stroke-width="1"/>
+  <text x="110" y="673" font-size="12" fill="#333">Task/Activity</text>
+  
+  <polygon points="70,690 85,680 100,690 85,700" fill="#fff2cc" stroke="#d6b656" stroke-width="1"/>
+  <text x="110" y="693" font-size="12" fill="#333">Decision Gateway</text>
+  
+  <rect x="70" y="710" width="30" height="20" rx="5" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="110" y="723" font-size="12" fill="#333">Background Process</text>
+</svg>
