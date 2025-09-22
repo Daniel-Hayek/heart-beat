@@ -18,6 +18,9 @@
 <img src="./readme/heart-beat-system-design.png"/>
 
 ### ERD
+
+[Eraser](https://app.eraser.io/workspace/Z7MSIsjeVhHEcbNv8LMv)
+
 <img src="./readme/heart-beat-erd.png"/>
 
 ### n8n
@@ -64,18 +67,18 @@
 <!-- Development & Testing -->
 <img src="./readme/title6.svg"/>
 
-### Add Title Here
+### Tests
 
 
 | CI/CD                             | Testing                        |
 | ---------------------------------------  | ------------------------------------- |
 | ![Landing](./readme/CI-CD.png) | ![NestJS](./readme/nest-tests.png) |
 
+- Frontend tests: flutter test
+- Backend tests: npm run test
+
 
 <br><br>
-
-<!-- Machine Learning Docs -->
-<img src="./readme/title9.svg"/>
 
 ### Machine Learning Docs (MLFlow)
 
@@ -85,41 +88,6 @@
 | ![Details](./readme/ml/model_details_1.png) | ![Results](./readme/ml/model_details_2.png) |
 
 <br><br>
-
-<!-- Deployment -->
-<img src="./readme/title7.svg"/>
-
-### Add Title Here
-
-- Description here.
-
-
-| Postman API 1                            | Postman API 2                       | Postman API 3                        |
-| --------------------------------------- | ------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
-
-
-<br><br>
-
-<!-- Extras -->
-<img src="./readme/title10.svg"/>
-
-### Linear and Swagger
-
-- Utilized Linear for task and branch management.
-- Utilized Swagger for API documentation.
-
-
-| Linear                            | Swagger                       |
-| --------------------------------------- | ------------------------------------- |
-| ![Landing](./readme/linear.png) | ![fsdaf](./readme/swagger.png) |
-
-
-
-<br><br>
-
-<!-- Music Attribution -->
-<img src="./readme/title8.svg"/>
 
 # Music Attribution
 
@@ -162,3 +130,36 @@ All tracks are used in accordance with their respective Creative Commons license
 
 
 <br><br>
+
+<!-- Deployment -->
+<img src="./readme/title7.svg"/>
+
+### Swagger APIs
+
+- Found at [URL]:4000/docs
+
+
+| Register                           | User Journals                       | Music Metadata                        |
+| --------------------------------------- | ------------------------------------- | ------------------------------------- |
+| ![Register API](./readme/demo/1440x1024.png) | ![User Journals API](./readme/demo/1440x1024.png) | ![Music API](./readme/demo/1440x1024.png) |
+
+
+<br><br>
+
+<!-- Extras -->
+<img src="./readme/title10.svg"/>
+
+### Linear and Swagger
+
+- Utilized Linear for task and branch management.
+- Utilized Swagger for API documentation.
+
+
+| Linear                            | Swagger                       |
+| --------------------------------------- | ------------------------------------- |
+| ![Landing](./readme/linear.png) | ![fsdaf](./readme/swagger.png) |
+
+
+
+<br><br>
+
