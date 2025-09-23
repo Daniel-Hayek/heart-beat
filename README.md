@@ -25,7 +25,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### System Design
 <img src="./readme/system-design/heart-beat-system-design.png"/>
 
-### ERD
+### Entity Relationship Diagram
 
 [Eraser](https://app.eraser.io/workspace/Z7MSIsjeVhHEcbNv8LMv)
 
@@ -45,6 +45,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Journalling based mood detection: Analyzes your journals through chunking, embedding and comparing to existing vectors to assign the closest similar set of moods.
 - Stress Prediction: Includes a machine learning model that is trained on smartwatch data like heartrate, sleep duration and physical activity, then based on these factors the app predicts your stress level on a scale of 1-10.
 - Moody Blues (AI Agent): An AI agent who you can speak and interact with, and who can help log your mood or summarize your thoughts into a journal.
+
+<br>
+
+<img src="./readme/features/heartbeat_features.png"/>
 
 <br><br>
 
@@ -88,10 +92,28 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <br><br>
 
-### Machine Learning Docs (MLFlow)
+### Machine Learning Development
 
-- Trained on a dataset using 10-fold cross validation to predict user stress level (1-10) as a result of their general vitals from their smartwatch (BPM, sleep, physical activity, steps).
+- Used a copula based augmentation method with perturbation and noise to expand original dataset from 900 to 20000.
 
+- Dataset split according to a 80/20 training/test split.
+
+- Data was run through a scaling pipeline to avoid certain features having a large influence on the model where they should not.
+
+- The model used is Support Vector Machine running a One vs One style to determine stress levels in a classification style.
+
+- Model was trained using 10-fold cross validation to predict user stress level (1-10) as a result of their general vitals from their smartwatch (BPM, sleep, physical activity, steps).
+
+| Dataset                             | Cross Validation                       |
+| --------------------------------------- | ------------------------------------- |
+| ![Dataset](./readme/ml/dataset.png) | ![Results](./readme/ml/cross-validation.png) |
+
+
+### MLOps (MLFlow)
+
+- Artifacts and models were tracked documented using MLFlow.
+
+- The final model used was then served to the backend of the application through a connected FastAPI endpoint that utilized the model registered by MLFlow.
 
 | Model Details                            | Model Results                       | Model Graphs                       |
 | --------------------------------------- | ------------------------------------- | ------------------------------------- |
@@ -103,7 +125,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - The Moody Blues AI agent begins each conversation by gathering the user's recent emotional data (mood, journal entries, stress levels) to provide personalized support. After engaging in natural conversation for several exchanges, the AI analyzes the discussion and intelligently suggests one of two helpful actions: either summarizing the conversation into a saved journal entry or logging any emotions it detected during the chat. The user can accept or decline these suggestions, and if accepted, the information is automatically saved to help track their emotional wellbeing over time.
 
-<img src="./readme/agent/moody_blues_bpmn.svg"/>
+<img src="./readme/agent/moody_blues_bpmn.png"/>
 
 
 <br><br>
