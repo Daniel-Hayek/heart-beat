@@ -29,7 +29,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 [Eraser](https://app.eraser.io/workspace/Z7MSIsjeVhHEcbNv8LMv)
 
-<img src="./readme/system-design/heart-beat-erd.png"/>
+<img src="./readme/system-design/heart-beat-erd-optimized.png"/>
 
 ### n8n
 <img src="./readme/system-design/n8n.png"/>
